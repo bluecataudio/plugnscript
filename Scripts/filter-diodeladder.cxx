@@ -8,9 +8,9 @@
 array <string> inputParametersNames={"Frequency","Resonance","Volume"};
 array <string> inputParametersUnits={"%","%","dB"};
 array <double> inputParameters(inputParametersNames.length);
-array <double> inputParametersDefault={1, 0.5, 0};
-array <double> inputParametersMin={1, 0.5, -40};
-array <double> inputParametersMax={1, 0.5, 40};
+array <double> inputParametersDefault={100, 50, 0};
+array <double> inputParametersMin={0, 0, -40};
+array <double> inputParametersMax={100, 100, 40};
 
 string name = "Diode Ladder filter";
 string author = "Ivan COHEN";
@@ -66,20 +66,20 @@ class sampleProcessor
         const double t4 = g2inv * f * (((a4 + 105)*a4 + 945) / ((15*a4 + 420)*a4 + 945));
 
         // This formula gives the result for y3 thanks to MATLAB
-    		double y3 = (s2 + s3 + t2*(s1 + s2 + s3 + t1*(s0 + s1 + s2 + s3 + t0*zi)) + t1*(2*s2 + 2*s3))*t3 + s3 + 2*s3*t1 + t2*(2*s3 + 3*s3*t1);
-    		y3 /= (t4 + t1*(2*t4 + 4) + t2*(t4 + t1*(t4 + r*t0 + 4) + 3) + 2)*t3 + t4 + t1*(2*t4 + 2) + t2*(2*t4 + t1*(3*t4 + 3) + 2) + 1;
-    
-    		// Other outputs
-    		double y2 = (s3 - (1+t4+t3)*y3) / (-t3);
-    		double y1 = (s2 - (1+t3+t2)*y2 + t3*y3) / (-t2);
-    		double y0 = (s1 - (1+t2+t1)*y1 + t2*y2) / (-t1);
-    		double xx = (zi - r*y3);
-    
-            // update state
-    		s0 += 2 * (t0*xx + t1*(y1-y0));
-    		s1 += 2 * (t2*(y2-y1) - t1*(y1-y0));
-    		s2 += 2 * (t3*(y3-y2) - t2*(y2-y1));
-    		s3 += 2 * (-t4*(y3) - t3*(y3-y2));
+		double y3 = (s2 + s3 + t2*(s1 + s2 + s3 + t1*(s0 + s1 + s2 + s3 + t0*zi)) + t1*(2*s2 + 2*s3))*t3 + s3 + 2*s3*t1 + t2*(2*s3 + 3*s3*t1);
+		y3 /= (t4 + t1*(2*t4 + 4) + t2*(t4 + t1*(t4 + r*t0 + 4) + 3) + 2)*t3 + t4 + t1*(2*t4 + 2) + t2*(2*t4 + t1*(3*t4 + 3) + 2) + 1;
+
+		// Other outputs
+		double y2 = (s3 - (1+t4+t3)*y3) / (-t3);
+		double y1 = (s2 - (1+t3+t2)*y2 + t3*y3) / (-t2);
+		double y0 = (s1 - (1+t2+t1)*y1 + t2*y2) / (-t1);
+		double xx = (zi - r*y3);
+
+        // update state
+		s0 += 2 * (t0*xx + t1*(y1-y0));
+		s1 += 2 * (t2*(y2-y1) - t1*(y1-y0));
+		s2 += 2 * (t3*(y3-y2) - t2*(y2-y1));
+		s3 += 2 * (-t4*(y3) - t3*(y3-y2));
 
         zi = input;
 
@@ -119,9 +119,9 @@ void reset()
 */
 void updateInputParameters()
 {
-    double cutoff = pow(10, inputParameters[0]*(log10(20000)-log10(40))+log10(40));
+    double cutoff = pow(10, inputParameters[0]/100*(log10(20000)-log10(40))+log10(40));
     f = tan(PI * cutoff/sampleRate);
-    r = 7 * inputParameters[1] + 0.5;
+    r = 7 * inputParameters[1]/100 + 0.5;
     volume = pow(10, (inputParameters[2])/20);
 }
 
