@@ -8,18 +8,18 @@
 array <string> inputParametersNames={"Frequency","Resonance","Volume"};
 array <string> inputParametersUnits={"%","%","dB"};
 array <double> inputParameters(inputParametersNames.length);
-array <double> inputParametersDefault={1, 0.5, 0};
-array <double> inputParametersMin={1, 0.5, -40};
-array <double> inputParametersMax={1, 0.5, 40};
+array <double> inputParametersDefault={100, 50, 0};
+array <double> inputParametersMin={0, 0, -40};
+array <double> inputParametersMax={100, 100, 40};
 
 string name = "Moog Ladder filter";
 string author = "Ivan COHEN";
 string description = "Original code and modeling techniques from Teemu Voipio";
 
-
 // Define our internal variables
 double f, r;
 double volume;
+
 
 // Classes definition
 class sampleProcessor
@@ -107,9 +107,9 @@ void reset()
 */
 void updateInputParameters()
 {
-    double cutoff = pow(10, inputParameters[0]*(log10(20000)-log10(40))+log10(40));
+    double cutoff = pow(10, inputParameters[0]/100*(log10(20000)-log10(40))+log10(40));
 	f = tan(PI * cutoff/sampleRate);
-	r = (40/9) * inputParameters[1];
+	r = (40/9) * inputParameters[1]/100;
 	volume = pow(10, (inputParameters[2])/20);
 }
 
