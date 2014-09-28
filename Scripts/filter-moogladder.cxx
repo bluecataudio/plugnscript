@@ -1,7 +1,7 @@
 /** include your dsp files.
 *
 */
-#include "../library/Constants.hxx"
+#include "./library/Constants.hxx"
 
 /** Define our parameters.
 */
