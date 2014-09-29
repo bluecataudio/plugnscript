@@ -1,3 +1,12 @@
+// =====================================================================================
+// =====================================================================================
+// Made by Ivan COHEN, for Blue Cat Audio Plug'n Script
+// Original code and modeling techniques from Teemu Voipio aka mystran from Signaldust
+//
+// http://musicalentropy.wordpress.com/
+// =====================================================================================
+// =====================================================================================
+
 /** include your dsp files.
 *
 */
@@ -14,7 +23,7 @@ array <double> inputParametersMax={100, 100, 40};
 
 string name = "Moog Ladder filter";
 string author = "Ivan COHEN";
-string description = "Original code and modeling techniques from Teemu Voipio";
+string description = "Moog transistor ladder filter modeling";
 
 // Define our internal variables
 double f, r;
