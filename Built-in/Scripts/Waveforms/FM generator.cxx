@@ -1,3 +1,8 @@
+/** \file
+*   Freequency Modulation (FM) waveform generator.
+*   Generates an audio waveform using frequency modulation on a sine wave.
+*/
+
 #include "../library/Constants.hxx"
 
 string name="FM Generator";

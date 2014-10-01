@@ -1,3 +1,7 @@
+/** \file
+*   Multichannel peak levels meter.
+*/
+
 // Output parameters definition
 array<string> outputParametersNames(audioInputsCount);
 array<string> outputParametersUnits(audioInputsCount);
@@ -36,7 +40,7 @@ void initialize()
 // levels array
 array<double>   levels(audioInputsCount);
 
-/** per-sample processing.
+/* per-sample processing.
 *
 */
 void processSample(array<double>& ioSample)

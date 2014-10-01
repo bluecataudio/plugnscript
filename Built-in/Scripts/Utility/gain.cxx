@@ -1,3 +1,7 @@
+/** \file
+*   Apply selected gain to audio input.
+*/
+
 string description="simple volume control";
 
 array<string> inputParametersNames={"Gain"};

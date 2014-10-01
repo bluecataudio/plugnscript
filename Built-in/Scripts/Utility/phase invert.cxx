@@ -1,4 +1,9 @@
-/** Define our parameters.
+/** \file
+*   Phaser inverter.
+*   Invert the phase of the audio signal.
+*/
+
+/* Define our parameters.
 */
 array<string> inputParametersNames={"Invert"};
 array<string> inputParametersEnums={"Off;On"};
@@ -10,7 +15,7 @@ array<double> inputParametersMax={1};
 string description="signal phase inverter";
 double norm=1;
 
-/** per-sample processing function: called for every sample with updated parameters values.
+/* per-sample processing function: called for every sample with updated parameters values.
 *
 */
 void processSample(array<double>& ioSample)

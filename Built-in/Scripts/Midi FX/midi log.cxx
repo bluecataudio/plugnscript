@@ -1,3 +1,8 @@
+/** \file
+*   MIDI log.
+*   Write the content of MIDI events to the log file.
+*/
+
 #include "../library/Midi.hxx"
 
 // internal data---------------------------

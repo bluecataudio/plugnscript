@@ -1,3 +1,8 @@
+/** \file
+*   MIDI channel changer.
+*   MIDI effect that lets you change the MIDI channel of events.
+*/
+
 #include "../library/Midi.hxx"
 
 // metadata
@@ -16,7 +21,7 @@ array<int>    inputParametersSteps={17,16};
 // local variables
 MidiEvent tempEvent; ///< defining temp object in the script to avoid allocations in time-critical processBlock function
 
-/** per-block processing function: called for every block with updated parameters values.
+/* per-block processing function: called for every block with updated parameters values.
 *
 */
 void processBlock(BlockData& data)

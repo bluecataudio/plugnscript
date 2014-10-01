@@ -1,9 +1,14 @@
+/** \file
+*   Tremolo effect.
+*   Classic tremolo effect (amplitude modulation).
+*/
+
 #include "../library/Constants.hxx"
 
 string name="Tremolo";
 string description="tremolo effect";
 
-/** Define our parameters.
+/* Define our parameters.
 */
 array<string>  inputParametersNames={"Rate","Mix"};
 array<double> inputParameters(inputParametersNames.length); 
@@ -18,7 +23,7 @@ double mix=0;
 const double maxOmega=10*2*PI/sampleRate; // up to 10 hz
 const double period=2*PI;
 
-/** per-sample processing function: called for every sample.
+/* per-sample processing function: called for every sample.
 *
 */
 void processSample(array<double>& ioSample)

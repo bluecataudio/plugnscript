@@ -1,23 +1,27 @@
-/** include your dsp files.
+/** \file
+*   Lowpass filter with resonance control.
+*/
+
+/* include your dsp files.
 *
 */
 #include "../library/BiquadFilter.hxx"
 #include "../library/Constants.hxx"
 
-/** Define our parameters.
+/* Define our parameters.
 *   One parameter for cutoff frequency
 */
 array<string> inputParametersNames={"Frequency","Resonance"};
 array<double> inputParameters(inputParametersNames.length);
 array<double> inputParametersDefault={1,0};
 
-/** Define our internal variables.
+/* Define our internal variables.
 *
 */
 KittyDSP::Biquad::Filter filter(audioInputsCount);
 double freqFactor=2*PI*20/sampleRate;
 
-/** per-sample processing function: called for every sample with updated parameters values.
+/* per-sample processing function: called for every sample with updated parameters values.
 *
 */
 void processSample(array<double>& ioSample)
@@ -25,7 +29,7 @@ void processSample(array<double>& ioSample)
     filter.processSample(ioSample);
 }
 
-/** update internal parameters from inputParameters array.
+/* update internal parameters from inputParameters array.
 *   called every sample before processSample method or every buffer before process method
 */
 void updateInputParameters()

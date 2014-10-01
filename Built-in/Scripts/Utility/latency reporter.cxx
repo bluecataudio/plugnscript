@@ -1,3 +1,8 @@
+/** \file
+*   Fake Latency reporter.
+*   To report a chosen latency to host application, to force delay compensation.
+*/
+
 string name="Latency Reporter";
 string description="Reports chosen latency to host";
 

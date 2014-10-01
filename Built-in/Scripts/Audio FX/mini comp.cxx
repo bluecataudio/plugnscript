@@ -1,7 +1,13 @@
+/** \file
+*   Mini compressor.
+*   Soft compressor that operates in the non-dB domain.   
+*
+*/
+
 string name="Mini Comp";
 string description="mini compressor";
 
-/** Define our parameters.
+/* Define our parameters.
 */
 array<string>  inputParametersNames={"Threshold","Ratio", "Attack", "Release","Make Up"};
 array<double> inputParameters(inputParametersNames.length);

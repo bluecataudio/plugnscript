@@ -1,18 +1,23 @@
+/** \file
+*   Analog-style echo.
+*   Produces an echo with a feedback loop and adjustable delay inertia.
+*/
+
 #include "../library/utils.hxx"
 
-/**  Effect Description
+/*  Effect Description
 *
 */
 string name="Analog-Echo";
 string description="analog style echo";
 
-/** Parameters Description.
+/* Parameters Description.
 */
 array<string> inputParametersNames={"Mix","Delay","Feedback","Inertia"};
 array<double> inputParameters(inputParametersNames.length);
 array<double> inputParametersDefault={.5,.5,.6,.5};
 
-/** Internal Variables.
+/* Internal Variables.
 *
 */
 array<array<double>> buffers(audioInputsCount);
@@ -26,7 +31,7 @@ array<double> temp(audioInputsCount);
 int mask=0; 				
 int currentIndex=0; 				
 
-/** Initialization
+/* Initialization
 *
 */
 void initialize()
@@ -40,7 +45,7 @@ void initialize()
     };
 }
 
-/** reset the state of the echo.
+/* reset the state of the echo.
 *
 */
 void reset()
@@ -70,7 +75,7 @@ int getTailSize()
     return tail;
 }
 
-/** per-sample processing function: called for every sample with updated parameters values.
+/* per-sample processing function: called for every sample with updated parameters values.
 *
 */
 void processSample(array<double>& ioSample)
@@ -98,7 +103,7 @@ void processSample(array<double>& ioSample)
 
 const double timeConstant=-log(10)/sampleRate;
 
-/** update internal parameters from inputParameters array.
+/* update internal parameters from inputParameters array.
 *   called every sample before processSample method or every buffer before process method
 */
 void updateInputParameters()

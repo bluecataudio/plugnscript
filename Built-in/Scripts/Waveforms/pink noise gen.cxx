@@ -1,3 +1,8 @@
+/** \file
+*   Pink noise generator.
+*   Generates pseudo pink noise from white noise, using a fixed 3dB/Octave filter.
+*/
+
 string name="Pseudo Pink Noise";
 string description="simple pseudo pink noise generator";
 

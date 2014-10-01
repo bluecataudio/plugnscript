@@ -1,3 +1,8 @@
+/** \file
+*   Multiple Channels Swapper.
+*   Select source channel for each audio output.
+*/
+
 // metadata
 string name="Multi Channel Swapper";
 string description="Select source channel for each audio output";

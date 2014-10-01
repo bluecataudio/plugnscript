@@ -1,3 +1,8 @@
+/** \file
+*   MIDI channel filter.
+*   Filter MIDI events (keeps only MIDI events for the selected channel).
+*/
+
 #include "../library/Midi.hxx"
 
 // metadata
@@ -13,7 +18,7 @@ array<double> inputParametersMax={16};
 array<double> inputParametersDefault={0};
 array<int> inputParametersSteps={17};
 
-/** per-block processing function: called for every block with updated parameters values.
+/* per-block processing function: called for every block with updated parameters values.
 *
 */
 void processBlock(BlockData& data)

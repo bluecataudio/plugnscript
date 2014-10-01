@@ -1,20 +1,26 @@
-/** include our dsp classes.
+/** \file
+*   Mini guitar amp simulator with distortion.
+*   Produces hard-clipping (transistor-like) distortion that can be attenuated with
+*   a low pass filter, that simulates the cabinet.
+*/
+
+/* include our dsp classes.
 *
 */
 #include "../library/BiquadFilter.hxx"
 #include "../library/Constants.hxx"
 
-/** Script metadata.
+/* Script metadata.
 */
 string name="Mini Amp";
 string description="mini guitar amp";
 
-/** Define our parameters.
+/* Define our parameters.
 */
 array<string> inputParametersNames={"Gain","Filter","Post Gain"};
 array<double> inputParameters(inputParametersNames.length);
 array<double> inputParametersDefault={.4,.2,.5};
-/** Define our internal variables.
+/* Define our internal variables.
 *
 */
 KittyDSP::Biquad::Filter filter(audioInputsCount);
@@ -22,7 +28,7 @@ double freqRange=2*PI*1000/sampleRate;
 double gain=0;
 double postGain=1;
 
-/** per-sample processing function: called for every sample with updated parameters values.
+/* per-sample processing function: called for every sample with updated parameters values.
 *
 */
 void processSample(array<double>& ioSample)
@@ -50,7 +56,7 @@ void processSample(array<double>& ioSample)
     }
 }
 
-/** update internal parameters from inputParameters array.
+/* update internal parameters from inputParameters array.
 *   called every sample before processSample method or every buffer before process method
 */
 void updateInputParameters()

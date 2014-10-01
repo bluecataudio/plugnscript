@@ -1,3 +1,8 @@
+/** \file
+*   Simple Monophonic Sine Wave Synthesizer.
+*   Probably the simplest possible virtual instrument: a single voice that generates a sine wave, with no envelope control.
+*/
+
 #include "../library/Midi.hxx"
 #include "../library/Constants.hxx"
 

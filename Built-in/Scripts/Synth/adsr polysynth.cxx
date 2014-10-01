@@ -1,3 +1,8 @@
+/** \file
+*   Polyphonic synth with ADSR envelope.
+*   Simple polyphonic synthesizer with Attack, Decay, Sustain and Release envelope controls.
+*/
+
 #include "../library/Midi.hxx"
 #include "../library/Constants.hxx"
 

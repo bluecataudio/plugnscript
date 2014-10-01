@@ -1,3 +1,8 @@
+/** \file
+*   MIDI velocity randomizer.
+*   Randomizes the velocity of MIDI events to add human feel.
+*/
+
 #include "../library/Midi.hxx"
 
 // metadata

@@ -1,3 +1,8 @@
+/** \file
+*   Pseudo white noise generator.
+*   Generates pseudo white noise using the rand() function.
+*/
+
 string name="Pseudo White Noise";
 string description="simple pseudo white noise generator";
 

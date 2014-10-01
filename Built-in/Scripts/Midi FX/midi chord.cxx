@@ -1,3 +1,8 @@
+/** \file
+*   MIDI chord builder.
+*   Adds harmonies to incoming MIDI notes with selected pitch shift(s).
+*/
+
 #include "../library/Midi.hxx"
 
 // metadata
@@ -17,7 +22,7 @@ array<int> inputParametersSteps={49,49,49,49};
 array<int8> offsets(4);
 MidiEvent tempEvent; ///< defining temp object in the script to avoid allocations in time-critical processBlock function
 
-/** per-block processing function: called for every block with updated parameters values.
+/* per-block processing function: called for every block with updated parameters values.
 *
 */
 void processBlock(BlockData& data)
@@ -50,7 +55,7 @@ void processBlock(BlockData& data)
     }
 }
 
-/** Update internal variables based on input parameters.
+/* Update internal variables based on input parameters.
 *
 */
 void updateInputParametersForBlock(const TransportInfo@ info)

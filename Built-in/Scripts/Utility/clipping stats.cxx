@@ -1,3 +1,7 @@
+/** \file
+*   Simple 0dB clipping statistics display.
+*/
+
 string description="Counts Max nb of consecutive samples at 0+ dB";
 array<string> outputParametersNames(audioInputsCount);
 array<double> outputParameters(audioInputsCount);

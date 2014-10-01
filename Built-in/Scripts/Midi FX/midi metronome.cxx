@@ -1,3 +1,7 @@
+/** \file
+*   MIDI metronome.
+*   Send MIDI note events in sync with the host. 
+*/
 #include "../library/Midi.hxx"
 
 //metadata

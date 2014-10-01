@@ -1,3 +1,8 @@
+/** \file
+*   Left/Right channels permutation.
+*   For stereo audio streams only (2 channels).
+*/
+
 string name="Stereo Invert";
 string description="Invert left and right channels";
 

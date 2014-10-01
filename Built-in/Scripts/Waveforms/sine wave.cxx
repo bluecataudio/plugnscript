@@ -1,3 +1,8 @@
+/** \file
+*   Sine wave generator.
+*   Generates a sine wave using the sin() function.
+*/
+
 #include "../library/Constants.hxx"
 
 string name="Sine Wave";

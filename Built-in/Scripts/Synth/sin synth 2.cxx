@@ -1,3 +1,8 @@
+/** \file
+*   Monophonic sine wave synth with simple envelope.
+*   Simple monophonic synthesizer with amplitude and pitch envelope controls.
+*/
+
 #include "../library/Midi.hxx"
 #include "../library/Constants.hxx"
 

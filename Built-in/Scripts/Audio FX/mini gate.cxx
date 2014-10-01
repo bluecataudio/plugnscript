@@ -1,7 +1,12 @@
+/** \file
+*   Mini gate effect.
+*   Soft gate that operates in the non-dB domain.
+*/
+
 string name="Mini Gate";
 string description="mini gate";
 
-/** Define our parameters.
+/* Define our parameters.
 */
 array<string>  inputParametersNames={"Threshold","Ratio", "Attack", "Release"};
 array<double> inputParameters(inputParametersNames.length);

@@ -1,3 +1,8 @@
+/** \file
+*   Additive synthesis waveform generator.
+*   Generates an audio waveform using additive synthesis with multiple
+*   sine waves.
+*/
 #include "../library/Constants.hxx"
 
 string name="Harmonics";

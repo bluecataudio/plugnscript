@@ -1,3 +1,7 @@
+/** \file
+*   Amplitude Modulation (AM) waveform generator.
+*   Generates an audio waveform using amplitude modulation on a sine wave.
+*/
 #include "../library/Constants.hxx"
 
 string name="AM Generator";
