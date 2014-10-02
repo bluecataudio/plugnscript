@@ -1,3 +1,7 @@
+/** \file
+*   Transport info monitor.
+*   Display transport info (tempo, beat, playhead status etc.).
+*/
 #include "../library/Midi.hxx"
 
 // metadata

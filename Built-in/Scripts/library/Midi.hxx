@@ -1,23 +1,24 @@
 
-/* 
-*  Midi.hxx - Midi utilities library for angelscript
+/** 
+*  \file Midi.hxx
+*  Midi utilities library for angelscript
 * 
 *  Created by Blue Cat Audio <services@bluecataudio.com>
 *  Copyright 2011-2014 Blue Cat Audio. All rights reserved.
 *
 */
 
-/** Enumeration of Midi Events types supported by this library.
+/** Enumeration of Midi Events types currently supported by this library.
 *
 */
 enum MidiEventType
 {
-    kMidiNoteOff,
-    kMidiNoteOn,
-    kMidiControlChange,
-    kMidiProgramChange,
-    kMidiPitchWheel,
-    kUnknown
+    kMidiNoteOff, ///< Note Off Event
+    kMidiNoteOn, ///< Note On Event
+    kMidiControlChange, ///< Control Change Event (CC)
+    kMidiProgramChange, ///< Program Change Event
+    kMidiPitchWheel,  ///< Picth Wheel Event
+    kUnknown ///< Other Events
 };
 
 

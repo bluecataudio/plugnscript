@@ -1,8 +1,13 @@
+/** \file
+*   Ring modulator effect.
+*   Classic ring modulator effect that multiplies the signal with a sine wave.
+*/
+
 #include "../library/Constants.hxx"
 
 string description="ring modulator";
 
-/** Define our parameters.
+/* Define our parameters.
 */
 array<string> inputParametersNames={"Frequency","Mix"};
 array<double> inputParameters(inputParametersNames.length);
@@ -18,7 +23,7 @@ void reset()
     index=0;
 }
 
-/** per-sample processing function: called for every sample with updated parameters values.
+/* per-sample processing function: called for every sample with updated parameters values.
 *
 */
 void processSample(array<double>& ioSample)

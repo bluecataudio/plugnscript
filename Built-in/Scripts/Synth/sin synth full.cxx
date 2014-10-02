@@ -1,3 +1,7 @@
+/** \file
+*   Polyphomic sine wave synth with amplitude and pitch envelopes.
+*/
+
 #include "../library/Midi.hxx"
 #include "../library/Constants.hxx"
 

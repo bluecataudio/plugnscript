@@ -1,8 +1,8 @@
-/* 
-*  BiquadFilter.hxx - simple biquad filter library for angelscript
-* 
-*  Created by Blue Cat Audio <services@bluecataudio.com>
-*  Copyright 2011-2014 Blue Cat Audio. All rights reserved.
+/** \file BiquadFilter.hxx
+* Simple biquad filter library for angelscript.
+*
+* Created by Blue Cat Audio <services@bluecataudio.com>
+* \copyright 2011-2014 Blue Cat Audio. All rights reserved.
 *
 */
 

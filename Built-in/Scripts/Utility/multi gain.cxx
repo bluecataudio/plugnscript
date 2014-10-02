@@ -1,3 +1,7 @@
+/** \file
+*   Multichannel gain.
+*   Apply different gain to individual channels.
+*/
 string description="multi channel gain";
 
 array<string> inputParametersNames(audioOutputsCount);

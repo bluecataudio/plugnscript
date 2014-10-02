@@ -1,3 +1,7 @@
+/** \file
+*   MIDI note events filter.
+*   Filters MIDI events and let only MIDI Note On and Off events go thru.
+*/
 #include "../library/Midi.hxx"
 
 string name="MIDI Notes Filter";

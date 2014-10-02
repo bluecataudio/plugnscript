@@ -1,3 +1,7 @@
+/** \file
+*   Polyphonic sine wave synth with simple envelope smoothing.
+*/
+
 #include "../library/Midi.hxx"
 #include "../library/Constants.hxx"
 

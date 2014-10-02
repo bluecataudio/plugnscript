@@ -1,3 +1,8 @@
+/** \file
+*   Mid/Side to Left/Right Transform.
+*   For stereo audio streams only (2 channels).
+*/
+
 string name="MS 2 LR";
 string description="Mid/Side to Left/Right";
 

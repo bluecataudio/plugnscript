@@ -1,5 +1,6 @@
-/* 
-*  utils.cxx - common math dsp utils for angelscript
+/** 
+*  \file Utils.hxx
+*  Common math dsp utils for angelscript.
 * 
 *  Created by Blue Cat Audio <services@bluecataudio.com>
 *  Copyright 2011-2014 Blue Cat Audio. All rights reserved.

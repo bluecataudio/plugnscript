@@ -1,3 +1,8 @@
+/** \file
+*   MIDI harmonizer.
+*   Adds transposed MIDI events based on selected major key.
+*/
+
 #include "../library/Midi.hxx"
 #include "../library/Utils.hxx"
 

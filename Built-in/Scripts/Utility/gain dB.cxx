@@ -1,6 +1,9 @@
+/** \file
+*   Apply selected gain (decibels) to audio input.
+*/
 string description="gain (dB)";
 
-/** Define our input parameters.
+/* Define our input parameters.
 */
 array<string> inputParametersNames={"Gain"};
 array<string> inputParametersUnits={"dB"};
@@ -9,12 +12,12 @@ array<double> inputParametersMin={-20};
 array<double> inputParametersMax={20};
 array<double> inputParametersDefault={0};
 
-/** Define our internal variables.
+/* Define our internal variables.
 *
 */
 double gain=0;
 
-/** per-sample processing function: called for every sample with updated parameters values.
+/* per-sample processing function: called for every sample with updated parameters values.
 *
 */
 void processSample(array<double>& ioSample)
@@ -25,7 +28,7 @@ void processSample(array<double>& ioSample)
    }
 }
 
-/** update internal parameters from inputParameters array.
+/* update internal parameters from inputParameters array.
 *   called every sample before processSample method
 */
 void updateInputParameters()

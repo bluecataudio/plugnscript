@@ -1,3 +1,8 @@
+/** \file
+*   MIDI transposer.
+*   Shift MIDI Note events by the selected amount (semitones).
+*/
+
 #include "../library/Midi.hxx"
 
 // metadata
@@ -17,7 +22,7 @@ array<string> inputParametersUnits={"st"};
 // temp MIDI events for processing
 MidiEvent tempEvent;
 
-/** per-block processing function: called for every sample with updated parameters values.
+/* per-block processing function: called for every sample with updated parameters values.
 *
 */
 void processBlock(BlockData& data)

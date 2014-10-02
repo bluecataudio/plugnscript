@@ -1,3 +1,8 @@
+/** \file
+*   Drawbar organ.
+*   Simple drawbar organ instrument, demonstrating simple additive synthesis with sine waveforms.
+*/
+
 #include "../library/Midi.hxx"
 #include "../library/Constants.hxx"
 
