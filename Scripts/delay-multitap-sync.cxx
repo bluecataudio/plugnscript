@@ -18,7 +18,7 @@ uint DELAY_WIDTH = 131072;
 array <string> inputParametersNames={"Delay 1","Delay 2","Delay 3","Delay 4","Feedback","Cutoff","Dry/Wet"};
 array <string> inputParametersUnits={"","","","","%","%","%"};
 array <double> inputParameters(inputParametersNames.length);
-array <double> inputParametersDefault = { 0, 0, 0, 0,  10,  50,  50};
+array <double> inputParametersDefault = { 9, 0, 0, 0,  10,  50,  50};
 array <double> inputParametersMin     = { 0, 0, 0, 0,   0,   0,   0};
 array <double> inputParametersMax     = {10,10,10,10, 100, 100, 100};
 array <int>    inputParametersSteps   = {11,11,11,11,  -1,  -1,  -1};
