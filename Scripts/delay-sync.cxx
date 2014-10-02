@@ -16,15 +16,17 @@ uint DELAY_WIDTH = 131072;
 /** Define our parameters.
 */
 array <string> inputParametersNames={"Delay","Feedback","Cutoff","Dry/Wet"};
-array <string> inputParametersUnits={"ms","%","%","%"};
+array <string> inputParametersUnits={"","%","%","%"};
 array <double> inputParameters(inputParametersNames.length);
-array <double> inputParametersDefault={200, 10, 50, 50};
-array <double> inputParametersMin={0, 0, 0, 0};
-array <double> inputParametersMax={1000, 100, 100, 100};
+array <double> inputParametersDefault = { 8,  10,  50,  50};
+array <double> inputParametersMin     = { 0,   0,   0,   0};
+array <double> inputParametersMax     = { 9, 100, 100, 100};
+array <int>    inputParametersSteps   = {10,  -1,  -1,  -1};
+array <string> inputParametersEnums   = {"1/64;1/32;1/24;1/16;1/8;1/6;1/4;1/3;1/2;1", "", "", ""};
 
-string name = "Standard Delay";
+string name = "Standard Delay Sync";
 string author = "Ivan COHEN";
-string description = "Delay algorithm with feedback and lowpass filtering";
+string description = "Delay algorithm with delay values sync with the host";
 
 // Define our internal variables.
 double a1, b0, b1;
@@ -89,9 +91,28 @@ void reset()
 /** update internal parameters from inputParameters array.
 *   called every sample before processSample method or every buffer before process method
 */
-void updateInputParameters()
+void updateInputParametersForBlock(const TransportInfo@ info)
 {
-    delay = inputParameters[0]/1000*sampleRate;
+    double bpm = 120;
+
+    if (@info != null)
+        bpm = info.bpm;
+    
+    double value = 64;
+    
+    if (inputParameters[0] == 0) value = 64;
+    else if (inputParameters[0] <= 1) value = 32;
+    else if (inputParameters[0] <= 2) value = 24;
+    else if (inputParameters[0] <= 3) value = 16;
+    else if (inputParameters[0] <= 4) value = 8;
+    else if (inputParameters[0] <= 5) value = 6;
+    else if (inputParameters[0] <= 6) value = 4;
+    else if (inputParameters[0] <= 7) value = 3;
+    else if (inputParameters[0] <= 8) value = 2;
+    else value = 1;
+
+    delay = sampleRate / bpm * 60 * 4 / value;
+
     feedback = inputParameters[1]/100;
 
     double cutoff = pow(10, inputParameters[2]/100*(log10(20000)-log10(40))+log10(40));
@@ -116,6 +137,7 @@ void updateInputParameters()
 /** per-sample processing function: called for every sample with updated parameters values.
 *
 */
+
 void processBlock(BlockData& data)
 {   
     const int cpt_cours = cpt;
@@ -134,5 +156,3 @@ void processBlock(BlockData& data)
     }
     
 }
-
-
