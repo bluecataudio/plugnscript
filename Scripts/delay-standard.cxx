@@ -116,14 +116,23 @@ void updateInputParameters()
 /** per-sample processing function: called for every sample with updated parameters values.
 *
 */
-void processSample(array<double>& ioSample)
-{		
-	for(uint i=0;i<audioOutputsCount;i++)
-	{
-        processors[i].processSample(ioSample[i]);
-    }
+void processBlock(BlockData& data)
+{   
+    const int cpt_cours = cpt;
 
-    cpt--; if (cpt < 0) cpt = DELAY_WIDTH-1;
+    for(uint ch=0;ch<audioOutputsCount;ch++)
+    {
+        array<double>@ samples=data.samples[ch];
+        sampleProcessor@ processor=processors[ch];
+        cpt = cpt_cours;
+
+        for(uint i=0; i<data.samplesToProcess; i++)
+        {
+           processor.processSample(samples[i]);
+           cpt--; if (cpt < 0) cpt = DELAY_WIDTH-1;
+        }
+    }
+    
 }
 
 
