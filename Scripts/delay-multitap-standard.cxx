@@ -16,21 +16,15 @@ uint DELAY_WIDTH = 131072;
 /** Define our parameters.
 */
 array <string> inputParametersNames={"Delay 1","Delay 2","Delay 3","Delay 4","Feedback","Cutoff","Dry/Wet"};
-array <string> inputParametersUnits={"","","","","%","%","%"};
+array <string> inputParametersUnits={"ms","ms","ms","ms","%","%","%"};
 array <double> inputParameters(inputParametersNames.length);
-array <double> inputParametersDefault = { 0, 0, 0, 0,  10,  50,  50};
-array <double> inputParametersMin     = { 0, 0, 0, 0,   0,   0,   0};
-array <double> inputParametersMax     = {10,10,10,10, 100, 100, 100};
-array <int>    inputParametersSteps   = {11,11,11,11,  -1,  -1,  -1};
-array <string> inputParametersEnums   = {"OFF;1/64;1/32;1/24;1/16;1/8;1/6;1/4;1/3;1/2;1", 
-                                         "OFF;1/64;1/32;1/24;1/16;1/8;1/6;1/4;1/3;1/2;1",
-                                         "OFF;1/64;1/32;1/24;1/16;1/8;1/6;1/4;1/3;1/2;1",
-                                         "OFF;1/64;1/32;1/24;1/16;1/8;1/6;1/4;1/3;1/2;1",
-                                          "", "", ""};
+array <double> inputParametersDefault ={ 200,    0,    0,    0,  10,  50,  50};
+array <double> inputParametersMin     ={   0,    0,    0,    0,   0,   0,   0};
+array <double> inputParametersMax     ={1000, 1000, 1000, 1000, 100, 100, 100};
 
-string name = "Multitap Delay Sync";
+string name = "Multitap Delay";
 string author = "Ivan COHEN";
-string description = "Multitap delay algorithm with delay values sync with the host";
+string description = "Multitap delay algorithm with feedback and lowpass filtering";
 
 // Define our internal variables.
 double a1, b0, b1;
@@ -92,7 +86,7 @@ class sampleProcessor
     }
 
     void reset()
-    {   v1 = v1d1 = v1d2 = v1d3 = v1d4 = 0;
+    {  	v1 = v1d1 = v1d2 = v1d3 = v1d4 = 0;
         for(uint i=0; i<DELAY_WIDTH; i++)
             buffer[i] = 0;
     }
@@ -116,80 +110,12 @@ void reset()
 /** update internal parameters from inputParameters array.
 *   called every sample before processSample method or every buffer before process method
 */
-void updateInputParametersForBlock(const TransportInfo@ info)
+void updateInputParameters()
 {
-    double bpm = 120;
-
-    if (@info != null)
-        bpm = info.bpm;
-    
-    double value;
-    
-    if (inputParameters[0] == 0) value = -1;
-    else if (inputParameters[0] <= 1) value = 64;
-    else if (inputParameters[0] <= 2) value = 32;
-    else if (inputParameters[0] <= 3) value = 24;
-    else if (inputParameters[0] <= 4) value = 16;
-    else if (inputParameters[0] <= 5) value = 8;
-    else if (inputParameters[0] <= 6) value = 6;
-    else if (inputParameters[0] <= 7) value = 4;
-    else if (inputParameters[0] <= 8) value = 3;
-    else if (inputParameters[0] <= 9) value = 2;
-    else value = 1;
-
-    if (value == -1) delay1 = 0;
-    else delay1 = sampleRate / bpm * 60 * 4 / value;
-
-    if (inputParameters[1] == 0) value = -1;
-    else if (inputParameters[1] <= 1) value = 64;
-    else if (inputParameters[1] <= 2) value = 32;
-    else if (inputParameters[1] <= 3) value = 24;
-    else if (inputParameters[1] <= 4) value = 16;
-    else if (inputParameters[1] <= 5) value = 8;
-    else if (inputParameters[1] <= 6) value = 6;
-    else if (inputParameters[1] <= 7) value = 4;
-    else if (inputParameters[1] <= 8) value = 3;
-    else if (inputParameters[1] <= 9) value = 2;
-    else value = 1;
-
-    if (value == -1) delay2 = 0;
-    else delay2 = sampleRate / bpm * 60 * 4 / value;
-
-    if (inputParameters[2] == 0) value = -1;
-    else if (inputParameters[2] <= 1) value = 64;
-    else if (inputParameters[2] <= 2) value = 32;
-    else if (inputParameters[2] <= 3) value = 24;
-    else if (inputParameters[2] <= 4) value = 16;
-    else if (inputParameters[2] <= 5) value = 8;
-    else if (inputParameters[2] <= 6) value = 6;
-    else if (inputParameters[2] <= 7) value = 4;
-    else if (inputParameters[2] <= 8) value = 3;
-    else if (inputParameters[2] <= 9) value = 2;
-    else value = 1;
-
-    if (value == -1) delay3 = 0;
-    else delay3 = sampleRate / bpm * 60 * 4 / value;
-
-    if (inputParameters[3] == 0) value = -1;
-    else if (inputParameters[3] <= 1) value = 64;
-    else if (inputParameters[3] <= 2) value = 32;
-    else if (inputParameters[3] <= 3) value = 24;
-    else if (inputParameters[3] <= 4) value = 16;
-    else if (inputParameters[3] <= 5) value = 8;
-    else if (inputParameters[3] <= 6) value = 6;
-    else if (inputParameters[3] <= 7) value = 4;
-    else if (inputParameters[3] <= 8) value = 3;
-    else if (inputParameters[3] <= 9) value = 2;
-    else value = 1;
-
-    if (value == -1) delay4 = 0;
-    else delay4 = sampleRate / bpm * 60 * 4 / value;
-
-
-
-
-
-
+    delay1 = inputParameters[0]/1000*sampleRate;
+    delay2 = inputParameters[1]/1000*sampleRate;
+    delay3 = inputParameters[2]/1000*sampleRate;
+    delay4 = inputParameters[3]/1000*sampleRate;
 
     feedback = inputParameters[4]/100;
 
@@ -215,7 +141,6 @@ void updateInputParametersForBlock(const TransportInfo@ info)
 /** per-sample processing function: called for every sample with updated parameters values.
 *
 */
-
 void processBlock(BlockData& data)
 {   
     const int cpt_cours = cpt;
@@ -234,3 +159,5 @@ void processBlock(BlockData& data)
     }
     
 }
+
+
