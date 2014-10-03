@@ -14,7 +14,7 @@
 /** Define our parameters.
 */
 array <string> inputParametersNames={"Pre-HP","Post-LP","Drive","Output","Dry/Wet"};
-array <string> inputParametersUnits={"%","%","%","%","%","%"};
+array <string> inputParametersUnits={"%","%","dB","dB","%","%"};
 array <double> inputParameters(inputParametersNames.length);
 array <double> inputParametersDefault = {0,   100,   0,   0, 100};
 array <double> inputParametersMin     = {0,     0,   0, -40,   0};
