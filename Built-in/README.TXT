@@ -1,1 +1,1 @@
-Factory scripts, Presets and skins distributed with the plug-in.
+Factory scripts, presets and skins distributed with the plug-in.
