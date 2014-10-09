@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Preset version="4" progName="FM - Wide Spectrum 2" MIDIInputDefault="0" MIDIOutputDefault="1">
+    <MIDIInputSettings settingCount="56">
+        <setting0 channel="0" version="3" number="0" midiEnabled="0" automationEnabled="1" curve="Linear" min="0" max="1" type="CC" />
+        <setting1 channel="0" version="3" number="1" midiEnabled="0" automationEnabled="1" curve="Linear" min="0" max="1" type="CC" />
+        <setting2 channel="0" version="3" number="2" midiEnabled="0" automationEnabled="1" curve="Linear" min="0" max="1" type="CC" />
+        <setting3 channel="0" version="3" number="3" midiEnabled="0" automationEnabled="1" curve="Linear" min="0" max="100" type="CC" />
+        <setting4 channel="0" version="3" number="4" midiEnabled="0" automationEnabled="1" curve="Linear" min="0" max="100" type="CC" />
+        <setting5 channel="0" version="3" number="5" midiEnabled="0" automationEnabled="1" curve="Linear" min="0" max="100" type="CC" />
+        <setting6 channel="0" version="3" number="6" midiEnabled="0" automationEnabled="1" curve="Linear" min="0" max="100" type="CC" />
+        <setting7 channel="0" version="3" number="7" midiEnabled="0" automationEnabled="1" curve="Linear" min="0" max="100" type="CC" />
+        <setting8 channel="0" version="3" number="8" midiEnabled="0" automationEnabled="1" curve="Linear" min="0" max="100" type="CC" />
+        <setting9 channel="0" version="3" number="9" midiEnabled="1" automationEnabled="1" curve="Linear" min="0" max="100" type="CC" />
+        <setting10 channel="0" version="3" number="10" midiEnabled="0" automationEnabled="1" curve="Linear" min="0" max="100" type="CC" />
+        <setting11 channel="0" version="3" number="11" midiEnabled="0" automationEnabled="1" curve="Linear" min="0" max="100" type="CC" />
+        <setting12 channel="0" version="3" number="12" midiEnabled="0" automationEnabled="1" curve="Linear" min="0" max="100" type="CC" />
+        <setting13 channel="0" version="3" number="13" midiEnabled="0" automationEnabled="1" curve="Linear" min="0" max="100" type="CC" />
+        <setting14 channel="0" version="3" number="14" midiEnabled="0" automationEnabled="1" curve="Linear" min="0" max="100" type="CC" />
+        <setting15 channel="0" version="3" number="15" midiEnabled="0" automationEnabled="1" curve="Linear" min="0" max="100" type="CC" />
+        <setting16 channel="0" version="3" number="16" midiEnabled="0" automationEnabled="1" curve="Linear" min="0" max="100" type="CC" />
+        <setting17 channel="0" version="3" number="17" midiEnabled="0" automationEnabled="1" curve="Linear" min="0" max="100" type="CC" />
+        <setting18 channel="0" version="3" number="18" midiEnabled="0" automationEnabled="1" curve="Linear" min="0" max="100" type="CC" />
+        <setting19 channel="0" version="3" number="19" midiEnabled="0" automationEnabled="1" curve="Linear" min="0" max="100" type="CC" />
+        <setting20 channel="0" version="3" number="20" midiEnabled="0" automationEnabled="1" curve="Linear" min="0" max="100" type="CC" />
+        <setting21 channel="0" version="3" number="21" midiEnabled="0" automationEnabled="1" curve="Linear" min="0" max="100" type="CC" />
+        <setting22 channel="0" version="3" number="22" midiEnabled="0" automationEnabled="1" curve="Linear" min="0" max="100" type="CC" />
+        <setting23 channel="0" version="3" number="23" midiEnabled="0" automationEnabled="1" curve="Linear" min="0" max="100" type="CC" />
+        <setting24 channel="0" version="3" number="24" midiEnabled="0" automationEnabled="1" curve="Linear" min="0" max="100" type="CC" />
+        <setting25 channel="0" version="3" number="25" midiEnabled="0" automationEnabled="1" curve="Linear" min="0" max="100" type="CC" />
+        <setting26 channel="0" version="3" number="26" midiEnabled="0" automationEnabled="1" curve="Linear" min="0" max="100" type="CC" />
+        <setting27 channel="0" version="3" number="27" midiEnabled="0" automationEnabled="1" curve="Linear" min="0" max="100" type="CC" />
+        <setting28 channel="0" version="3" number="28" midiEnabled="0" automationEnabled="1" curve="Linear" min="0" max="100" type="CC" />
+        <setting29 channel="0" version="3" number="29" midiEnabled="0" automationEnabled="1" curve="Linear" min="0" max="100" type="CC" />
+        <setting30 channel="0" version="3" number="30" midiEnabled="0" automationEnabled="1" curve="Linear" min="0" max="100" type="CC" />
+        <setting31 channel="0" version="3" number="31" midiEnabled="0" automationEnabled="1" curve="Linear" min="0" max="100" type="CC" />
+        <setting32 channel="0" version="3" number="32" midiEnabled="0" automationEnabled="1" curve="Linear" min="0" max="100" type="CC" />
+        <setting33 channel="0" version="3" number="33" midiEnabled="0" automationEnabled="1" curve="Linear" min="0" max="100" type="CC" />
+        <setting34 channel="0" version="3" number="34" midiEnabled="0" automationEnabled="1" curve="Linear" min="0" max="100" type="CC" />
+        <setting35 channel="0" version="3" number="35" midiEnabled="0" automationEnabled="1" curve="Linear" min="0" max="100" type="CC" />
+        <setting36 channel="0" version="3" number="36" midiEnabled="0" automationEnabled="1" curve="Linear" min="0" max="100" type="CC" />
+        <setting37 channel="0" version="3" number="37" midiEnabled="0" automationEnabled="1" curve="Linear" min="0" max="100" type="CC" />
+        <setting38 channel="0" version="3" number="38" midiEnabled="0" automationEnabled="1" curve="Linear" min="0" max="100" type="CC" />
+        <setting39 channel="0" version="3" number="39" midiEnabled="0" automationEnabled="1" curve="Linear" min="0" max="100" type="CC" />
+        <setting40 channel="0" version="3" number="40" midiEnabled="0" automationEnabled="1" curve="Linear" min="0" max="100" type="CC" />
+        <setting41 channel="0" version="3" number="41" midiEnabled="0" automationEnabled="1" curve="Linear" min="0" max="100" type="CC" />
+        <setting42 channel="0" version="3" number="42" midiEnabled="0" automationEnabled="1" curve="Linear" min="0" max="100" type="CC" />
+        <setting43 channel="0" version="3" number="43" midiEnabled="0" automationEnabled="1" curve="Linear" min="0" max="100" type="CC" />
+        <setting44 channel="0" version="3" number="44" midiEnabled="0" automationEnabled="1" curve="Linear" min="0" max="100" type="CC" />
+        <setting45 channel="0" version="3" number="45" midiEnabled="0" automationEnabled="1" curve="Linear" min="0" max="100" type="CC" />
+        <setting46 channel="0" version="3" number="46" midiEnabled="0" automationEnabled="1" curve="Linear" min="0" max="100" type="CC" />
+        <setting47 channel="0" version="3" number="47" midiEnabled="0" automationEnabled="1" curve="Linear" min="0" max="100" type="CC" />
+        <setting48 channel="0" version="3" number="48" midiEnabled="0" automationEnabled="1" curve="Linear" min="0" max="100" type="CC" />
+        <setting49 channel="0" version="3" number="49" midiEnabled="0" automationEnabled="1" curve="Linear" min="0" max="100" type="CC" />
+        <setting50 channel="0" version="3" number="50" midiEnabled="0" automationEnabled="1" curve="Linear" min="0" max="100" type="CC" />
+        <setting51 channel="0" version="3" number="51" midiEnabled="0" automationEnabled="1" curve="Linear" min="0" max="100" type="CC" />
+        <setting52 channel="0" version="3" number="52" midiEnabled="0" automationEnabled="1" curve="Linear" min="0" max="100" type="CC" />
+        <setting53 channel="0" version="3" number="53" midiEnabled="0" automationEnabled="1" curve="Linear" min="0" max="100" type="CC" />
+        <setting54 channel="0" version="3" number="54" midiEnabled="0" automationEnabled="1" curve="Linear" min="0" max="100" type="CC" />
+        <setting55 channel="0" version="3" number="55" midiEnabled="0" automationEnabled="1" curve="Linear" min="0" max="100" type="CC" />
+    </MIDIInputSettings>
+    <inputParams count="56" p0="0" p1="0" p2="1" p3="0" p4="0" p5="0" p6="0" p7="0" p8="50" p9="6" p10="100" p11="9" p12="0" p13="0" p14="0" p15="0" p16="0" p17="0" p18="0" p19="0" p20="0" p21="0" p22="0" p23="0" p24="0" p25="0" p26="0" p27="0" p28="0" p29="0" p30="0" p31="0" p32="0" p33="0" p34="0" p35="0" p36="0" p37="0" p38="0" p39="0" p40="0" p41="0" p42="0" p43="0" p44="0" p45="0" p46="0" p47="0" p48="0" p49="0" p50="0" p51="0" p52="0" p53="0" p54="0" p55="0" />
+    <inputStrings count="1" s0="%FACTORY_SCRIPTS_PATH%/Waveforms/FM generator.cxx" />
+    <inputCurves />
+    <inputSurfaces />
+    <inputCustomProperties />
+    <model />
+    <GUI version="1" useDefault="1" changedSincePresetLoaded="0">
+        <skin version="2">
+            <state version="3">
+                <params pCount="4">
+                    <p0 name="global_opacity" value="100" />
+                    <p1 name="theme.opacity" value="100" />
+                    <p2 name="theme.show_settings" value="1" />
+                    <p3 name="thin_display" value="1" />
+                </params>
+                <curves cCount="0" />
+                <surfaces sCount="0" />
+                <strings sCount="0" />
+                <collectionCounts cCount="0" />
+                <properties pCount="0" />
+            </state>
+        </skin>
+    </GUI>
+</Preset>
