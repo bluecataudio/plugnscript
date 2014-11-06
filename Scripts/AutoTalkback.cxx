@@ -1,5 +1,5 @@
-#include "../library/Midi.hxx"
-#include "../library/Constants.hxx"
+#include "library/Midi.hxx"
+#include "library/Constants.hxx"
 
 string name="Auto TalkBack";
 string description="By Sreejesh";
