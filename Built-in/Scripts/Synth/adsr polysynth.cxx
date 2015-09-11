@@ -36,9 +36,9 @@ void processBlock(BlockData& data)
 
         // compute sample value
         double sampleValue=0;
-        for(uint i=0;i<activeVoicesCount;i++)
+        for(uint v=0;v<activeVoicesCount;v++)
         {
-            sampleValue+=voices[i].ProcessSample();
+            sampleValue+=voices[v].ProcessSample();
         }
         sampleValue*=gain;
 

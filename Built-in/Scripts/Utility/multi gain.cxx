@@ -4,15 +4,15 @@
 */
 string description="multi channel gain";
 
-array<string> inputParametersNames(audioOutputsCount);
+array<string> inputParametersNames(audioInputsCount);
 array<double> inputParameters(inputParametersNames.length);
 array<double> gain(inputParametersNames.length);
 
 void initialize()
 {
-    if(audioOutputsCount==1)
+    if(audioInputsCount==1)
         inputParametersNames[0]="Gain";
-    else if(audioOutputsCount==2)
+    else if(audioInputsCount==2)
     {
         inputParametersNames[0]="Left";
         inputParametersNames[1]="Right";
@@ -28,7 +28,7 @@ void initialize()
 
 void processSample(array<double>& ioSample)
 {
-    for(uint channel=0;channel<audioOutputsCount;channel++)
+    for(uint channel=0;channel<audioInputsCount;channel++)
     {
         ioSample[channel]*=gain[channel];
     }
@@ -36,7 +36,7 @@ void processSample(array<double>& ioSample)
 
 void updateInputParameters()
 {
-    for(uint channel=0;channel<audioOutputsCount;channel++)
+    for(uint channel=0;channel<audioInputsCount;channel++)
     {
         gain[channel]=inputParameters[channel];
     }

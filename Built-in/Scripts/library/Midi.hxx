@@ -32,23 +32,23 @@ namespace MidiEventUtils
     */
     MidiEventType getType(const MidiEvent& evt)
     {
-        MidiEventType type=MidiEvent::kUnknown;
+        MidiEventType type=kUnknown;
         switch(evt.byte0 & 0xF0)
         {
         case 0x80:
-            type=MidiEvent::kMidiNoteOff;
+            type=kMidiNoteOff;
             break;
         case 0x90:
-            type=MidiEvent::kMidiNoteOn;
+            type=kMidiNoteOn;
             break;
         case 0xB0:
-            type=MidiEvent::kMidiControlChange;
+            type=kMidiControlChange;
             break;
         case 0xC0:
-            type=MidiEvent::kMidiProgramChange;
+            type=kMidiProgramChange;
             break;
         case 0xE0:
-            type=MidiEvent::kMidiPitchWheel;
+            type=kMidiPitchWheel;
             break; 
         }
         return type;
@@ -61,19 +61,19 @@ namespace MidiEventUtils
     {
         switch(type)
         {
-        case MidiEvent::kMidiNoteOff:
+        case kMidiNoteOff:
             evt.byte0=0x80|(evt.byte0 & 0x0F);
             break;
-        case MidiEvent::kMidiNoteOn:
+        case kMidiNoteOn:
             evt.byte0=0x90|(evt.byte0 & 0x0F);
             break;
-        case MidiEvent::kMidiControlChange:
+        case kMidiControlChange:
             evt.byte0=0xB0|(evt.byte0 & 0x0F);
             break;
-        case MidiEvent::kMidiProgramChange:
+        case kMidiProgramChange:
             evt.byte0=0xC0|(evt.byte0 & 0x0F);
             break;
-        case MidiEvent::kMidiPitchWheel:
+        case kMidiPitchWheel:
             evt.byte0=0xE0|(evt.byte0 & 0x0F);
             break;
         }
@@ -155,9 +155,9 @@ namespace MidiEventUtils
     /** For a CC (Control Change) event, sets the control value (0-127).
     *
     */
-    uint8 setCCValue(const MidiEvent& evt)
+    void setCCValue(MidiEvent& evt,uint8 value)
     {
-        return evt.byte1 & 0x7F;
+        evt.byte2=value & 0x7F;
     }
 
     /** For a Program Change event, gets the program number (0-127).

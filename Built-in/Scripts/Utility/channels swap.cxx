@@ -64,7 +64,6 @@ void processBlock(BlockData& data)
         const uint allocatedBufferLength=tempInputSamples[0].length;
         if(data.samplesToProcess>allocatedBufferLength)
         {
-            uint oldLength=tempInputSamples[0].length;
             for(uint i=0;i<tempInputSamples.length;i++)
             {
                 tempInputSamples[i].length=data.samplesToProcess;

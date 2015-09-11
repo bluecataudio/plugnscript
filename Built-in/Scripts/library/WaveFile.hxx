@@ -24,7 +24,7 @@
 */
 class WaveFileData
 {
-    array<float>  interleavedSamples;   ///< interleaved audio samples
+    array<double> interleavedSamples;   ///< interleaved audio samples
     uint64        channelsCount;        ///< number of audio channels
     double        sampleRate;           ///< the sample rate of the audio data
 
@@ -162,7 +162,7 @@ class WaveFileData
                     {
                         for(uint ch=0;ch<header.channelsCount;ch++)
                         {
-                            f.writeFloat(interleavedSamples[i+ch]);
+                            f.writeFloat(float(interleavedSamples[i+ch]));
                         }
                     }
                     break;
@@ -495,7 +495,7 @@ class WaveFileHeader
                     uint64 fmtSize = f.readUInt(4);
                     if(fmtSize>=16) // PCM format size is 16 or 18
                     {
-                        uint dataOffset=fmtSize-16;
+                        uint64 dataOffset=fmtSize-16;
                         uint64 format=f.readInt(2);
                         if(format==1 || format==3) //uncompressed PCM format or float are supported
                         {

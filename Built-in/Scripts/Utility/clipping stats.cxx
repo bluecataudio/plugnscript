@@ -13,7 +13,7 @@ class ChannelClipCount
 {
     int currentClipsCount=0;
     int maxClipCount=0;
-    int lastClipSample=0;
+    int64 lastClipSample=0;
 
     void AddClippingValueForSample(int64 currentSample)
     {

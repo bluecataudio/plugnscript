@@ -12,6 +12,9 @@ array<double> outputParametersMax(audioInputsCount);
 // meter decay
 const double decay=1-exp(-log(10)/(sampleRate*.3));
 
+// levels array
+array<double>   levels(audioInputsCount);
+
 void initialize()
 {
     // initialize output parameters properties
@@ -36,9 +39,6 @@ void initialize()
         outputParametersMax[i]=0;
     } 
 }
-
-// levels array
-array<double>   levels(audioInputsCount);
 
 /* per-sample processing.
 *

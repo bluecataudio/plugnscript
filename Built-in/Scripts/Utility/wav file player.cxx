@@ -87,7 +87,6 @@ void updateInputParametersForBlock(const TransportInfo@ transportInfo)
 {
     // store current state
     bool wasPlaying=playing;
-    bool wasPaused=paused;
 
     // update state from transport and parameters
     int mode=int(inputParameters[0]+.5);

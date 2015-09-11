@@ -14,7 +14,7 @@ string temp;
 // internal functions----------------------
 void printEvent(const MidiEvent& evt)
 {
-    MidiEventUtils::MidiEventType type=MidiEventUtils::getType(evt);
+    MidiEventType type=MidiEventUtils::getType(evt);
     consoleMessage=MidiEventsTypes[type];
     switch(type)
     {

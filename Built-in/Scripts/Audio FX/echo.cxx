@@ -27,7 +27,6 @@ double actualDelay=0;
 double mix=0;
 double feedback=0; 				
 double delayCoeff=0;
-array<double> temp(audioInputsCount);
 int mask=0; 				
 int currentIndex=0; 				
 
