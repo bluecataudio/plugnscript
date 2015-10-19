@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<SKIN author="Blue Cat Audio" name="Default" font_face="Arial" font_size="14" text_color="#dddddd">
+  <!-- Includes -->
+  <INCLUDE_ONCE file="DarkBlue-Theme/theme.inc"/>
+  <INCLUDE_ONCE file="vmeter/vmeter.inc"/>
+  <INCLUDE_ONCE file="dark_box/box.inc"/>
+  <DEFINE>
+    <CUS_INPUT_KNOB base_type="THEME_MINI_KNOB"/>
+    <CUS_INPUT_DSP_SETTINGS_BUTTON base_type="THEME_DSP_PARAM_SMALL_ROUND_SETTINGS_BUTTON"/>
+    <CUS_OUTPUT_METER  base_type="THEME_ROUND_METER"/>
+    <CUS_OUTPUT_DSP_SETTINGS_BUTTON  base_type="THEME_DSP_PARAM_SMALL_RECT_SETTINGS_BUTTON"/>
+  </DEFINE>
+  <INCLUDE file="layout.inc"/>
+</SKIN>
