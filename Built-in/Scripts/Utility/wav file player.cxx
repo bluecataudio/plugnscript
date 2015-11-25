@@ -7,9 +7,9 @@
 #include "../library/WaveFile.hxx"
 
 string name="Wave File Player";
-string description="plays a wave file from your Documents";
+string description="plays a wave file from your Documents or anywhere else.";
 
-array<string> inputStringsNames={"File Name"};
+array<string> inputStringsNames={"File Path"};
 array<string> inputStrings(inputStringsNames.length);
 
 array<string> inputParametersNames={"Play","Volume"};
@@ -34,6 +34,22 @@ bool            paused=false;
 double          amplitude=0;
 string          fileName; // file name as entered
 string          filePath; // full file path (user documents folder + file name)
+
+bool convertToUnix(string& path)
+{
+    bool isUNC=(path.findFirst("\\\\")==0); //do not touch UNC file paths on windows, starting with \\ - not supported on unix anyway.
+    if(!isUNC)
+    {
+        // find all \ separators and replace them
+        int index=path.findFirst("\\");
+        while(index>=0)
+        {
+            path[index]='/';
+            index=path.findFirst("\\",index+1);
+        }
+    }
+    return !isUNC;
+}
 
 void initialize()
 {
@@ -117,9 +133,11 @@ void updateInputParametersForBlock(const TransportInfo@ transportInfo)
     // if playing started -> open new file
     if(!wasPlaying && playing)
     {
-        // generate file name    
-        filePath=userDocumentsPath;
-        filePath+=fileName;
+        // generate file path (may be relative or absolute)
+        filePath=fileName;
+        bool converted=convertToUnix(filePath); // convert to unix-style path, supported on all platforms
+        if((filePath.findFirst("/")!=0) && (filePath.findFirst(":")<0) && converted) // check if relative path
+            filePath=userDocumentsPath+filePath;
         
         // open file and store the number of channels to play
         channelsToPlay=0;
@@ -137,7 +155,7 @@ void computeOutputData()
 {
     if(paused)
         outputParameters[0]=1;
-    else if(playing)
+    else if(playing && channelsToPlay!=0)
         outputParameters[0]=2;
     else
         outputParameters[0]=0;

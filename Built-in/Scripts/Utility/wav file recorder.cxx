@@ -34,6 +34,22 @@ int             fileIndex=0;
 string          fileName;
 double          amplitude=0;
 
+bool convertToUnix(string& path)
+{
+    bool isUNC=(path.findFirst("\\\\")==0); //do not touch UNC file paths on windows, starting with \\ - not supported on unix anyway.
+    if(!isUNC)
+    {
+        // find all \ separators and replace them
+        int index=path.findFirst("\\");
+        while(index>=0)
+        {
+            path[index]='/';
+            index=path.findFirst("\\",index+1);
+        }
+    }
+    return !isUNC;
+}
+
 void initialize()
 {
     // store file header data
@@ -92,11 +108,21 @@ void updateInputParametersForBlock(const TransportInfo@ transportInfo)
         if(wavWriter.header.bytesPerSample==5)
             wavWriter.header.bytesPerSample=8;
         // generate file name    
-        fileName=userDocumentsPath;
         if(inputStrings[0].length!=0)
-          fileName+=inputStrings[0];
+        {
+            // generate file path (may be relative or absolute)
+            fileName=inputStrings[0];
+            bool converted=convertToUnix(fileName); // convert to unix-style path, supported on all platforms
+            if((fileName.findFirst("/")!=0) && (fileName.findFirst(":")<0) && converted) // check if relative path
+                fileName=userDocumentsPath+fileName;
+        }
         else
-            fileName+="audio-capture";
+            fileName=userDocumentsPath+"audio-capture";
+        int extensionIndex=int(fileName.length)-4;
+        if(fileName.findLast(".wav")==extensionIndex)
+        {
+            fileName.length=extensionIndex;
+        }
         if(filesCount>1)
             fileName+=(fileIndex+1);
         fileName+=".wav";

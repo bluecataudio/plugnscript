@@ -1,0 +1,210 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D67C49561B9DD4A4009FAC8E /* chelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = D67C49531B9DD4A4009FAC8E /* chelpers.h */; };
+		D67C49571B9DD4A4009FAC8E /* cpphelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = D67C49541B9DD4A4009FAC8E /* cpphelpers.h */; };
+		D67C49581B9DD4A4009FAC8E /* dspapi.h in Headers */ = {isa = PBXBuildFile; fileRef = D67C49551B9DD4A4009FAC8E /* dspapi.h */; };
+		D6EA14F21BEA3F86009B222F /* yourscript.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D6EA14F11BEA3ED9009B222F /* yourscript.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		D678B9041B997B8700AB5446 /* yourscript.bin */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = yourscript.bin; sourceTree = BUILT_PRODUCTS_DIR; };
+		D67B60AC1BA019AF0074591E /* common.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = common.xcconfig; sourceTree = "<group>"; };
+		D67B60AD1BA019AF0074591E /* debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = debug.xcconfig; sourceTree = "<group>"; };
+		D67B60AE1BA019AF0074591E /* release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = release.xcconfig; sourceTree = "<group>"; };
+		D67C49531B9DD4A4009FAC8E /* chelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = chelpers.h; path = ../../include/chelpers.h; sourceTree = "<group>"; };
+		D67C49541B9DD4A4009FAC8E /* cpphelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cpphelpers.h; path = ../../include/cpphelpers.h; sourceTree = "<group>"; };
+		D67C49551B9DD4A4009FAC8E /* dspapi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = dspapi.h; path = ../../include/dspapi.h; sourceTree = "<group>"; };
+		D6EA14F11BEA3ED9009B222F /* yourscript.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = yourscript.cpp; path = ../../src/yourscript.cpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D678B9011B997B8700AB5446 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D678B8FB1B997B8700AB5446 = {
+			isa = PBXGroup;
+			children = (
+				D67B60AB1BA019AE0074591E /* Xcconfig */,
+				D696A1471B9EE27D00810249 /* include */,
+				D67B605D1BA016BF0074591E /* src */,
+				D678B9051B997B8700AB5446 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D678B9051B997B8700AB5446 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D678B9041B997B8700AB5446 /* yourscript.bin */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D67B605D1BA016BF0074591E /* src */ = {
+			isa = PBXGroup;
+			children = (
+				D6EA14F11BEA3ED9009B222F /* yourscript.cpp */,
+			);
+			name = src;
+			sourceTree = "<group>";
+		};
+		D67B60AB1BA019AE0074591E /* Xcconfig */ = {
+			isa = PBXGroup;
+			children = (
+				D67B60AC1BA019AF0074591E /* common.xcconfig */,
+				D67B60AD1BA019AF0074591E /* debug.xcconfig */,
+				D67B60AE1BA019AF0074591E /* release.xcconfig */,
+			);
+			path = Xcconfig;
+			sourceTree = "<group>";
+		};
+		D696A1471B9EE27D00810249 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				D67C49531B9DD4A4009FAC8E /* chelpers.h */,
+				D67C49541B9DD4A4009FAC8E /* cpphelpers.h */,
+				D67C49551B9DD4A4009FAC8E /* dspapi.h */,
+			);
+			name = include;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		D678B9021B997B8700AB5446 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D67C49571B9DD4A4009FAC8E /* cpphelpers.h in Headers */,
+				D67C49581B9DD4A4009FAC8E /* dspapi.h in Headers */,
+				D67C49561B9DD4A4009FAC8E /* chelpers.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		D678B9031B997B8700AB5446 /* yourscript */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D678B90F1B997B8700AB5446 /* Build configuration list for PBXNativeTarget "yourscript" */;
+			buildPhases = (
+				D678B9001B997B8700AB5446 /* Sources */,
+				D678B9011B997B8700AB5446 /* Frameworks */,
+				D678B9021B997B8700AB5446 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = yourscript;
+			productName = DSPSample;
+			productReference = D678B9041B997B8700AB5446 /* yourscript.bin */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D678B8FC1B997B8700AB5446 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0640;
+				ORGANIZATIONNAME = "Blue Cat Audio";
+				TargetAttributes = {
+					D678B9031B997B8700AB5446 = {
+						CreatedOnToolsVersion = 6.4;
+					};
+				};
+			};
+			buildConfigurationList = D678B8FF1B997B8700AB5446 /* Build configuration list for PBXProject "YourScript" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = D678B8FB1B997B8700AB5446;
+			productRefGroup = D678B9051B997B8700AB5446 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D678B9031B997B8700AB5446 /* yourscript */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D678B9001B997B8700AB5446 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D6EA14F21BEA3F86009B222F /* yourscript.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		D678B90D1B997B8700AB5446 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D67B60AD1BA019AF0074591E /* debug.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		D678B90E1B997B8700AB5446 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D67B60AE1BA019AF0074591E /* release.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		D678B9101B997B8700AB5446 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		D678B9111B997B8700AB5446 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D678B8FF1B997B8700AB5446 /* Build configuration list for PBXProject "YourScript" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D678B90D1B997B8700AB5446 /* Debug */,
+				D678B90E1B997B8700AB5446 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D678B90F1B997B8700AB5446 /* Build configuration list for PBXNativeTarget "yourscript" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D678B9101B997B8700AB5446 /* Debug */,
+				D678B9111B997B8700AB5446 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D678B8FC1B997B8700AB5446 /* Project object */;
+}

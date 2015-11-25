@@ -12,7 +12,7 @@ string description="mini compressor";
 array<string>  inputParametersNames={"Threshold","Ratio", "Attack", "Release","Make Up"};
 array<double> inputParameters(inputParametersNames.length);
 array<double> inputParametersDefault={1,0,.1,.5,0};
-array<string>  outputParametersNames={"Comp"};
+array<string>  outputParametersNames={"GR"};
 array<double> outputParameters(outputParametersNames.length);
 
 // internal variables
@@ -53,7 +53,7 @@ void processSample(array<double>& ioSample)
     }
 }
 
-void updateInputParametersForBlock(const TransportInfo@ )
+void updateInputParameters()
 {
     threshold=pow(10,3*(inputParameters[0]-1)); // -60 to 0 dB
     ratio=1-log(1+100*inputParameters[1])/log(101);

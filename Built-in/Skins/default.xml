@@ -10,5 +10,5 @@
     <CUS_OUTPUT_METER  base_type="THEME_ROUND_METER"/>
     <CUS_OUTPUT_DSP_SETTINGS_BUTTON  base_type="THEME_DSP_PARAM_SMALL_RECT_SETTINGS_BUTTON"/>
   </DEFINE>
-  <INCLUDE file="layout.inc"/>
+  <INCLUDE file="default_layout.inc"/>
 </SKIN>

@@ -1,0 +1,14 @@
+//
+//  common.xcconfig
+//  NativeSamples
+//
+//  Copyright (c) 2015 Blue Cat Audio. All rights reserved.
+//
+
+// include common build options
+#include "./common.xcconfig"
+
+//:configuration = Debug
+GCC_OPTIMIZATION_LEVEL = 0
+GCC_PREPROCESSOR_DEFINITIONS = DEBUG=1 $(inherited)
+MTL_ENABLE_DEBUG_INFO = YES

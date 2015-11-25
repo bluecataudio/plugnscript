@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Preset version="4" progName="Peak - Neutral (bin)" MIDIInputDefault="1" MIDIOutputDefault="1">
+    <inputParams count="56" p0="0" p1="0" p2="1" p3="0" p4="0" p5="0" p6="0" p7="0" p8="50" p9="50" p10="50" p11="0" p12="0" p13="0" p14="0" p15="0" p16="0" p17="0" p18="0" p19="0" p20="0" p21="0" p22="0" p23="0" p24="0" p25="0" p26="0" p27="0" p28="0" p29="0" p30="0" p31="0" p32="0" p33="0" p34="0" p35="0" p36="0" p37="0" p38="0" p39="0" p40="0" p41="0" p42="0" p43="0" p44="0" p45="0" p46="0" p47="0" p48="0" p49="0" p50="0" p51="0" p52="0" p53="0" p54="0" p55="0"/>
+    <inputStrings count="18" s0="%FACTORY_SCRIPTS_PATH%/Filters/filter-peak.bin" s1="" s2="" s3="" s4="" s5="" s6="" s7="" s8="" s9="" s10="" s11="" s12="" s13="" s14="" s15="" s16="" s17=""/>
+    <inputCurves/>
+    <inputSurfaces/>
+    <inputCustomProperties/>
+    <model/>
+    <GUI version="1" useDefault="0" skinFile="%FACTORY_SKINS_PATH%/filter-peak.xml" changedSincePresetLoaded="0">
+        <skin version="2">
+            <state version="4">
+                <params pCount="5">
+                    <p0 name="global_opacity" value="100"/>
+                    <p1 name="selected_script_type" value="0"/>
+                    <p2 name="theme.opacity" value="100"/>
+                    <p3 name="theme.show_settings" value="0"/>
+                    <p4 name="thin_display" value="1"/>
+                </params>
+                <curves cCount="0"/>
+                <surfaces sCount="0"/>
+                <strings sCount="0"/>
+                <collectionCounts cCount="0"/>
+                <properties pCount="0"/>
+                <groups gCount="0"/>
+            </state>
+        </skin>
+    </GUI>
+</Preset>

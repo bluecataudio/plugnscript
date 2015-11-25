@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <DUMMY>	
   <!-- Dark Blue Theme by Blue Cat Audio -->
-  <VARIABLE id="THEME_PATH" value="DarkBlue-Theme"/>
+  <VARIABLE id="THEME_PATH" value="$_DIR_$"/>
   
   <!-- Includes -->
 	<INCLUDE_ONCE file="$THEME_PATH$/includes.inc" />
@@ -27,6 +27,8 @@
     <THEME_GRAPH_BOX base_type="TPL_IMAGE_OPACITY_BOX" image="$THEME_PATH$/group_boxes/graph_box.bmp" h_margin="13" v_margin="5"/>
 
     <!-- Knobs -->
+    <THEME_LARGE_KNOB base_type="CUS_LARGE_BLUE_KNOB"/>
+    <THEME_LARGE_KNOB_SYM base_type="CUS_LARGE_BLUE_KNOB_SYM"/>
     <THEME_KNOB base_type="CUS_BLUE_KNOB"/>
     <THEME_KNOB_SYM base_type="CUS_BLUE_KNOB_SYM"/>
     <THEME_SMALL_KNOB base_type="CUS_SMALL_BLUE_KNOB"/>

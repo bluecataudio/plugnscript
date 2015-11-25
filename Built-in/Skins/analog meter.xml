@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<SKIN author="Blue Cat Audio" name="Default" font_face="Arial" font_size="14" text_color="#dddddd">
+    <!-- Includes -->
+    <INCLUDE_ONCE file="DarkBlue-Theme/theme.inc"/>
+    <INCLUDE_ONCE file="mapping.inc"/>
+    <DEFINE>
+        <CUS_INPUT_KNOB base_type="THEME_MINI_KNOB"/>
+        <CUS_INPUT_DSP_SETTINGS_BUTTON base_type="THEME_DSP_PARAM_SMALL_ROUND_SETTINGS_BUTTON"/>
+        <CUS_OUTPUT_METER  base_type="THEME_ROUND_METER"/>
+        <CUS_OUTPUT_DSP_SETTINGS_BUTTON  base_type="THEME_DSP_PARAM_SMALL_RECT_SETTINGS_BUTTON"/>
+    </DEFINE>
+    
+    <!-- Force to load our script + select between native and binary versions-->
+    <STRING id="script_forced_path" default="%FACTORY_SCRIPTS_PATH%/Utility/level meter.cxx"/>
+    <STRING_LINK from="script_forced_path" to="dsp.input_string0" enabled="false" id="script_path_link"/>
+    <STRING id="binary_forced_path" default="%FACTORY_SCRIPTS_PATH%/Utility/level meter.bin"/>
+    <STRING_LINK from="binary_forced_path" to="dsp.input_string0" enabled="false" id="binary_path_link"/>
+    
+    <PARAM id="selected_script_type" persistent="true" type="enumeration" enum_values="Native;Script"/>
+    <PARAM_LINK from="selected_script_type" to="script_path_link.enabled" enabled="true"/>
+    <PARAM_LINK from="selected_script_type" to="binary_path_link.enabled" enabled="true" reverse="true"/>
+    
+    
+    <!-- Using the main default layout defined with a template and adding our custom controls inside -->
+    <INCLUDE_ONCE file="tpl.main_layout.inc"/>
+    <TPL_MAIN_LAYOUT title="Deja Vu">
+        <!-- Script selection (native or script)-->
+        <ROW spacing="5">
+            <TEXT value="Type:"/>
+            <THEME_BOX layout_type="layer_stack">
+                <INVISIBLE_PARAM_MENU_BUTTON param_id="selected_script_type" id="menu_button" cursor="system::hand" width="100%" height="100%"/>
+                <ROW>
+                    <PARAM_TEXT param_id="selected_script_type" width="80" id="menu_button_text"/>
+                    <IMAGE_PARAM_METER param_id="menu_button.pushed" image="arrow_button.png" images_count="2"/>
+                </ROW>
+                <PARAM_LINK from="menu_button.pushed" to="menu_button_text.v_offset"/>
+                <PARAM_LINK from="menu_button.pushed" to="menu_button_text.h_offset"/>
+            </THEME_BOX>
+            <TEXT value="     "/>
+        </ROW>
+        <!-- Controls -->
+        <REPEAT count="$SCRIPT_OUT_PARAMS_COUNT$/8" index_name="row_index">
+            <PARAM_LINK from="$script_output_params_count$" to="out_box$row_index$.display" formula="x>$row_index$*8"/>
+            <CELL id="out_box$row_index$" layout_type="column" spacing="$spacing$" display="false">
+                <REPEAT count="2" index_name="subgroup">
+                    <LOCAL_VARIABLE id="group_box_index" formula="$row_index$*2+$subgroup$"/>
+                    <PARAM_LINK from="$script_output_params_count$" to="out_group_box$group_box_index$.display" formula="x>$group_box_index$*4"/>
+                    <IF condition="$group_box_index$>1">
+                        <PARAM_LINK from="out_base_cell0.width" to="out_adjustment_cell$group_box_index$.width"/>
+                    </IF>
+                    <THEME_BOX spacing="0" layout_type="column" id="out_group_box$group_box_index$" display="false">
+                        <CELL width="340"/>
+                        <CELL id="out_adjustment_cell$group_box_index$"/>
+                        <COLUMN>
+                            <IF condition="$group_box_index$&lt;=1">
+                                <CELL id="out_base_cell$group_box_index$" width="100%"/>
+                            </IF>
+                            <ROW spacing="16">
+                                <REPEAT count="4" start="0">
+                                    <LOCAL_VARIABLE id="param_index" formula="$group_box_index$*4+$index$"/>
+                                    <PARAM_LINK from="$script_output_params_count$" to="out_col$param_index$.display" formula="(x>$param_index$)"/>
+                                    <COLUMN v_align="top" spacing="3" id="out_col$param_index$" display="false">
+                                        <PARAM_TEXT param_id="custom_out_param$param_index$" content="{name}"  width="100%" cursor="system::hand" font_weight="bold" fit_text="abbreviate"/>
+                                        <COLUMN spacing="-2">
+                                            <LAYER_STACK>
+                                                <IMAGE_PARAM_METER image="analogvu60.png" param_id="custom_out_param$param_index$" id="out_control$param_index$" images_count="31"/>
+                                            </LAYER_STACK>
+                                            <CUS_OUTPUT_DSP_SETTINGS_BUTTON param_id="$script_output$param_index$$"/>
+                                        </COLUMN>
+                                    </COLUMN>
+                                </REPEAT>
+                            </ROW>
+                        </COLUMN>
+                    </THEME_BOX>
+                </REPEAT>
+            </CELL>
+        </REPEAT>
+    </TPL_MAIN_LAYOUT>
+</SKIN>
