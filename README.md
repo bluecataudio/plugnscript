@@ -13,4 +13,4 @@ Directory Layout:
 Links:
 - [The Angelscript language reference](http://www.angelcode.com/angelscript/sdk/docs/manual/doc_script.html) 
 - [Blue Cat's Plug'n Script audio and MIDI plug-in](http://www.bluecataudio.com/Products/Product_PlugNScript/)
-- [Creating skins with the KUIML language](http://www.bluecataudio.com/Skins/Create/)
+- [KUIML 2.0 user interface programming language](http://www.bluecataudio.com/Vault/Skins/KUIML/)
