@@ -1,7 +1,7 @@
 /*
 * blit_square.cpp
 *
-* Copyright (c) 2014, fukuroda (https://github.com/fukuroder)
+* Copyright (c) 2015, fukuroda (https://github.com/fukuroder)
 * Released under the MIT license
 */
 
@@ -177,7 +177,7 @@ public:
 	}
 };
 
-blit_square_oscillator _blit_square;
+blit_square_oscillator blit_square;
 
 DSP_EXPORT void processBlock(BlockData& data)
 {
@@ -192,20 +192,20 @@ DSP_EXPORT void processBlock(BlockData& data)
 			MidiEventType evt_type = MidiEventUtils::getType(event);
 			if (evt_type == kMidiNoteOn)
 			{
-				_blit_square.trigger(event);
+				blit_square.trigger(event);
 			}
 			else if (evt_type == kMidiNoteOff)
 			{
-				_blit_square.release(event);
+				blit_square.release(event);
 			}
 			else if (evt_type == kMidiPitchWheel)
 			{
-				_blit_square.update_pitchbend(event);
+				blit_square.update_pitchbend(event);
 			}
 			++event_idx;
 		}
 
-		double value = _blit_square.process_sample();
+		double value = blit_square.process_sample();
 		for (uint ch = 0; ch < audioOutputsCount; ++ch)
 		{
 			data.samples[ch][i] = value;
