@@ -86,7 +86,7 @@ public:
 
 			//
 			double freq = 440.0*(std::pow(2.0, (note->note_no + pitchbend - 69.0) / 12.0));
-			note->n = int(sampleRate / 2.0 / freq);
+			note->n = static_cast<int>(sampleRate / 2.0 / freq);
 			note->dt = freq / sampleRate;
 		}
 	}
@@ -100,7 +100,7 @@ public:
 			if (note.note_no >= 0)
 			{
 				double freq = 440.0*(std::pow(2.0, (note.note_no + pitchbend - 69.0) / 12.0));
-				note.n = int(sampleRate / 2.0 / freq);
+				note.n = static_cast<int>(sampleRate / 2.0 / freq);
 				note.dt = freq / sampleRate;
 			}
 		}
