@@ -1,9 +1,9 @@
 /*
-* blit_square.cpp
-*
-* Copyright (c) 2015, fukuroda (https://github.com/fukuroder)
-* Released under the MIT license
-*/
+ * blit_square.cpp
+ *
+ * Copyright (c) 2015, fukuroda (https://github.com/fukuroder)
+ * Released under the MIT license
+ */
 
 #include"dspapi.h"
 #include"samples/library/Midi.h"
