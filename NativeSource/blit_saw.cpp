@@ -1,7 +1,7 @@
 /*
  * blit_saw.cpp
  *
- * Copyright (c) 2014, fukuroda (https://github.com/fukuroder)
+ * Copyright (c) 2015, fukuroda (https://github.com/fukuroder)
  * Released under the MIT license
  */
 
@@ -173,7 +173,7 @@ public:
 	}
 };
 
-blit_saw_oscillator _blit_saw;
+blit_saw_oscillator blit_saw;
 
 DSP_EXPORT void processBlock(BlockData& data)
 {
@@ -188,20 +188,20 @@ DSP_EXPORT void processBlock(BlockData& data)
 			MidiEventType evt_type = MidiEventUtils::getType(event);
 			if (evt_type == kMidiNoteOn)
 			{
-				_blit_saw.trigger(event);
+				blit_saw.trigger(event);
 			}
 			else if (evt_type == kMidiNoteOff)
 			{
-				_blit_saw.release(event);
+				blit_saw.release(event);
 			}
 			else if (evt_type == kMidiPitchWheel)
 			{
-				_blit_saw.update_pitchbend(event);
+				blit_saw.update_pitchbend(event);
 			}
 			++event_idx;
 		}
 
-		double value = _blit_saw.process_sample();
+		double value = blit_saw.process_sample();
 		for (uint ch = 0; ch < audioOutputsCount; ++ch)
 		{
 			data.samples[ch][i] = value;
