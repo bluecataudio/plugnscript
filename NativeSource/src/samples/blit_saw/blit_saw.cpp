@@ -1,13 +1,13 @@
 /*
- * blit_square.cpp
+ * blit_saw.cpp
  *
  * Copyright (c) 2015, fukuroda (https://github.com/fukuroder)
  * Released under the MIT license
  */
 
 #include"dspapi.h"
-#include"samples/library/Midi.h"
-#include"samples/library/Constants.h"
+#include"../library/Midi.h"
+#include"../library/Constants.h"
 #include<cmath>
 #include<array>
 #include<algorithm>
@@ -15,11 +15,11 @@
 DSP_EXPORT uint audioOutputsCount = 0;
 DSP_EXPORT double sampleRate = 0;
 
-DSP_EXPORT string name = "blit square";
-DSP_EXPORT string description = "BLIT-Based square wave synthesis";
+DSP_EXPORT string name = "blit saw";
+DSP_EXPORT string description = "BLIT-Based sawtooth wave synthesis";
 
 // note
-class blit_square_oscillator_note
+class blit_saw_oscillator_note
 {
 public:
 	// current time
@@ -40,7 +40,7 @@ public:
 	// velocity [0,1]
 	double velocity;
 
-	blit_square_oscillator_note()
+	blit_saw_oscillator_note()
 	{
 		t = 0.0;
 		value = 0.0;
@@ -52,15 +52,15 @@ public:
 };
 
 // oscillator
-class blit_square_oscillator
+class blit_saw_oscillator
 {
-	std::array<blit_square_oscillator_note, 8> notes;
+	std::array<blit_saw_oscillator_note, 8> notes;
 
 	std::array<double, (1 << 10) + 1> sin_table;
 
 	double pitchbend;
 public:
-	blit_square_oscillator()
+	blit_saw_oscillator()
 		:pitchbend(0.0)
 	{
 		// sine wave table
@@ -75,18 +75,18 @@ public:
 		auto note = std::find_if(
 			notes.begin(),
 			notes.end(),
-			[](blit_square_oscillator_note& n) { return n.note_no < 0; });
+			[](blit_saw_oscillator_note& n) { return n.note_no < 0; });
 
 		if (note != notes.end())
 		{
 			note->note_no = MidiEventUtils::getNote(evt);
 			note->velocity = MidiEventUtils::getNoteVelocity(evt) / 127.0;
-			note->value = 1.0;
-			note->t = 0.25;
+			note->value = 0.0;
+			note->t = 0.5;
 
 			//
 			double freq = 440.0*(std::pow(2.0, (note->note_no + pitchbend - 69.0) / 12.0));
-			note->n = static_cast<int>(sampleRate / 4.0 / freq) * 2;
+			note->n = static_cast<int>(sampleRate / 2.0 / freq);
 			note->dt = freq / sampleRate;
 		}
 	}
@@ -95,12 +95,12 @@ public:
 	{
 		pitchbend = MidiEventUtils::getPitchWheelValue(evt) / 4096.0;
 
-		for (blit_square_oscillator_note& note : notes)
+		for (blit_saw_oscillator_note& note : notes)
 		{
 			if (note.note_no >= 0)
 			{
 				double freq = 440.0*(std::pow(2.0, (note.note_no + pitchbend - 69.0) / 12.0));
-				note.n = static_cast<int>(sampleRate / 4.0 / freq) * 2;
+				note.n = static_cast<int>(sampleRate / 2.0 / freq);
 				note.dt = freq / sampleRate;
 			}
 		}
@@ -113,7 +113,7 @@ public:
 		auto note = std::find_if(
 			notes.begin(),
 			notes.end(),
-			[note_no](blit_square_oscillator_note& n) { return n.note_no == note_no; });
+			[note_no](blit_saw_oscillator_note& n) { return n.note_no == note_no; });
 
 		if (note != notes.end())
 		{
@@ -138,21 +138,17 @@ public:
 	}
 
 	//
-	double bandlimited_bipolar_impulse(double t, int n)
+	double bandlimited_impulse(double t, int n)
 	{
 		if (t < 1.0e-8 || 1.0 - 1.0e-8 < t)
 		{
-			return 4.0*n;
-		}
-		else if (0.5 - 1.0e-8 < t && t < 0.5 + 1.0e-8)
-		{
-			return -4.0*n;
+			return 2.0*(2 * n + 1);
 		}
 		else
 		{
-			double den = linear_interpolated_sin(t);
-			double num = linear_interpolated_sin(std::fmod(n*t, 1.0));
-			return 4.0*num / den;
+			double den = linear_interpolated_sin(0.5*t);
+			double num = linear_interpolated_sin(std::fmod((n + 0.5)*t, 1.0));
+			return 2.0*num / den;
 		}
 	}
 
@@ -160,7 +156,7 @@ public:
 	double process_sample()
 	{
 		double value = 0.0;
-		for (blit_square_oscillator_note& note : notes)
+		for (blit_saw_oscillator_note& note : notes)
 		{
 			if (note.note_no >= 0)
 			{
@@ -170,14 +166,14 @@ public:
 				// update
 				note.t += note.dt;
 				if (1.0 <= note.t)note.t -= 1.0;
-				note.value = note.value*0.999 + bandlimited_bipolar_impulse(note.t, note.n)*note.dt;
+				note.value = note.value*0.999 + (bandlimited_impulse(note.t, note.n) - 2.0)*note.dt;
 			}
 		}
 		return value;
 	}
 };
 
-blit_square_oscillator blit_square;
+blit_saw_oscillator blit_saw;
 
 DSP_EXPORT void processBlock(BlockData& data)
 {
@@ -192,20 +188,20 @@ DSP_EXPORT void processBlock(BlockData& data)
 			MidiEventType evt_type = MidiEventUtils::getType(event);
 			if (evt_type == kMidiNoteOn)
 			{
-				blit_square.trigger(event);
+				blit_saw.trigger(event);
 			}
 			else if (evt_type == kMidiNoteOff)
 			{
-				blit_square.release(event);
+				blit_saw.release(event);
 			}
 			else if (evt_type == kMidiPitchWheel)
 			{
-				blit_square.update_pitchbend(event);
+				blit_saw.update_pitchbend(event);
 			}
 			++event_idx;
 		}
 
-		double value = blit_square.process_sample();
+		double value = blit_saw.process_sample();
 		for (uint ch = 0; ch < audioOutputsCount; ++ch)
 		{
 			data.samples[ch][i] = value;
