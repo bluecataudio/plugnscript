@@ -7,8 +7,8 @@ You can submit your own scripts and skins for the plug-in, if you want to share 
 
 Directory Layout:
 - Built-in: the factory skins and scripts already included with the plug-in, for reference. Feel free to propose enhancements for these scripts.
-- Scripts: submit here your own scripts.
-- Skins: submit here your own skins.
+- Scripts: submit here your own scripts and kuiml layout files if any.
+- Skins: submit here your custom skins.
 
 Links:
 - [The Angelscript language reference](http://www.angelcode.com/angelscript/sdk/docs/manual/doc_script.html) 
