@@ -14,6 +14,7 @@ DSP_EXPORT HostPrintFunc* hostPrint=null;
 */
 
 DSP_EXPORT string name="LR 2 MS";
+DSP_EXPORT string author="Blue Cat Audio";
 DSP_EXPORT string description="Left/Right to Mid/Side";
 
 DSP_EXPORT bool initialize()

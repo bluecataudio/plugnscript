@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<SKIN author="Blue Cat Audio" margin="8" width="300">
+  <!-- Display last message + click to open log -->
+   <LAYER_STACK width="100%" h_margin="4" font_size="12">
+      <INVISIBLE_ACTION_BUTTON width="100%" height="100%" action="OpenLogFile" cursor="system::hand" id="open_midi_log_button">
+        <TOOLTIP text="Click to open full MIDI log"/>
+      </INVISIBLE_ACTION_BUTTON>
+      <TEXT string_id="$script_status_string$" width="100%" fit_text="abbreviate" id="open_midi_log_button_content"/>
+      <PARAM_LINK from="open_midi_log_button.pushed" to="open_midi_log_button_content.v_offset"/>
+      <PARAM_LINK from="open_midi_log_button.pushed" to="open_midi_log_button_content.h_offset"/>
+    </LAYER_STACK>
+</SKIN>

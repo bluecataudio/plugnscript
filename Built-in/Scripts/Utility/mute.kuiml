@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<SKIN author="Blue Cat Audio" margin="8">
+  <!-- Controls -->
+  <PNS_FILLED_GROUP_BOX layout_type="layer_stack" v_margin="1" h_margin="10" opacity="1" id="main_text">
+    <TEXT value="Mute!" font_size="100" text_color="#ffffff" opacity=".6"/>
+    <PARAM_LINK from="$bypass$" to="main_text.opacity" formula="1-.7*x"/>
+    <INVISIBLE_PARAM_BUTTON param_id="$bypass$" width="100%" height="100%" cursor="system::hand">
+        <TOOLTIP text="Click to switch on/off"/>
+    </INVISIBLE_PARAM_BUTTON>
+  </PNS_FILLED_GROUP_BOX>
+</SKIN>

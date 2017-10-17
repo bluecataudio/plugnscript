@@ -3,4 +3,4 @@
 *   Will simply do nothing (full audio and MIDI bypass) but show its description.
 */
 string name="Default Script";
-string description="Bypass";
+string description="Simple bypass script (no effect)";

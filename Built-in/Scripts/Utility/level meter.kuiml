@@ -1,0 +1,37 @@
+<SKIN>
+<!-- Controls -->
+  <REPEAT count="$SCRIPT_OUT_PARAMS_COUNT$/8" index_name="row_index">
+      <PARAM_LINK from="$script_output_params_count$" to="out_box$row_index$.display" formula="x>$row_index$*8"/>
+      <CELL id="out_box$row_index$" layout_type="column" spacing="$spacing$" display="false">
+          <REPEAT count="2" index_name="subgroup">
+              <LOCAL_VARIABLE id="group_box_index" formula="$row_index$*2+$subgroup$"/>
+              <PARAM_LINK from="$script_output_params_count$" to="out_group_box$group_box_index$.display" formula="x>$group_box_index$*4"/>
+              <IF condition="$group_box_index$>1">
+                  <PARAM_LINK from="out_base_cell0.width" to="out_adjustment_cell$group_box_index$.width"/>
+              </IF>
+              <THEME_BOX spacing="0" layout_type="column" id="out_group_box$group_box_index$" display="false">
+                  <CELL width="340"/>
+                  <CELL id="out_adjustment_cell$group_box_index$"/>
+                  <COLUMN>
+                      <IF condition="$group_box_index$&lt;=1">
+                          <CELL id="out_base_cell$group_box_index$" width="100%"/>
+                      </IF>
+                      <ROW spacing="16">
+                          <REPEAT count="4" start="0">
+                              <LOCAL_VARIABLE id="param_index" formula="$group_box_index$*4+$index$"/>
+                              <PARAM_LINK from="$script_output_params_count$" to="out_col$param_index$.display" formula="(x>$param_index$)"/>
+                              <COLUMN v_align="top" spacing="3" id="out_col$param_index$" display="false">
+                                  <PARAM_TEXT param_id="custom_out_param$param_index$" content="{name}"  width="100%" cursor="system::hand" font_weight="bold" fit_text="abbreviate"/>
+                                  <COLUMN spacing="-5">
+                                      <PNS_ANALOG_VU_60 param_id="custom_out_param$param_index$" id="out_control$param_index$"/>
+                                      <PNS_DSP_PARAM_SETTINGS_BUTTON param_id="$script_output$param_index$$"/>
+                                  </COLUMN>
+                              </COLUMN>
+                          </REPEAT>
+                      </ROW>
+                  </COLUMN>
+              </THEME_BOX>
+          </REPEAT>
+      </CELL>
+  </REPEAT>
+</SKIN> 

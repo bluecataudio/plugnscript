@@ -18,6 +18,7 @@ array<double> inputParametersMax={24};
 array<double> inputParametersDefault={0};
 array<int> inputParametersSteps={49};
 array<string> inputParametersUnits={"st"};
+array<string> inputParametersFormats={"+.0"} ;
 
 // temp MIDI events for processing
 MidiEvent tempEvent;

@@ -11,6 +11,9 @@ DSP_EXPORT double  sampleRate=0;
 /** \file
 *   Multichannel peak levels meter.
 */
+DSP_EXPORT string name="Level Meter";
+DSP_EXPORT string author="Blue Cat Audio";
+DSP_EXPORT string description="Multichannel peak levels meter";
 
 // Output parameters definition
 DSP_EXPORT array<string> outputParametersNames={};

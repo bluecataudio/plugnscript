@@ -17,6 +17,7 @@ array<double> inputParametersMin={-24,-24,-24,-24};
 array<double> inputParametersMax={24,24,24,24};
 array<double> inputParametersDefault={0,0,0,0};
 array<int> inputParametersSteps={49,49,49,49};
+array<string> inputParametersFormats={"+.0", "+.0", "+.0", "+.0"} ;
 
 // local variables
 array<int8> offsets(4);

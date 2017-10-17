@@ -14,6 +14,7 @@
 array<string> inputParametersNames={"Frequency","Bandwidth","Boost"};
 array<double> inputParameters(inputParametersNames.length);
 array<double> inputParametersDefault={.5,0,.5};
+string name="Peak Filter";
 
 /* Define our internal variables.
 *

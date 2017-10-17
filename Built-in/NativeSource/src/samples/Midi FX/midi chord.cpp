@@ -11,6 +11,7 @@
 
 // metadata
 DSP_EXPORT string name="MIDI Chord Maker";
+DSP_EXPORT string author="Blue Cat Audio";
 DSP_EXPORT string description="Adds transposed MIDI events to create chords";
 
 // parameters
@@ -21,6 +22,7 @@ DSP_EXPORT array<double> inputParametersMin={-24,-24,-24,-24};
 DSP_EXPORT array<double> inputParametersMax={24,24,24,24};
 DSP_EXPORT array<double> inputParametersDefault={0,0,0,0};
 DSP_EXPORT array<int> inputParametersSteps={49,49,49,49};
+DSP_EXPORT array<string> inputParametersFormats={"+.0","+.0","+.0","+.0"};
 
 // local variables
 array<int8> offsets(4);

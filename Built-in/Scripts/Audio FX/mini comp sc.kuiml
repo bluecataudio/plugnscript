@@ -1,0 +1,44 @@
+<SKIN>
+  <!-- Template for individual controls-->
+  <TEMPLATE id="TPL_PARAM_CONTROL_LAYOUT" param_index="##UNDEFINED##">
+    <COLUMN v_align="top" spacing="3">
+      <PARAM_TEXT param_id="custom_param$param_index$" content="{name}"  width="100%" font_weight="bold" fit_text="abbreviate"/>
+      <COLUMN spacing="-8">
+        <LAYER_STACK>
+          <PNS_BLACK_VINTAGE_B_KNOB param_id="custom_param$param_index$"/>
+        </LAYER_STACK>
+        <PNS_DSP_PARAM_SETTINGS_BUTTON param_id="$script_input$param_index$$"/>
+      </COLUMN>
+      <PARAM_TEXT param_id="custom_param$param_index$" width="65">
+        <INVISIBLE_PARAM_MENU_BUTTON width="100%" height="100%"  param_id="custom_param$param_index$" cursor="system::hand"/>
+      </PARAM_TEXT>
+    </COLUMN>
+  </TEMPLATE>
+  
+  <!-- Controls -->
+  <COLUMN  h_margin="10" v_margin="10" spacing="15">
+    <TEXT value="Side-Chain Compressor" font_size="25" font_weight="bold" font_face="Georgia" font_style="italic"/>
+    <COLUMN spacing="-15">
+      <ROW spacing="15">
+        <COLUMN spacing="5">
+          <REPEAT count="2" start="0">
+            <TPL_PARAM_CONTROL_LAYOUT param_index="$index$"/>
+          </REPEAT>
+        </COLUMN>
+        <COLUMN spacing="2">
+          <PARAM_TEXT param_id="custom_out_param0" content="{name}"  width="100%" font_weight="bold"/>
+          <COLUMN spacing="-2">
+            <PNS_ANALOG_VU_60 param_id="custom_out_param0" id="out_control0" reverse="true"/>
+            <PNS_DSP_PARAM_SETTINGS_BUTTON param_id="$script_output0$"/>
+          </COLUMN>
+        </COLUMN>
+        <COLUMN spacing="5">
+          <REPEAT count="2" start="2">
+            <TPL_PARAM_CONTROL_LAYOUT param_index="$index$"/>
+          </REPEAT>
+        </COLUMN>
+      </ROW>
+      <TPL_PARAM_CONTROL_LAYOUT param_index="4"/>
+    </COLUMN>
+  </COLUMN>
+</SKIN>

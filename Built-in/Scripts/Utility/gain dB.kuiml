@@ -1,0 +1,11 @@
+<SKIN>
+  <!-- Controls -->
+  <PNS_DASHED_GROUP_BOX spacing="5" font_size="17" v_margin="12" h_margin="50">
+    <PARAM_TEXT param_id="custom_param0" content="GAIN"  width="100%" cursor="system::hand" font_weight="bold" fit_text="abbreviate"/>
+    <COLUMN spacing="-8">
+      <PNS_BLACK_BLUE_MODERN_KNOB_SYM param_id="custom_param0" positions_count="41" image_scaling="1.3"/>
+      <PNS_DSP_PARAM_SETTINGS_BUTTON param_id="$script_input0$"/>
+    </COLUMN>
+    <PARAM_TEXT param_id="custom_param0" width="65" content="{value} {unit}" value_format="+.1"/>
+  </PNS_DASHED_GROUP_BOX>
+</SKIN> 

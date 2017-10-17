@@ -11,6 +11,8 @@ DSP_EXPORT uint    audioInputsCount=0;
 /** \file
 *   Notch filter.
 */
+DSP_EXPORT string name="Notch Filter";
+DSP_EXPORT string author="Blue Cat Audio";
 
 /* include your dsp files.
 *

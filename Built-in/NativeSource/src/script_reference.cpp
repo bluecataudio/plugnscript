@@ -1,7 +1,7 @@
 #include "dspapi.h"
 #include "cpphelpers.h"
 
-// expected from host (Warning: appropriate values are filled before calling
+// expected from host (Warning: appropriate values are filled right before calling
 // the initialize() function - do not use before)
 DSP_EXPORT uint    audioInputsCount=0;
 DSP_EXPORT uint    audioOutputsCount=0;
@@ -34,6 +34,9 @@ DSP_EXPORT array<string> inputParametersUnits{"dB","%"};
 /// Array of strings containing semicolon separated values. Use empty strings
 /// for non-enum parameters. Require that min and max values are defined.
 DSP_EXPORT array<string> inputParametersEnums={"value1;value2",""};
+/// Value formatting for the corresponding input parameters.
+/// Follows the same rules as floating point values formatting for the C "printf" function
+DSP_EXPORT array<string> inputParametersFormats={".0","+.2"};
 /// Minimum values for the corresponding input parameters. Default value is 0.
 DSP_EXPORT array<double> inputParametersMin={0, 0};
 /// Maximum values for the corresponding input parameters. Default value is 1.
@@ -62,6 +65,9 @@ DSP_EXPORT array<string> outputParametersUnits={"dB","dB"};
 /// Array of strings containing semicolon separated values. Use empty strings
 /// for non-enum parameters. Require that min and max values are defined.
 DSP_EXPORT array<string> outputParametersEnums={"value1;value2",""};
+/// Value formatting for the corresponding output parameters.
+/// Follows the same rules as floating point values formatting for the C "printf" function
+DSP_EXPORT array<string> outputParametersFormats={".0","+.2"};
 /// Minimum values for the corresponding input parameters. Default value is 0.
 DSP_EXPORT array<double> outputParametersMin={0, 0};
 /// Maximum values for the corresponding input parameters. Default value is 1.
@@ -74,7 +80,7 @@ DSP_EXPORT array<double> outputParametersDefault={5,0};
 *   return false if initialization fails (for example if the number of 
 *   audio channels or the sample rate are not compatible).
 *   When returning false, it is strongly advised to print a message with
-*   the "print" function for the end user using the print function.
+*   the "print" function for the end user.
 */
 DSP_EXPORT bool initialize()
 {

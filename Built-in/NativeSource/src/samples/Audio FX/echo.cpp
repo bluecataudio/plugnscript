@@ -19,6 +19,7 @@ DSP_EXPORT uint    audioInputsCount=0;
 *
 */
 DSP_EXPORT string name="Analog-Echo";
+DSP_EXPORT string author="Blue Cat Audio";
 DSP_EXPORT string description="analog style echo";
 
 /* Parameters Description.

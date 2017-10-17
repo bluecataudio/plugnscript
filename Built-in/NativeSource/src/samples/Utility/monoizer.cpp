@@ -11,6 +11,8 @@
 DSP_EXPORT uint    audioInputsCount = 0;
 DSP_EXPORT uint    audioOutputsCount = 0;
 
+DSP_EXPORT string name="Monoizer";
+DSP_EXPORT string author="Blue Cat Audio";
 DSP_EXPORT string description="averages all channels together to create a mono mix";
 double norm=1;
 

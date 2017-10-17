@@ -17,7 +17,8 @@ DSP_EXPORT uint    audioOutputsCount=0;
 
 // dsp script interface--------------------------
 
-DSP_EXPORT string name="Sin Synth Poly";
+DSP_EXPORT string name="Sin Synth Full";
+DSP_EXPORT string author="Blue Cat Audio";
 DSP_EXPORT string description="Simple sine wave synth (polyphonic)";
 
 DSP_EXPORT array<string> inputParametersNames={"Attack", "Release", "Pitch Attack", "Pitch Drop", "Gain"};
@@ -248,6 +249,8 @@ void handleMidiEvent(const MidiEvent& evt)
                 }
             }
         }
+        default:
+            break;
     }
 }
 

@@ -13,7 +13,8 @@ DSP_EXPORT uint    audioOutputsCount=0;
 #include "../library/Constants.h"
 
 DSP_EXPORT string name="Harmonics";
-DSP_EXPORT string description="Harmonics wave generator";
+DSP_EXPORT string author="Blue Cat Audio";
+DSP_EXPORT string description="Wave generator using overtones";
 
 DSP_EXPORT array<string> inputParametersNames={"Amplitude", "Frequency","h1","h2","h3","h4","h5","h6","h7","Phase 1","Phase 2","Phase 3","Phase 4","Phase 5","Phase 6","Phase 7"};
 DSP_EXPORT array<string> inputParametersUnits={"%", "Hz"};

@@ -9,6 +9,7 @@
 #include "../library/Midi.h"
 
 DSP_EXPORT string name="MIDI Notes Filter";
+DSP_EXPORT string author="Blue Cat Audio";
 DSP_EXPORT string description="Only keeps note events";
 
 DSP_EXPORT void processBlock(BlockData& data)

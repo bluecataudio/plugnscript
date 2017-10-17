@@ -7,8 +7,9 @@ DSP_EXPORT uint    audioInputsCount=0;
 /** \file
 *   Apply selected gain to audio input.
 */
-
-DSP_EXPORT string description="simple volume control";
+DSP_EXPORT string name="Volume";
+DSP_EXPORT string author="Blue Cat Audio";
+DSP_EXPORT string description="Simple volume control";
 
 DSP_EXPORT array<string> inputParametersNames={"Gain"};
 DSP_EXPORT array<double> inputParameters(inputParametersNames.length);

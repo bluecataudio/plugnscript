@@ -11,6 +11,10 @@ DSP_EXPORT uint    audioInputsCount=0;
 *   Invert the phase of the audio signal.
 */
 
+DSP_EXPORT string name="Phase Inverter";
+DSP_EXPORT string author="Blue Cat Audio";
+DSP_EXPORT string description="Inverts the phase of the audio signal";
+
 /* Define our parameters.
 */
 DSP_EXPORT array<string> inputParametersNames={"Invert"};
@@ -20,7 +24,6 @@ DSP_EXPORT array<int> inputParametersSteps={2};
 DSP_EXPORT array<double> inputParametersMin={0};
 DSP_EXPORT array<double> inputParametersMax={1};
 
-DSP_EXPORT string description="signal phase inverter";
 double norm=1;
 
 /* per-sample processing function: called for every sample with updated parameters values.

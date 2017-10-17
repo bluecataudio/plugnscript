@@ -15,6 +15,8 @@ DSP_EXPORT uint    audioInputsCount=0;
 
 #include "../library/Constants.h"
 
+DSP_EXPORT string name="Ring Mod";
+DSP_EXPORT string author="Blue Cat Audio";
 DSP_EXPORT string description="ring modulator";
 
 /* Define our parameters.

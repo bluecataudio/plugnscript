@@ -12,6 +12,7 @@ DSP_EXPORT uint    audioOutputsCount=0;
 #include "../library/Constants.h"
 
 DSP_EXPORT string name="FM Generator";
+DSP_EXPORT string author="Blue Cat Audio";
 DSP_EXPORT string description="Frequency Modulation generator";
 
 DSP_EXPORT array<string> inputParametersNames={"Amplitude", "Frequency","FM Index","Ratio"};

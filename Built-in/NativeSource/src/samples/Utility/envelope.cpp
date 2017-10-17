@@ -7,6 +7,9 @@
 DSP_EXPORT uint    audioInputsCount = 0;
 DSP_EXPORT double  sampleRate = 0;
 
+DSP_EXPORT string name="Envelope";
+DSP_EXPORT string author="Blue Cat Audio";
+
 // Input Parameters
 DSP_EXPORT array<string> inputParametersNames={"Scale","Decay"};
 DSP_EXPORT array<double> inputParametersDefault={1.0,.3};

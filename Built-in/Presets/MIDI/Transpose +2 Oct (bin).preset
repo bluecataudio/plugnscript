@@ -1,26 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Preset version="4" progName="Transpose +2 Oct (bin)" MIDIInputDefault="1" MIDIOutputDefault="1">
-    <inputParams count="56" p0="0" p1="1" p2="1" p3="0" p4="0" p5="0" p6="0" p7="0" p8="100" p9="28.346456692913385211" p10="100" p11="78.740157480314962868" p12="15" p13="0" p14="0" p15="0" p16="0" p17="0" p18="0" p19="0" p20="0" p21="0" p22="0" p23="0" p24="0" p25="0" p26="0" p27="0" p28="0" p29="0" p30="0" p31="0" p32="0" p33="0" p34="0" p35="0" p36="0" p37="0" p38="0" p39="0" p40="0" p41="0" p42="0" p43="0" p44="0" p45="0" p46="0" p47="0" p48="0" p49="0" p50="0" p51="0" p52="0" p53="0" p54="0" p55="0"/>
+    <inputParams count="56" p0="0" p1="1" p2="0" p3="0" p4="0" p5="0" p6="0" p7="0" p8="100" p9="28.346456692913385211" p10="100" p11="78.740157480314962868" p12="15" p13="0" p14="0" p15="0" p16="0" p17="0" p18="0" p19="0" p20="0" p21="0" p22="0" p23="0" p24="0" p25="0" p26="0" p27="0" p28="0" p29="0" p30="0" p31="0" p32="0" p33="0" p34="0" p35="0" p36="0" p37="0" p38="0" p39="0" p40="0" p41="0" p42="0" p43="0" p44="0" p45="0" p46="0" p47="0" p48="0" p49="0" p50="0" p51="0" p52="0" p53="0" p54="0" p55="0"/>
     <inputStrings count="18" s0="%FACTORY_SCRIPTS_PATH%/Midi FX/midi transpose.bin" s1="" s2="" s3="" s4="" s5="" s6="" s7="" s8="" s9="" s10="" s11="" s12="" s13="" s14="" s15="" s16="" s17=""/>
-    <inputCurves/>
-    <inputSurfaces/>
-    <inputCustomProperties/>
     <model/>
     <GUI version="1" useDefault="1" changedSincePresetLoaded="0">
         <skin version="2">
-            <state version="4">
-                <params pCount="4">
-                    <p0 name="global_opacity" value="100"/>
-                    <p1 name="theme.opacity" value="100"/>
-                    <p2 name="theme.show_settings" value="0"/>
-                    <p3 name="thin_display" value="1"/>
+            <state version="5">
+                <params pCount="22">
+                    <p0 name="display_handles" value="0"/>
+                    <p1 name="display_logo" value="1"/>
+                    <p2 name="display_screws" value="0"/>
+                    <p3 name="display_script_title" value="1"/>
+                    <p4 name="display_status_bar" value="1"/>
+                    <p5 name="global_opacity" value="100"/>
+                    <p6 name="gui_controls_lock" value="0"/>
+                    <p7 name="gui_gen.background_color" value="9"/>
+                    <p8 name="gui_gen.background_style" value="1"/>
+                    <p9 name="gui_gen.controls_display_count" value="5"/>
+                    <p10 name="gui_gen.controls_style" value="17"/>
+                    <p11 name="gui_gen.enable_custom_gui" value="1"/>
+                    <p12 name="gui_gen.grouping_style" value="1"/>
+                    <p13 name="gui_gen.groups_display_count" value="1"/>
+                    <p14 name="gui_gen.layout_type" value="1"/>
+                    <p15 name="gui_gen.meters_style" value="0"/>
+                    <p16 name="gui_gen.text_color" value="0"/>
+                    <p17 name="gui_gen.text_size" value="0"/>
+                    <p18 name="gui_options_lock" value="0"/>
+                    <p19 name="show_edit_pane" value="0"/>
+                    <p20 name="theme.opacity" value="100"/>
+                    <p21 name="theme.show_settings" value="0"/>
                 </params>
-                <curves cCount="0"/>
-                <surfaces sCount="0"/>
-                <strings sCount="0"/>
-                <collectionCounts cCount="0"/>
-                <properties pCount="0"/>
-                <groups gCount="0"/>
             </state>
         </skin>
     </GUI>

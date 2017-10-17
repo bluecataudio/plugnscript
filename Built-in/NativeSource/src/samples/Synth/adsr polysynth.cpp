@@ -19,6 +19,7 @@ DSP_EXPORT uint    audioOutputsCount=0;
 
 // dsp script interface--------------------------
 DSP_EXPORT string name="ADSR Polyphonic Synth";
+DSP_EXPORT string author="Blue Cat Audio";
 DSP_EXPORT string description="Simple sine wave polyphonic synth";
 
 DSP_EXPORT array<string> inputParametersNames={"Attack","Decay","Sustain","Release","Gain"};
@@ -268,6 +269,8 @@ void handleMidiEvent(const MidiEvent& evt)
                 }
             }
         }
+        default:
+            break;
     }
 }
 

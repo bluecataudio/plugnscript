@@ -56,12 +56,15 @@ void handleMidiEvent(const MidiEvent& evt)
             omega=2*PI*pow(2,((double(currentNote-69.0)+currentPitchOffset)/12.0))*440.0/sampleRate;
             break;
         }
+    default:
+        break;
     }
 }
 
 // dsp script interface--------------------------
 
 DSP_EXPORT string name="Sin Synth II";
+DSP_EXPORT string author="Blue Cat Audio";
 DSP_EXPORT string description="Monophonic sine wave synth";
 
 DSP_EXPORT array<string> inputParametersNames={"Attack", "Release", "Pitch Attack"};

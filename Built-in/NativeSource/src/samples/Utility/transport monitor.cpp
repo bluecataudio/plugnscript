@@ -10,6 +10,7 @@
 
 // metadata
 DSP_EXPORT string name="Transport Monitor";
+DSP_EXPORT string author="Blue Cat Audio";
 DSP_EXPORT string description="Displays transport information";
 
 // output parameters definition

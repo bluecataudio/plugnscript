@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<SKIN h_margin="5">
+    <VARIABLE id="local_spacing" value="6"/>
+    <VARIABLE id="play_color" value="#4de8e2"/>
+    <VARIABLE id="rec_color" value="#e86b68"/>
+    <DEFINE>
+      <CUS_LOCAL_BOX base_type="PNS_FILLED_GROUP_BOX" opacity="1" v_margin="4" h_margin="10"/>
+    </DEFINE>
+    <!-- Controls -->
+    <COLUMN spacing="$local_spacing$">
+        <PNS_LCD_GROUP_BOX width="400">
+          <!-- Playback/Record/Mode & status display, using Canvas widget (experimental)-->
+          <FORMULA_PARAM id="play_length" formula="custom_out_param4/100" min="0" max="1" exposed="true"/>
+          <FORMULA_PARAM id="play_head" formula="(custom_out_param2*play_length)/100" min="0" max="1" exposed="true"/>
+          <FORMULA_PARAM id="record_head" formula="custom_out_param3/100" min="0" max="1" exposed="true"/>
+          <CANVAS id="status_canvas" width="100%" height="28" render_script="Render(this.width,this.height);" requires="status_canvas.width;status_canvas.height"/>
+          <ACTION_TRIGGER event_ids="play_length.value_changed;play_head.value_changed;record_head.value_changed" script="status_canvas.Invalidate()" requires="status_canvas.Invalidate"/>
+         </PNS_LCD_GROUP_BOX>
+        <!-- Playback/Record/Mode & status-->
+        <ROW spacing="$local_spacing$">
+            <COLUMN>
+                <CUS_LOCAL_BOX font_size="25" layout_type="layer_stack">
+                    <ROW spacing="6">
+                      <PNS_SMALL_RED_LED param_id="custom_out_param1" image_scaling=".5"/>
+                      <LAYER_STACK>
+                        <TEXT value="REC" id="rec_button_text"/>
+                        <TEXT value="REC" id="rec_status_text" text_color="$rec_color$"/>
+                      </LAYER_STACK>
+                    </ROW>
+                    <INVISIBLE_PARAM_BUTTON width="100%" height="100%" param_id="custom_param0" cursor="system::hand" positions_count="2"/>
+                    <PARAM_LINK from="custom_out_param1" to="rec_status_text.opacity"/>
+                    <PARAM_LINK from="custom_out_param1" to="rec_button_text.display" reverse="true"/>
+                    <PARAM_LINK from="custom_param0" to="rec_button_text.opacity"  formula=".2+.8*x"/>
+                </CUS_LOCAL_BOX>
+                <PNS_DSP_PARAM_SETTINGS_BUTTON param_id="$script_input0$"/>
+            </COLUMN>
+            <COLUMN>
+                <CUS_LOCAL_BOX font_size="25" layout_type="layer_stack">
+                    <TEXT value="PLAY" id="play_button_text"/>
+                    <TEXT value="PLAY" id="play_status_text" text_color="$play_color$"/>
+                    <INVISIBLE_PARAM_BUTTON width="100%" height="100%" param_id="custom_param1" cursor="system::hand" positions_count="2"/>
+                    <PARAM_LINK from="custom_out_param0" to="play_status_text.opacity" />
+                    <PARAM_LINK from="custom_out_param0" to="play_button_text.display" reverse="true"/>
+                    <PARAM_LINK from="custom_param1" to="play_button_text.opacity"  formula=".2+.8*x"/>
+                </CUS_LOCAL_BOX>
+
+                <PNS_DSP_PARAM_SETTINGS_BUTTON param_id="$script_input1$"/>
+            </COLUMN>
+            <COLUMN>
+                <CUS_LOCAL_BOX font_size="25">
+                    <TEXT value="CLEAR" id="clear_button_text">
+                        <INVISIBLE_PARAM_BUTTON id="clear_button" width="100%" height="100%" param_id="custom_param2" cursor="system::hand" positions_count="2"/>
+                        <PARAM_MULTI_LINK from="clear_button.pushed" to="clear_button_text.h_offset;clear_button_text.v_offset" formula="x"/>
+                    </TEXT>
+                </CUS_LOCAL_BOX>
+                <PNS_DSP_PARAM_SETTINGS_BUTTON param_id="$script_input2$"/>
+            </COLUMN>
+        </ROW>
+        <!-- mix knob -->
+        <COLUMN font_size="15" spacing="3">
+            <PARAM_TEXT param_id="custom_param7" content="{name}"  width="100%" cursor="system::hand" font_weight="bold" fit_text="abbreviate"/>
+            <COLUMN spacing="-12">
+                <PNS_BLACK_VINTAGE_B_KNOB param_id="custom_param7" positions_count="101" image_scaling="1.2"/>
+                <PNS_DSP_PARAM_SETTINGS_BUTTON param_id="$script_input7$"/>
+            </COLUMN>
+            <PARAM_TEXT param_id="custom_param7" width="65" value_format=".0" content="{value} {unit}"/>
+        </COLUMN>
+        <!-- options -->
+        <ROW spacing="$local_spacing$">
+            <COLUMN>
+                <CUS_LOCAL_BOX font_size="17" layout_type="layer_stack">
+                    <COLUMN>
+                        <TEXT value="Trigger:" font_size="13"/>
+                        <PARAM_TEXT param_id="custom_param3" id="trigger_button_text" width="60"/>
+                    </COLUMN>
+                    <INVISIBLE_PARAM_BUTTON width="100%" height="100%" param_id="custom_param3" cursor="system::hand" positions_count="2"/>
+                    <PARAM_LINK from="custom_param3" to="trigger_button_text.opacity"  formula=".3+.7*x"/>
+                </CUS_LOCAL_BOX>
+                <PNS_DSP_PARAM_SETTINGS_BUTTON param_id="$script_input3$"/>
+            </COLUMN>
+            <COLUMN>
+                <CUS_LOCAL_BOX font_size="17">
+                    <COLUMN>
+                        <TEXT value="Mode:" font_size="13"/>
+                        <PARAM_TEXT param_id="custom_param4" width="75">
+                            <INVISIBLE_PARAM_MENU_BUTTON width="100%" height="100%" param_id="custom_param4" cursor="system::hand" positions_count="6"/>
+                        </PARAM_TEXT>
+                    </COLUMN>
+                </CUS_LOCAL_BOX>
+                <PNS_DSP_PARAM_SETTINGS_BUTTON param_id="$script_input4$"/>
+            </COLUMN>
+            <COLUMN>
+                <CUS_LOCAL_BOX font_size="17">
+                    <COLUMN>
+                        <TEXT value="Snap:" font_size="13"/>
+                        <PARAM_TEXT param_id="custom_param5" width="70">
+                            <INVISIBLE_PARAM_MENU_BUTTON width="100%" height="100%" param_id="custom_param5" cursor="system::hand" positions_count="3"/>
+                        </PARAM_TEXT>
+                    </COLUMN>
+                </CUS_LOCAL_BOX>
+                <PNS_DSP_PARAM_SETTINGS_BUTTON param_id="$script_input5$"/>
+            </COLUMN>
+            <COLUMN>
+                <CUS_LOCAL_BOX font_size="17" layout_type="layer_stack">
+                    <COLUMN>
+                        <TEXT value="Reverse:" font_size="13"/>
+                        <PARAM_TEXT param_id="custom_param6" id="reverse_button_text" width="60"/>
+                    </COLUMN>
+                    <INVISIBLE_PARAM_BUTTON width="100%" height="100%" param_id="custom_param6" cursor="system::hand" positions_count="2"/>
+                    <PARAM_LINK from="custom_param6" to="reverse_button_text.opacity"  formula=".3+.7*x"/>
+                </CUS_LOCAL_BOX>
+                <PNS_DSP_PARAM_SETTINGS_BUTTON param_id="$script_input6$"/>
+            </COLUMN>
+        </ROW>
+    </COLUMN>
+    
+    <!-- Rendering script -->
+    <SCRIPT script="
+    /*init colors from text values*/
+    string playColorString=&quot;$play_color$&quot;;
+    double play_r=double(parseInt(playColorString.substr(1,2),16))/255.0;
+    double play_g=double(parseInt(playColorString.substr(3,2),16))/255.0;
+    double play_b=double(parseInt(playColorString.substr(5,2),16))/255.0;
+    string recColorString=&quot;$rec_color$&quot;;
+    double rec_r=double(parseInt(recColorString.substr(1,2),16))/255.0;
+    double rec_g=double(parseInt(recColorString.substr(3,2),16))/255.0;
+    double rec_b=double(parseInt(recColorString.substr(5,2),16))/255.0;
+    
+    /*the render function*/      
+    void Render(double width,double height)
+    {
+      const double margin=.1*height;
+      const double meter_height=.5*(height-3*margin);
+      const double cursor_width=2;
+      
+      auto ctx=Kt::Graphics::GetCurrentContext();
+      double currentY=margin;
+      
+      /*play head*/
+      ctx.path.Clear();
+      ctx.path.Rectangle(margin,currentY,(width-2*margin),meter_height);
+      ctx.source.SetRGB(play_r*.2,play_g*.2,play_b*.2);
+      ctx.FillPath();
+      ctx.path.Clear();
+      ctx.path.Rectangle(margin,currentY,(width-2*margin)*play_length,meter_height);
+      ctx.source.SetRGB(play_r*.5,play_g*.5,play_b*.5);
+      ctx.FillPath();
+      ctx.path.Clear();
+      ctx.path.Rectangle(margin+(width-2*margin-cursor_width*.5)*play_head,currentY,cursor_width,meter_height);
+      ctx.source.SetRGB(.9,.9,.9);
+      ctx.FillPath();
+      currentY+=meter_height;
+            
+      /*spacing*/
+      currentY+=margin;
+      
+      /*record head*/
+      ctx.path.Clear();
+      ctx.path.Rectangle(margin,currentY,(width-2*margin),meter_height);
+      ctx.source.SetRGB(rec_r*.2,rec_g*.2,rec_b*.2);
+      ctx.FillPath();
+      ctx.path.Clear();
+      ctx.path.Rectangle(margin,currentY,(width-2*margin)*record_head,meter_height);
+      ctx.source.SetRGB(rec_r*.9,rec_g*.9,rec_b*.9);
+      ctx.FillPath();
+    }
+    "/>
+</SKIN>

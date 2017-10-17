@@ -15,6 +15,7 @@ DSP_EXPORT uint    audioInputsCount=0;
 */
 
 DSP_EXPORT string name="Mini Comp";
+DSP_EXPORT string author="Blue Cat Audio";
 DSP_EXPORT string description="mini compressor";
 
 /* Define our parameters.

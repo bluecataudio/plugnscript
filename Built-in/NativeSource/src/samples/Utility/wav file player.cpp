@@ -14,7 +14,8 @@ DSP_EXPORT string  userDocumentsPath=null;
 #include "../library/WaveFile.h"
 
 DSP_EXPORT string name="Wave File Player";
-DSP_EXPORT string description="plays a wave file from your Documents";
+DSP_EXPORT string author="Blue Cat Audio";
+DSP_EXPORT string description="Plays a wave file from your Documents";
 
 DSP_EXPORT array<string> inputStringsNames={"File Path"};
 DSP_EXPORT array<string> inputStrings(inputStringsNames.length);
@@ -144,7 +145,7 @@ DSP_EXPORT void updateInputParametersForBlock(const TransportInfo* transportInfo
         // generate file path (may be relative or absolute)
         filePath=fileName;
         bool converted=convertToUnix(filePath); // convert to unix-style path, supported on all platforms
-        if((filePath.find("/")!=0) && (filePath.find(":")!=std::string::npos) && converted) // check if relative path
+        if((filePath.find("/")!=0) && (filePath.find(":")==std::string::npos) && converted) // check if relative path
             filePath=userDocumentsPath+filePath;
         
         // open file and store the number of channels to play

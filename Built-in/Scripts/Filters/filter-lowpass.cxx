@@ -14,6 +14,7 @@
 array<string> inputParametersNames={"Frequency","Resonance"};
 array<double> inputParameters(inputParametersNames.length);
 array<double> inputParametersDefault={1,0};
+string name="LP Filter";
 
 /* Define our internal variables.
 *

@@ -8,7 +8,7 @@ DSP_EXPORT HostPrintFunc* hostPrint=null;
 
 /** \file
 *   MIDI log.
-*   Write the content of MIDI events to the log file.
+*   Writes the content of MIDI events to the log file.
 */
 
 #include "../library/Midi.h"
@@ -21,31 +21,42 @@ std::string consoleMessage;
 // internal functions----------------------
 void printEvent(const MidiEvent& evt)
 {
-    MidiEventType type=MidiEventUtils::getType(evt);
-    consoleMessage=MidiEventsTypes[type];
-    switch(type)
+    MidiEventType type = MidiEventUtils::getType(evt);
+    consoleMessage = MidiEventsTypes[type];
+    switch (type)
     {
-    case kMidiNoteOn:
-    case kMidiNoteOff:
+        case kMidiNoteOn:
+        case kMidiNoteOff:
         {
-            consoleMessage+=" " + std::to_string(MidiEventUtils::getNote(evt));
-            consoleMessage+=" Vel: " + std::to_string(MidiEventUtils::getNoteVelocity(evt));
+            consoleMessage += " " + std::to_string(MidiEventUtils::getNote(evt));
+            consoleMessage += " Vel: " + std::to_string(MidiEventUtils::getNoteVelocity(evt));
             break;
         }
-    case kMidiControlChange:
+        case kMidiControlChange:
         {
-            consoleMessage+=" " + std::to_string(MidiEventUtils::getCCNumber(evt));
-            consoleMessage+=" Val: " + std::to_string(MidiEventUtils::getCCValue(evt));
+            consoleMessage += " " + std::to_string(MidiEventUtils::getCCNumber(evt));
+            consoleMessage += " Val: " + std::to_string(MidiEventUtils::getCCValue(evt));
             break;
         }
-    case kMidiProgramChange:
+        case kMidiProgramChange:
         {
-            consoleMessage+=" " + std::to_string(MidiEventUtils::getProgram(evt));
+            consoleMessage += " " + std::to_string(MidiEventUtils::getProgram(evt));
             break;
         }
-    case kMidiPitchWheel:
+        case kMidiPitchWheel:
         {
-            consoleMessage+=" " + std::to_string(MidiEventUtils::getPitchWheelValue(evt));
+            consoleMessage += " " + std::to_string(MidiEventUtils::getPitchWheelValue(evt));
+            break;
+        }
+        case kMidiChannelAfterTouch:
+        {
+            consoleMessage += " Value: " + std::to_string(MidiEventUtils::getChannelAfterTouchValue(evt));
+            break;
+        }
+        case kMidiNoteAfterTouch:
+        {
+            consoleMessage += " " + std::to_string(MidiEventUtils::getNote(evt));
+            consoleMessage += " Value: " + std::to_string(MidiEventUtils::getNoteVelocity(evt));
             break;
         }
         default:
@@ -65,7 +76,8 @@ void printEvent(const MidiEvent& evt)
 
 // filter interface-------------------------
 DSP_EXPORT string name="MIDI Log";
-DSP_EXPORT string description="Logs incoming MIDI events";
+DSP_EXPORT string author="Blue Cat Audio";
+DSP_EXPORT string description="Writes the content of MIDI events to the log file";
 
 DSP_EXPORT bool initialize()
 {
@@ -74,6 +86,8 @@ DSP_EXPORT bool initialize()
     MidiEventsTypes[kMidiControlChange]="Control Change";
     MidiEventsTypes[kMidiProgramChange]="Program Change";
     MidiEventsTypes[kMidiPitchWheel]="Pitch Wheel";
+    MidiEventsTypes[kMidiNoteAfterTouch]="Note After Touch";
+    MidiEventsTypes[kMidiChannelAfterTouch]="Channel After Touch";
     return true;
 }
 

@@ -8,7 +8,8 @@ DSP_EXPORT uint    audioInputsCount=0;
 /** \file
 *   Apply selected gain (decibels) to audio input.
 */
-DSP_EXPORT string description="gain (dB)";
+DSP_EXPORT string name="Gain (dB)";
+DSP_EXPORT string author="Blue Cat Audio";
 
 /* Define our input parameters.
 */

@@ -11,6 +11,9 @@ DSP_EXPORT uint    audioInputsCount=0;
 /** \file
 *   Peaking filter (boost/cut).
 */
+DSP_EXPORT string name="Peak Filter";
+DSP_EXPORT string author="Blue Cat Audio";
+DSP_EXPORT string description="Boost/cut filter";
 
 /* include your dsp files.
 *

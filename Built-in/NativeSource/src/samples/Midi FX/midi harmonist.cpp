@@ -12,6 +12,7 @@
 
 // metadata
 DSP_EXPORT string name="MIDI Harmonizer";
+DSP_EXPORT string author="Blue Cat Audio";
 DSP_EXPORT string description="Adds transposed MIDI events based on selected major key";
 
 // parameters

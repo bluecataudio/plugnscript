@@ -10,6 +10,8 @@ DSP_EXPORT uint    audioInputsCount=0;
 *   Multichannel gain.
 *   Apply different gain to individual channels.
 */
+DSP_EXPORT string name="Multi Gain";
+DSP_EXPORT string author="Blue Cat Audio";
 DSP_EXPORT string description="multi channel gain";
 
 DSP_EXPORT array<string> inputParametersNames={};

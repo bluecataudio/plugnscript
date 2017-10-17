@@ -1,6 +1,6 @@
 /**
  *  C Helper structs and functions to build dsp scripts.
- *  Copyright (c) 2015 Blue Cat Audio. All rights reserved.
+ *  Copyright (c) 2015-2017 Blue Cat Audio. All rights reserved.
  */
 
 #ifndef _chelpers_h

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<SKIN h_margin="5">
+  <!-- Definitions -->
+  <VARIABLE id="GRAPH_COLOR" value="#55c4ff"/>
+  <VARIABLE id="GRAPH_FILL_COLOR" value="#327ca3"/>
+
+    <!-- the curve shows the evolution of the computed levels over time -->
+    <CURVE_FROM_PARAM_OVER_TIME id="envelope_curve" param_id="custom_out_param0" duration_ms="10000" refresh_time_ms="20"/>
+
+    <PNS_LCD_GROUP_BOX layout_type="column" spacing="10" h_margin="12" v_margin="12" text_color="#42aff6" font_size="12">
+        <!-- the graphs -->
+        <COLUMN>
+            <LAYER_STACK width="450" height="100" >
+            <GRID width="100%" height="100%" x_subdiv_count="1" y_subdiv_count="4" origin_color="#1b4358" subdiv_color="#072941" color="#0a3758" x_param_info_id="envelope_curve.x_info"  y_param_info_id="envelope_curve.y_info" x_positions_count="10" y_positions_count="3"/>
+                <CURVE_GRAPH width="100%" height="100%" curve_id="envelope_curve" color="$GRAPH_FILL_COLOR$" graph_style="filled" opacity="50%"/>
+                <CURVE_GRAPH width="100%" height="100%" curve_id="envelope_curve" color="$GRAPH_COLOR$" sample_rate="2" line_width="2"/>
+            </LAYER_STACK>
+            <LAYER_STACK width="450" height="100" >
+            <GRID width="100%" height="100%" x_subdiv_count="1" y_subdiv_count="4" origin_color="#1b4358" subdiv_color="#072941" color="#0a3758" x_param_info_id="envelope_curve.x_info"  y_param_info_id="envelope_curve.y_info" x_positions_count="10" y_positions_count="3" y_reverse="true"/>
+                <CURVE_GRAPH width="100%" height="100%" curve_id="envelope_curve" color="$GRAPH_FILL_COLOR$" graph_style="filled" opacity="30%" y_reverse="true"/>
+                <CURVE_GRAPH width="100%" height="100%" curve_id="envelope_curve" color="$GRAPH_COLOR$" y_reverse="true" opacity="50%" sample_rate="2" line_width="2"/>
+            </LAYER_STACK>
+        </COLUMN>
+
+        <ROW spacing="8">            
+            <!-- scale control -->
+            <LAYER_STACK>
+              <ROW spacing="0">
+                  <PNS_DROPDOWN_ARROW/>
+                  <PARAM_TEXT param_id="custom_param0" content="{name}: {text_value}" width="82" text_h_align="left"/>
+              </ROW>
+              <INVISIBLE_PARAM_MENU_BUTTON param_id="custom_param0" width="100%" height="100%" cursor="system::hand" positions_count="2"/>
+            </LAYER_STACK>
+            <!-- envelope decay control -->
+            <ROW spacing="3">
+                <PARAM_TEXT param_id="custom_param1" content="{name}:"  width="50" cursor="system::hand" text_h_align="right"/>
+                <COLUMN spacing="-8">
+                    <PNS_BLUE_FLAT_KNOB  param_id="custom_param1" image_scaling=".6"/>
+                    <CUS_INPUT_DSP_SETTINGS_BUTTON param_id="$script_input1$"/>
+                </COLUMN>
+                <PARAM_TEXT param_id="custom_param1" width="50" text_h_align="left"/>
+            </ROW>
+        </ROW>
+    </PNS_LCD_GROUP_BOX>
+</SKIN>

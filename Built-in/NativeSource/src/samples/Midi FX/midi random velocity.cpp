@@ -12,6 +12,7 @@
 
 // metadata
 DSP_EXPORT string name="MIDI Velocity Randomizer";
+DSP_EXPORT string author="Blue Cat Audio";
 DSP_EXPORT string description="Randomizes MIDI Note velocity by the selected amount";
 
 // parameters definition

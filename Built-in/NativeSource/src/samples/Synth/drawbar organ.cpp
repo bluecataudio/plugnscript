@@ -19,6 +19,7 @@ DSP_EXPORT uint    audioOutputsCount=0;
 // dsp script interface--------------------------
 
 DSP_EXPORT string name="Mini Drawbar Organ";
+DSP_EXPORT string author="Blue Cat Audio";
 DSP_EXPORT string description="Simple drawbar organ";
 
 DSP_EXPORT array<string> inputParametersNames={"Smooth", "Bar 1", "Bar 2", "Bar 3", "Bar 4" , "Bar 5", "Gain"};
@@ -235,6 +236,8 @@ void handleMidiEvent(const MidiEvent& evt)
                 }
             }
         }
+        default:
+            break;
     }
 }
 

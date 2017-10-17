@@ -17,6 +17,7 @@ DSP_EXPORT uint    audioInputsCount=0;
 
 DSP_EXPORT string name="Tremolo";
 DSP_EXPORT string description="tremolo effect";
+DSP_EXPORT string author="Blue Cat Audio";
 
 /* Define our parameters.
 */
@@ -24,10 +25,14 @@ DSP_EXPORT array<string>  inputParametersNames={"Rate","Mix"};
 DSP_EXPORT array<double> inputParameters(inputParametersNames.length);
 DSP_EXPORT array<double> inputParametersDefault={.5,.5,.6,.5};
 
+DSP_EXPORT array<string>  outputParametersNames={"Gain"};
+DSP_EXPORT array<double> outputParameters(outputParametersNames.length); 
+
 // internal variables
 double currentPhase=0;
 double omega=0;
 double mix=0;
+double coeff=0;
 
 // constants
 double maxOmega=0; // initialized in initialize because depends on sampleRate
@@ -45,7 +50,7 @@ DSP_EXPORT bool initialize()
 DSP_EXPORT void processSample(double ioSample[])
 {
     // compute amplitude value once
-    double coeff=.5*(1+sin(currentPhase));
+    coeff=.5*(1+sin(currentPhase));
     coeff=(1+(coeff-1)*mix); // apply dry-wet
 
     // multiply all channels
@@ -70,3 +75,9 @@ DSP_EXPORT void reset()
 {
     currentPhase=0;
 }
+
+DSP_EXPORT void computeOutputData()
+{
+    outputParameters[0]=coeff;
+}
+

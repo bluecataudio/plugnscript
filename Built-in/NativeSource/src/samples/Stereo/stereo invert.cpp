@@ -14,6 +14,7 @@ DSP_EXPORT HostPrintFunc* hostPrint=null;
 */
 
 DSP_EXPORT string name="Stereo Invert";
+DSP_EXPORT string author="Blue Cat Audio";
 DSP_EXPORT string description="Invert left and right channels";
 
 DSP_EXPORT bool initialize()

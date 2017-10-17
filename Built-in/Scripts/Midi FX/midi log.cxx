@@ -41,6 +41,17 @@ void printEvent(const MidiEvent& evt)
             consoleMessage+=" " + MidiEventUtils::getPitchWheelValue(evt);
             break;
         }
+    case kMidiChannelAfterTouch:
+        {
+            consoleMessage+=" Value: " + MidiEventUtils::getChannelAfterTouchValue(evt);
+            break;
+        }
+    case kMidiNoteAfterTouch:
+        {
+            consoleMessage+=" " + MidiEventUtils::getNote(evt);
+            consoleMessage+=" Value: " + MidiEventUtils::getNoteVelocity(evt);
+            break;
+        }
     }
     consoleMessage+=" on Ch.";
     consoleMessage+=MidiEventUtils::getChannel(evt);;
@@ -65,6 +76,8 @@ void initialize()
     MidiEventsTypes[kMidiControlChange]="Control Change";
     MidiEventsTypes[kMidiProgramChange]="Program Change";
     MidiEventsTypes[kMidiPitchWheel]="Pitch Wheel";
+    MidiEventsTypes[kMidiNoteAfterTouch]="Note After Touch";
+    MidiEventsTypes[kMidiChannelAfterTouch]="Channel After Touch";
 }
 
 void processBlock(BlockData& data)

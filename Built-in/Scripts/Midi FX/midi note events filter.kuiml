@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<SKIN author="Blue Cat Audio" margin="8" >
+  <TEXT value="Keeping only MIDI note events" font_size="13"/>
+</SKIN>

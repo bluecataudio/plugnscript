@@ -17,6 +17,7 @@ array<double> inputParametersMin={0,1};
 array<double> inputParametersMax={16,16};
 array<double> inputParametersDefault={0,1};
 array<int>    inputParametersSteps={17,16};
+array<string> inputParametersFormats={".0", ".0"} ;
 
 // local variables
 MidiEvent tempEvent; ///< defining temp object in the script to avoid allocations in time-critical processBlock function

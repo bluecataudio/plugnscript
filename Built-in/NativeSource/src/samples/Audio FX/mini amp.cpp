@@ -22,7 +22,8 @@ DSP_EXPORT uint    audioInputsCount=0;
 
 /* Script metadata.
 */
-DSP_EXPORT string name="Mini Amp";
+DSP_EXPORT string name="Mini Distortion";
+DSP_EXPORT string author="Blue Cat Audio";
 DSP_EXPORT string description="mini guitar amp";
 
 /* Define our parameters.

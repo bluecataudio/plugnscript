@@ -11,6 +11,9 @@ DSP_EXPORT uint    audioInputsCount=0;
 *   Simple 0dB clipping statistics display.
 */
 
+
+DSP_EXPORT string name="Clipping Stats";
+DSP_EXPORT string author="Blue Cat Audio";
 DSP_EXPORT string description="Counts Max nb of consecutive samples at 0+ dB";
 DSP_EXPORT array<string> outputParametersNames={};
 DSP_EXPORT array<double> outputParameters={};

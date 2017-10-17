@@ -13,6 +13,7 @@
 */
 array<string> inputParametersNames={"Frequency","Resonance"};
 array<double> inputParameters(inputParametersNames.length);
+string name="HP Filter";
 
 /* Define our internal variables.
 *

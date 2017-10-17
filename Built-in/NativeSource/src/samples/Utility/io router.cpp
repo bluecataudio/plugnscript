@@ -18,7 +18,8 @@ DSP_EXPORT uint    auxAudioOutputsCount = 0;
 #include <string>
 
 // metadata
-DSP_EXPORT string name = "i/o router";
+DSP_EXPORT string name = "I/O Router";
+DSP_EXPORT string author="Blue Cat Audio";
 DSP_EXPORT string description = "Select source for each audio output";
 
 // parameters definition: each parameter correponds to an audio output and lets you choose an input channel

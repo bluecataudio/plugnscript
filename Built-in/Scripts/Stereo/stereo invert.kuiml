@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<SKIN author="Blue Cat Audio" margin="8">
+  <!-- enum param for text display-->
+  <PARAM id="text_param" type="enumeration" enum_values="L/R>L/R;L/R>R/L"/>
+  <PARAM_LINK from="$bypass$" to="text_param" reverse="true"/>
+
+  <!-- Controls -->
+  <PNS_FILLED_GROUP_BOX layout_type="layer_stack" v_margin="1" h_margin="10" opacity="1" id="main_text">
+    <PARAM_TEXT param_id="text_param" font_size="95" content="{text_value}" width="380"/>
+     <PARAM_LINK from="$bypass$" to="main_text.opacity" formula="1-.7*x"/>
+    <INVISIBLE_PARAM_BUTTON param_id="$bypass$" width="100%" height="100%" cursor="system::hand">
+        <TOOLTIP text="Click to switch on/off"/>
+    </INVISIBLE_PARAM_BUTTON>
+  </PNS_FILLED_GROUP_BOX>
+</SKIN>

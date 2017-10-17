@@ -3,7 +3,7 @@
 *  Simple wave file utilities for angelscript.
 * 
 *  Created by Blue Cat Audio <services@bluecataudio.com>
-*  \copyright 2014 Blue Cat Audio. All rights reserved.
+*  \copyright 2014-2016 Blue Cat Audio. All rights reserved.
 *
 *  Supports most 8/16/24/32/64-bit wave files but probably not all.
 *  
@@ -482,14 +482,14 @@ class WaveFileHeader
     {
         bool ok=false;
         string tempString;
-        f.readString(4,tempString);
+        tempString=f.readString(4);
         if(tempString=="RIFF")
         {
             int64 size=f.readUInt(4);
-            f.readString(4,tempString);
+            tempString=f.readString(4);
             if(tempString=="WAVE")
             {
-                f.readString(4,tempString);
+                tempString=f.readString(4);
                 if(tempString=="fmt ")
                 {
                     uint64 fmtSize = f.readUInt(4);
@@ -508,12 +508,12 @@ class WaveFileHeader
                             f.movePos(dataOffset);
 
                             // looking for data subchunk => skipping all others 
-                            f.readString(4,tempString); // data id
+                            tempString=f.readString(4); // data id
                             while(tempString!="data" && !f.isEndOfFile())
                             {
                                 uint64 dataSize = f.readUInt(4);
                                 f.movePos(dataSize);        // skip junk data
-                                f.readString(4,tempString); // read next chunk id
+                                tempString=f.readString(4); // read next chunk id
                             }
                             if(tempString=="data")
                             {

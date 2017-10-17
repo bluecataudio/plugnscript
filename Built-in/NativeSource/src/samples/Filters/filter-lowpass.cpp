@@ -11,6 +11,9 @@ DSP_EXPORT uint    audioInputsCount=0;
 /** \file
 *   Lowpass filter with resonance control.
 */
+DSP_EXPORT string name="LP Filter";
+DSP_EXPORT string author="Blue Cat Audio";
+DSP_EXPORT string description="Resonant low pass filter";
 
 /* include your dsp files.
 *

@@ -17,6 +17,7 @@ array<double> inputParametersMin={0};
 array<double> inputParametersMax={16};
 array<double> inputParametersDefault={0};
 array<int> inputParametersSteps={17};
+array<string> inputParametersFormats={".0"};
 
 /* per-block processing function: called for every block with updated parameters values.
 *

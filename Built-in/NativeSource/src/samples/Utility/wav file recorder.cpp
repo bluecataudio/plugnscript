@@ -15,6 +15,7 @@ DSP_EXPORT double  sampleRate=0;
 #include "../library/WaveFile.h"
 
 DSP_EXPORT string name="Wave file recorder";
+DSP_EXPORT string author="Blue Cat Audio";
 DSP_EXPORT string description="Records audio files to your documents folder";
 
 DSP_EXPORT array<string> inputStringsNames={"File Path"};
@@ -111,40 +112,41 @@ DSP_EXPORT void updateInputParametersForBlock(const TransportInfo* transportInfo
 	}
 
 	// if recording started -> open new file with appropriate bit depth and name
-	if (!wasRecording && recording)
-	{
-		wavWriter.header.bytesPerSample = int(inputParameters[2] + .5);
-		if (wavWriter.header.bytesPerSample == 5)
-			wavWriter.header.bytesPerSample = 8;
-		// generate file name    
-		fileName = userDocumentsPath;
-		if (inputStrings[0] != null && strlen(inputStrings[0]) != 0)
-			// generate file path (may be relative or absolute)
-			fileName = inputStrings[0];
-		bool converted = convertToUnix(fileName); // convert to unix-style path, supported on all platforms
-		if ((fileName.find("/") != 0) && (fileName.find(":") < 0) && converted) // check if relative path
-			fileName = userDocumentsPath + fileName;
-	}
-	else
-	{
-		fileName = userDocumentsPath;
-		fileName += "audio-capture";
-	}
-	int extensionIndex = int(fileName.length()) - 4;
-	if (fileName.rfind(".wav") == extensionIndex)
-	{
-		fileName.erase(extensionIndex,std::string::npos);
-	}
-	if (filesCount > 1)
-		fileName += std::to_string(fileIndex + 1);
-	fileName += ".wav";
+    if (!wasRecording && recording)
+    {
+        wavWriter.header.bytesPerSample = int(inputParameters[2] + .5);
+        if (wavWriter.header.bytesPerSample == 5)
+            wavWriter.header.bytesPerSample = 8;
+        // generate file name    
+        if (inputStrings[0] != null && strlen(inputStrings[0]) != 0)
+        {
+            // generate file path (may be relative or absolute)
+            fileName = inputStrings[0];
+            bool converted = convertToUnix(fileName); // convert to unix-style path, supported on all platforms
+            if((fileName.find("/")!=0) && (fileName.find(":")==std::string::npos) && converted) // check if relative path
+                fileName = userDocumentsPath + fileName;
+        }
+        else
+        {
+            fileName = userDocumentsPath;
+            fileName += "audio-capture";
+        }
+        int extensionIndex = int(fileName.length()) - 4;
+        if (fileName.rfind(".wav") == extensionIndex)
+        {
+            fileName.erase(extensionIndex, std::string::npos);
+        }
+        if (filesCount > 1)
+            fileName += std::to_string(fileIndex + 1);
+        fileName += ".wav";
 
-	// open file
-	wavWriter.openFile(fileName);
+        // open file
+        wavWriter.openFile(fileName);
 
-	// update current file index       
-	fileIndex++;
-	fileIndex %= filesCount;
+        // update current file index       
+        fileIndex++;
+        fileIndex %= filesCount;
+    }
 }
 
 DSP_EXPORT void computeOutputData()

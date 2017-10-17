@@ -8,6 +8,7 @@
 */
 
 DSP_EXPORT string name="Latency Reporter";
+DSP_EXPORT string author="Blue Cat Audio";
 DSP_EXPORT string description="Reports chosen latency to host";
 
 DSP_EXPORT array<string> inputParametersNames={"Latency"};
@@ -17,6 +18,7 @@ DSP_EXPORT array<double> inputParametersMax={1024};
 DSP_EXPORT array<double> inputParametersDefault={0};
 DSP_EXPORT array<int>    inputParametersSteps={1025};
 DSP_EXPORT array<double> inputParameters(inputParametersNames.length);
+DSP_EXPORT array<string> inputParametersFormats={".0"};
 
 DSP_EXPORT int getLatency()
 {

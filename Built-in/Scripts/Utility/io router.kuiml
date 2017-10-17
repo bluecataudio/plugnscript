@@ -1,0 +1,21 @@
+<SKIN>
+  <!-- Controls -->
+  <COLUMN spacing="4">
+  <TEXT font_size="12" value="Select source for each audio output:"/>
+    <REPEAT count="$PLUGIN_AUDIO_OUTPUTS_COUNT$">
+      <ROW spacing="2" id="param_box$index$">
+        <PNS_FILLED_GROUP_BOX font_size="20" width="200" layout_type="layer_stack" opacity="90%">
+          <PARAM_TEXT param_id="custom_param$index$" width="100%" auto_size="false" content="{name}: {text_value}"/>
+          <INVISIBLE_PARAM_MENU_BUTTON param_id="custom_param$index$" width="100%" height="100%" cursor="system::hand" id="dropdown$index$"/>
+          <PARAM_LINK from="$script_input_param$index$_steps$" to="dropdown$index$.positions_count"/>
+          <PARAM_LINK from="dsp.connected_outputs_count" to="param_box$index$.display" formula="$index$&lt;x"/>
+        </PNS_FILLED_GROUP_BOX>
+          <LAYER_STACK h_margin="6" id="$script_input$index$$_settings_box">
+            <TEXT value="+" font_size="20"/>
+            <INVISIBLE_ACTION_BUTTON action_id="Show_$script_input$index$$_ControlSetup" cursor="system::hand" width="100%" height="100%"/>
+          </LAYER_STACK>
+          <PARAM_LINK from="theme.show_settings" to="$script_input$index$$_settings_box.display"/>
+      </ROW>
+    </REPEAT>
+  </COLUMN>
+</SKIN> 

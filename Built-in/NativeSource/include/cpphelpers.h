@@ -1,6 +1,6 @@
 /**
  *  C++ Helper classes and for angelscript compatibility.
- *  Copyright (c) 2015 Blue Cat Audio. All rights reserved.
+ *  Copyright (c) 2015-2017 Blue Cat Audio. All rights reserved.
  */
 
 #ifndef _cpphelpers_h

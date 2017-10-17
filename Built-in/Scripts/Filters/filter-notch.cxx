@@ -14,6 +14,7 @@
 array<string> inputParametersNames={"Frequency","Bandwidth"};
 array<double> inputParameters(inputParametersNames.length);
 array<double> inputParametersDefault={.5,0};
+string name="Notch Filter";
 
 /* Define our internal variables.
 *

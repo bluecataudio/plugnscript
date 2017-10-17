@@ -49,10 +49,13 @@ DSP_EXPORT void handleMidiEvent(const MidiEvent& evt)
             omega=2*PI*pow(2,((double(currentNote-69.0)+currentPitchOffset)/12.0))*440.0/sampleRate;
             break;
         }
+    default:
+        break;
     }
 }
 
 DSP_EXPORT string name="Mono Sin Synth";
+DSP_EXPORT string author="Blue Cat Audio";
 DSP_EXPORT string description="Simple monophonic sine wave synth";
 
 MidiEvent tempEvent;

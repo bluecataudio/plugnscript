@@ -11,6 +11,7 @@
 
 // metadata
 DSP_EXPORT string name="MIDI Channel Changer";
+DSP_EXPORT string author="Blue Cat Audio";
 DSP_EXPORT string description="Change channel for events (use 0 for omni)";
 
 // parameters
@@ -21,6 +22,7 @@ DSP_EXPORT array<double> inputParametersMin={0,1};
 DSP_EXPORT array<double> inputParametersMax={16,16};
 DSP_EXPORT array<double> inputParametersDefault={0,1};
 DSP_EXPORT array<int>    inputParametersSteps={17,16};
+DSP_EXPORT array<string> inputParametersFormats={".0",".0"};
 
 // local variables
 MidiEvent tempEvent; ///< defining temp object in the script to avoid allocations in time-critical processBlock function

@@ -15,6 +15,7 @@ DSP_EXPORT uint    audioInputsCount = 0;
 #include <math.h>
 
 DSP_EXPORT string name="Mini Comp SC";
+DSP_EXPORT string author="Blue Cat Audio";
 DSP_EXPORT string description="mini side chain compressor";
 
 /* Define our parameters.

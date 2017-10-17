@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<SKIN>
+    <!-- definitions -->
+    <DEFINE>
+      <CUS_MONITOR_GROUP_BOX base_type="PNS_FILLED_GROUP_BOX" opacity="100%"/>
+    </DEFINE>
+    <VARIABLE id="local_spacing" value="4"/>
+    <!-- Controls -->
+        <PNS_PLAIN_GROUP_BOX spacing="$local_spacing$" layout_type="column" h_margin="10" v_margin="10">
+            <!-- Time signature and Tempo-->
+            <ROW spacing="$local_spacing$">
+                <CUS_MONITOR_GROUP_BOX font_size="35">
+                    <WIDGET id="signature_text" layout_type="row">
+                        <PARAM_TEXT param_id="custom_out_param1" value_format=".0" content="{value}" width="60"/>
+                        <TEXT value=" / "/>
+                        <PARAM_TEXT param_id="custom_out_param2" value_format=".0" content="{value}" width="60"/>
+                    </WIDGET>
+                    <PARAM_LINK from="custom_out_param1" to="signature_text.opacity" formula="x&gt;.5"/>
+                </CUS_MONITOR_GROUP_BOX>
+                <CUS_MONITOR_GROUP_BOX  font_size="35">
+                    <PARAM_TEXT param_id="custom_out_param0" value_format=".0" content="{value} BPM" width="150"/>
+                </CUS_MONITOR_GROUP_BOX>
+            </ROW>
+            <!-- Current position in measure -->
+            <ROW spacing="3" width="100%">
+                <!-- supporting up to 12 beats-->
+                <REPEAT start="1" count="12">
+                    <WIDGET id="beat$index$" flex="1">
+                        <CUS_MONITOR_GROUP_BOX font_size="12" width="100%" h_margin="0" v_margin="3">
+                            <TEXT value="$index$" width="100%" id="beat$index$_text"/>
+                        </CUS_MONITOR_GROUP_BOX>
+                    </WIDGET>
+                    <PARAM_LINK from="custom_out_param1" to="beat$index$.display" formula="(x>=$index$)||(x==0)"/>
+                    <PARAM_LINK from="custom_out_param3" to="beat$index$.opacity" formula=".4+.6*((x>=$index$)||(x==0))"/>
+                    <PARAM_LINK from="custom_out_param3" to="beat$index$_text.visible" formula="(x>=$index$)||(x==0)"/>
+                </REPEAT>
+            </ROW>
+            <!-- Current time -->
+            <CUS_MONITOR_GROUP_BOX width="100%" font_size="35" layout_type="layer_stack" h_margin="4">
+                <INVISIBLE_PARAM_BUTTON width="100%" height="100%" param_id="format_select" cursor="system::hand">
+                  <TOOLTIP text="Click to toggle display mode"/>
+                </INVISIBLE_PARAM_BUTTON>
+                <LAYER_STACK v_margin="10">
+                    <ROW id="hms_format" display="false" spacing="8">
+                        <FORMULA_PARAM id="time.hours" formula="floor(custom_out_param7/3600)" value_format="02.0" unit="h"/>
+                        <FORMULA_PARAM id="time.minutes" formula="floor((custom_out_param7-time.hours*3600)/60)" value_format="02.0"  unit="m"/>
+                        <FORMULA_PARAM id="time.seconds" formula="(custom_out_param7-time.hours*3600-time.minutes*60)" value_format="06.3" unit="s"/>
+                        <PARAM_TEXT param_id="time.hours" text_h_align="right"/>
+                        <PARAM_TEXT param_id="time.minutes" text_h_align="right"/>
+                        <PARAM_TEXT param_id="time.seconds" text_h_align="right"/>
+                    </ROW>
+                    <ROW id="measure_format" display="false" spacing="4">
+                        <!-- flooring with 1/1000th precision because of conversions that may result in inexact values-->
+                        <FORMULA_PARAM id="time.measure" formula="1+floor((max(custom_out_param8,1)-1+.001)/max(custom_out_param1,1))" value_format="004.0"/>
+                        <FORMULA_PARAM id="time.beat" formula="floor(custom_out_param8-max(time.measure-1,0)*custom_out_param1+.001)" value_format="02.0"/>
+                        <FORMULA_PARAM id="time.beat_digits" formula="floor(((custom_out_param8-max(time.measure-1,0)*custom_out_param1+.001)-time.beat)*1000)" value_format="03.0"/>
+                        <PARAM_TEXT param_id="time.measure" text_h_align="right"/>
+                        <TEXT value=": "/>
+                        <PARAM_TEXT param_id="time.beat" text_h_align="right" content="{text_value}"/>
+                        <TEXT value="."/>
+                        <PARAM_TEXT param_id="time.beat_digits" text_h_align="right"/>
+                    </ROW>
+                    <ROW id="beats_format" display="false" spacing="4">
+                        <!-- flooring with 1/1000th precision because of conversions that may result in inexact values-->
+                        <FORMULA_PARAM id="time.beats" formula="floor(custom_out_param8+.001)" value_format="010.0"/>
+                        <FORMULA_PARAM id="time.beats_digits" formula="floor((custom_out_param8+.001-time.beats)*1000)" value_format="03.0"/>
+                        <PARAM_TEXT param_id="time.beats" text_h_align="right" content="{text_value}"/>
+                        <TEXT value="."/>
+                        <PARAM_TEXT param_id="time.beats_digits" text_h_align="right"/>
+                    </ROW>
+                </LAYER_STACK>
+                <!-- selection button -->
+                <ROW font_size="12"  h_align="right" v_align="bottom" >
+                    <PARAM_TEXT param_id="format_select" width="60" text_h_align="right"/>
+                    <IMAGE_PARAM_MENU_BUTTON image="arrow_down_flat.png" image_mouse_mask="" param_id="format_select" cursor="system::hand"/>
+                </ROW>
+                <PARAM id="format_select" type="enumeration" enum_values="H:M:S;M:B;Beats" persistent="true"/>
+                <PARAM_LINK from="format_select" to="hms_format.display"  formula="x==0"/>
+                <PARAM_LINK from="format_select" to="measure_format.display" formula="x==1"/>
+                <PARAM_LINK from="format_select" to="beats_format.display" formula="x==2"/>
+            </CUS_MONITOR_GROUP_BOX>
+            <!-- Playback/Record/Loop status-->
+            <ROW spacing="$local_spacing$" width="100%">
+                <CUS_MONITOR_GROUP_BOX font_size="30" flex="1">
+                    <TEXT value="PLAY" id="play_text"/>
+                    <PARAM_LINK from="custom_out_param4" to="play_text.opacity" formula=".1+.9*x"/>
+                </CUS_MONITOR_GROUP_BOX>
+                <CUS_MONITOR_GROUP_BOX font_size="30" flex="1">
+                    <TEXT value="REC" id="rec_text"/>
+                    <PARAM_LINK from="custom_out_param5" to="rec_text.opacity" formula=".1+.9*x"/>
+                </CUS_MONITOR_GROUP_BOX>
+                <CUS_MONITOR_GROUP_BOX font_size="30"  flex="1">
+                    <TEXT value="LOOP" id="loop_text"/>
+                    <PARAM_LINK from="custom_out_param6" to="loop_text.opacity" formula=".1+.9*x"/>
+                </CUS_MONITOR_GROUP_BOX>
+            </ROW>
+        </PNS_PLAIN_GROUP_BOX>
+</SKIN>

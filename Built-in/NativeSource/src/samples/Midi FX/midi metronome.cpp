@@ -15,6 +15,7 @@ DSP_EXPORT double  sampleRate=0;
 
 //metadata
 DSP_EXPORT string name="MIDI Metronome";
+DSP_EXPORT string author="Blue Cat Audio";
 DSP_EXPORT string description="Sends midi events on beats";
 
 // parameters definition
@@ -28,6 +29,7 @@ DSP_EXPORT array<double> inputParametersMax={127,127,127,127};
 DSP_EXPORT array<double> inputParametersDefault={69,50,127,100,.5};
 DSP_EXPORT array<int>    inputParametersSteps={128,128,128,128};
 DSP_EXPORT array<string> inputParametersEnums={midiNotes,midiNotes};
+DSP_EXPORT array<string> inputParametersFormats={"","",".0",".0"};
 
 // internal variables
 MidiEvent   noteOnEvent;

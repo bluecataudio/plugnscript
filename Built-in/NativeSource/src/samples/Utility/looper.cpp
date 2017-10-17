@@ -12,6 +12,7 @@ DSP_EXPORT uint    audioInputsCount = 0;
 DSP_EXPORT double  sampleRate = 0;
 
 DSP_EXPORT string name="Looper";
+DSP_EXPORT string author="Blue Cat Audio";
 
 /* Parameters Description.
  */

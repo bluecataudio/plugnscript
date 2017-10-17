@@ -21,6 +21,8 @@ enum MidiEventType
     kMidiControlChange, ///< Control Change Event (CC)
     kMidiProgramChange, ///< Program Change Event
     kMidiPitchWheel,  ///< Picth Wheel Event
+    kMidiNoteAfterTouch,  ///< Note after touch
+    kMidiChannelAfterTouch, ///< Channel after touch
     kUnknown ///< Other Events
 };
 
@@ -55,6 +57,12 @@ namespace MidiEventUtils
             case 0xE0:
                 type=kMidiPitchWheel;
                 break;
+            case 0xA0:
+                type=kMidiNoteAfterTouch;
+                break;
+            case 0xD0:
+                type=kMidiChannelAfterTouch;
+                break;
         }
         return type;
     }
@@ -80,6 +88,12 @@ namespace MidiEventUtils
                 break;
             case kMidiPitchWheel:
                 evt.byte0=0xE0|(evt.byte0 & 0x0F);
+                break;
+            case kMidiNoteAfterTouch:
+                evt.byte0=0xA0|(evt.byte0 & 0x0F);
+                break;
+            case kMidiChannelAfterTouch:
+                evt.byte0=0xD0|(evt.byte0 & 0x0F);
                 break;
             default:
                 break;
@@ -199,6 +213,22 @@ namespace MidiEventUtils
         int midiValue=value+64*128;
         evt.byte1=midiValue&0x7F;
         evt.byte2=(midiValue/128)&0x7F;
+    }
+
+    /** For a channel after touch event, gets the after touch value (0-127)
+    *
+    */
+    int  getChannelAfterTouchValue(const MidiEvent&  evt)
+    {
+        return evt.byte1&0x7F;
+    }
+
+    /** For a channel after touch event, sets the after touch value (0-127)
+    *
+    */
+    void  setChannelAfterTouchValue(MidiEvent& evt, int value)
+    {
+        evt.byte1=(value&0x7F);;
     }
 #ifdef __cplusplus
 }

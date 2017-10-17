@@ -16,6 +16,7 @@ DSP_EXPORT uint    audioOutputsCount=0;
 
 // metadata
 DSP_EXPORT string name="Multi Channel Swapper";
+DSP_EXPORT string author="Blue Cat Audio";
 DSP_EXPORT string description="Select source channel for each audio output";
 
 // parameters definition: each parameter correponds to an audio output and lets you choose an input channel

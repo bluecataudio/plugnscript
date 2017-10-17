@@ -10,6 +10,7 @@ DSP_EXPORT uint    audioInputsCount = 0;
 DSP_EXPORT uint    auxAudioInputsCount = 0;
 
 DSP_EXPORT string name="Side Chain A/B";
+DSP_EXPORT string author="Blue Cat Audio";
 DSP_EXPORT string description="A/B with Side Chain Signal";
 
 DSP_EXPORT array<string> inputParametersNames={"Source"};

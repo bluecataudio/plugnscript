@@ -18,6 +18,7 @@ DSP_EXPORT uint    audioOutputsCount=0;
 // dsp script interface--------------------------
 
 DSP_EXPORT string name="Minimal Polyphonic Sin Synth";
+DSP_EXPORT string author="Blue Cat Audio";
 DSP_EXPORT string description="Simple sine wave synth (multiple voices)";
 
 DSP_EXPORT array<string> inputParametersNames={"Smooth","Gain"};
@@ -217,6 +218,8 @@ void handleMidiEvent(const MidiEvent& evt)
                 }
             }
         }
+        default:
+            break;
     }
 }
 

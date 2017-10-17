@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<SKIN v_margin="8" h_margin="12">
+ <VARIABLE id="local_spacing" value="8"/>
+    <DEFINE>
+      <CUS_LOCAL_BOX base_type="PNS_FILLED_GROUP_BOX" opacity="1" margin="4"/>
+    </DEFINE>
+      <!-- Controls -->
+    <COLUMN spacing="$local_spacing$">
+        <!-- File path -->
+        <ROW spacing="$local_spacing$">
+            <CUS_LOCAL_BOX font_size="16">
+                <ROW spacing="4" width="350">
+                    <TEXT value="File:" text_h_align="left" font_weight="bold"/>
+                    <TEXT_EDIT_BOX string_id="$script_input_string0$" background_color="#182f41" show_edges="false" flex="2" height="100%" font_size="15"/>
+                    <TEXT value="... " height="100%" font_weight="bold">
+                        <INVISIBLE_ACTION_BUTTON width="100%" height="100%" action_id="FileSaveDialog" cursor="system::hand"/>
+                        <ACTION id="FileSaveDialog" type="DisplayFileSaveDialog" file_path_string_id="$script_input_string0$" root_path="$_USER_DOCUMENTS_PATH_$" file_types="*.wav"/>
+                    </TEXT>
+                </ROW>
+            </CUS_LOCAL_BOX>
+        </ROW>
+        <!-- Playback/Record/Loop status-->
+        <COLUMN width="100%" spacing="2">
+          <ROW spacing="$local_spacing$" width="100%">
+              <CELL flex="1">
+                  <CUS_LOCAL_BOX font_size="25" width="100%" layout_type="layer_stack">
+                      <PARAM_TEXT param_id="custom_param0" width="100%" layout_type="layer_stack">
+                          <INVISIBLE_PARAM_MENU_BUTTON param_id="custom_param0" width="100%" height="100%" cursor="system::hand" positions_count="4" id="play_button"/>
+                      </PARAM_TEXT>
+                      <PNS_DROPDOWN_ARROW h_align="right" v_offset="2" image_scaling="1.2"/>
+                  </CUS_LOCAL_BOX>
+              </CELL>
+              <PNS_RED_LED param_id="custom_out_param0"/>
+              <CELL flex="1">
+                  <CUS_LOCAL_BOX font_size="25" width="100%">
+                      <PARAM_TEXT param_id="custom_out_param0" width="100%"/>
+                  </CUS_LOCAL_BOX>
+              </CELL>
+          </ROW>
+          <ROW spacing="$local_spacing$" width="100%">
+              <TEXT width="0" flex="1" value="rec"/>
+              <CELL width="20"/>
+              <TEXT width="0" flex="1" value="status"/>
+          </ROW>
+        </COLUMN>
+        <CELL height="-15"/>
+      <!-- Volume Control -->
+        <COLUMN font_size="15" spacing="3">
+            <PARAM_TEXT font_size="17" param_id="custom_param3" content="{name}"  width="100%" font_weight="bold" fit_text="abbreviate"/>
+            <COLUMN spacing="-12">
+                <PNS_BLACK_PINK_MODERN_KNOB param_id="custom_param3" positions_count="101" image_scaling="1.2"/>
+                <PNS_DSP_PARAM_SETTINGS_BUTTON param_id="$script_input3$"/>
+            </COLUMN>
+             <PARAM_TEXT param_id="custom_param3" width="65" value_format=".0" content="{value} {unit}"/>
+       </COLUMN>
+       <!-- Recording Options -->
+      <ROW spacing="$local_spacing$" width="100%">
+          <CELL flex="1">
+              <CUS_LOCAL_BOX font_size="20" width="100%" layout_type="layer_stack">
+                  <PARAM_TEXT param_id="custom_param1" width="100%" auto_size="false" layout_type="layer_stack" content="{value} {unit}" value_format=".0" >
+                      <INVISIBLE_PARAM_MENU_BUTTON param_id="custom_param1" width="100%" height="100%" cursor="system::hand" positions_count="20" id="rot_button" content="{value} {unit}" value_format=".0" >
+                          <PARAM_TOOLTIP param_id="custom_param1" content="{name}"/>
+                      </INVISIBLE_PARAM_MENU_BUTTON>
+                  </PARAM_TEXT>
+                  <PNS_DROPDOWN_ARROW h_align="right" v_offset="2" image_scaling="1.2"/>
+              </CUS_LOCAL_BOX>
+          </CELL>
+          <CELL width="10"/>
+          <CELL flex="1">
+              <CUS_LOCAL_BOX font_size="20" width="100%" layout_type="layer_stack">
+                  <PARAM_TEXT param_id="custom_param2" width="100%" auto_size="false" layout_type="layer_stack">
+                      <INVISIBLE_PARAM_MENU_BUTTON param_id="custom_param2" width="100%" height="100%" cursor="system::hand" positions_count="5" id="depth_button">
+                      <PARAM_TOOLTIP param_id="custom_param2" content="{name}"/>
+                  </INVISIBLE_PARAM_MENU_BUTTON>
+                  </PARAM_TEXT>
+                  <PNS_DROPDOWN_ARROW h_align="right" v_offset="2" image_scaling="1.2"/>
+              </CUS_LOCAL_BOX>
+          </CELL>
+      </ROW>
+  </COLUMN>
+</SKIN>

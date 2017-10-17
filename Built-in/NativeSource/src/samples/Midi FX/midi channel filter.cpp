@@ -11,6 +11,7 @@
 
 // metadata
 DSP_EXPORT string name="MIDI Channel Filter";
+DSP_EXPORT string author="Blue Cat Audio";
 DSP_EXPORT string description="Filters events on channel (use 0 for omni)";
 
 // parameters
@@ -21,6 +22,7 @@ DSP_EXPORT array<double> inputParametersMin={0};
 DSP_EXPORT array<double> inputParametersMax={16};
 DSP_EXPORT array<double> inputParametersDefault={0};
 DSP_EXPORT array<int> inputParametersSteps={17};
+DSP_EXPORT array<string> inputParametersFormats={".0"};
 
 /* per-block processing function: called for every block with updated parameters values.
 *
