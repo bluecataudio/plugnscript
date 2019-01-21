@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+//////////////////////////////////////
+// KUIML Formulas viewer
+// written by Ilya Orlov (LetiMix) 
+// https://www.youtube.com/channel/UCbS0EpAZytfizVvysUluEHQ
+// St. Petersburg, Russia, 2019
+//
+// The original purpose of this script was to see 
+// how sinc and window functions look like, how they differ
+// and how they interact with each other. 
+// This script can be useful for learning FFT and FIR filters design.
+// 
+// As KUIML is so cool, you can use it for viewing and comparing many other formulas.
+//
+// It is the first version, which loads all formulas into one FORMULA_CURVE element,
+// which has some limitations:
+// - formulas containing log() affect other formulas (so add log() with caution)
+// - all the formulas are computed all the time the parameters change
+//////////////////////////////////////
+-->
+<SKIN layout_type="column" h_margin="8" v_margin="2">
+  <!-- shortcut for variable -->
+  <DEFINE><VAR base_type="VARIABLE" /></DEFINE>
+
+  <!-- template to add formulas -->
+  <VAR id="FNUM" value="1" override="true" /> <!-- used as enumerator -->
+  <TEMPLATE id="FORMULA" name="#undefined#" value="#undefined#">
+    <VAR id="ft$FNUM$" value="$name$" />
+    <VAR id="f$FNUM$" value="$value$" />
+    <VAR id="FNUM" formula="$FNUM$+1" override="true" /> <!-- increase enumerator -->
+  </TEMPLATE>
+
+  <!-- ADD FORMULAS HERE -->
+
+  <FORMULA name="sin(x)/x scaled with fc" value="sin(2*pi*x*(fc/fs))/(2*pi*x*(fc/fs))" />
+  <FORMULA name="Hann window" value="0.5*(1-cos(2*pi*x/(N-1)))" />
+  <FORMULA name="Hamming window" value="0.54-0.46*cos((2*pi*x)/(N-1))" />
+  <FORMULA name="Bartlett-Hann window" value="0.62-0.48*abs(x/(N-1)-0.5)-0.38*cos(6.283185307179586*(x/(N-1)))" />
+  <FORMULA name="Bartlett window" value="1-abs(2*(x-0.5*(N-1))/(N-1))" />
+  <FORMULA name="Triangular window" value="1-abs(2*(x-0.5*(N-1))/N)" />
+  <FORMULA name="Blackman window" value="0.42-0.5*cos(2*pi*x/(N-1))+0.08*cos(4*pi*x/(N-1))" />
+  <FORMULA name="Exact Blackman window" value="0.42659-0.49656*cos(2*pi*x/(N-1))+0.076849*cos(4*pi*x/(N-1))" />
+  <FORMULA name="Blackman-Harris window" value="0.35875-0.48829*cos(2*pi*x/(N-1))+0.14128*cos(4*pi*x/(N-1))-0.01168*cos(6*pi*x/(N-1))" />
+  <FORMULA name="Cosine window" value="sin(pi*x/(N-1))" />
+  <FORMULA name="Flat Top window" value="1-1.93*cos(2*pi*x/(N-1))+1.29*cos(4*pi*x/(N-1))-0.388*cos(6*pi*x/(N-1))+0.028 *cos(8*pi*x/(N-1))" />
+  <FORMULA name="Nuttall window" value="0.355768-0.487396*cos(2*pi*x/(N-1))+0.144232*cos(4*pi*x/(N-1))-0.012604*cos(6*pi*x/(N-1))" />
+
+  <!-- 
+  <FORMULA name="Sinc * Hann window (reversed)" value="(sin(2*pi*x*(fc/fs))/(2*pi*x*(fc/fs))) * (0.5*(1+cos(2*pi*x/(N-1))))" />
+  
+  <FORMULA name="- - -" value="0" />
+  <FORMULA name="Cos" value="cos(x)" />
+  <FORMULA name="Sin" value="sin(x)" />
+  <FORMULA name="Tan" value="tan(x)" />
+  -->
+
+  <!-- as all formulas are combined in one FORMULA_CURVE (in this version of FORMULA_VIEWER), you can't add some formulas like log() without affecting the whole FORMULA_CURVE. Also some formulas like exp() need lesser X_MAX to be set -->
+
+  <!-- which formulas to show by default -->
+  <VAR id="STARTUP_FORMULA_A_NO" formula="1" /> 
+  <VAR id="STARTUP_FORMULA_B_NO" formula="$FNUM$-1" /> <!-- use $FNUM$-1 for last -->
+
+  <!-- additional params used in formulas -->
+  <!-- N is number of TAPS used for window functions calculation, should be odd -->
+  <VAR id="N_TAPS_MIN" value="3" /> <!-- must be odd -->
+  <VAR id="N_TAPS_MAX" value="299" /> <!-- must be odd -->
+  <VAR id="N_TAPS_STEPS" formula="ceil(($N_TAPS_MAX$ - $N_TAPS_MIN$)/2) + 1" /> 
+  <PARAM id="N" default="99" min="$N_TAPS_MIN$" max="$N_TAPS_MAX$" />  <!-- number of taps -->
+  <PARAM id="fc" default="12000" min="1" max="24000" />  <!-- cutoff freq -->
+  <PARAM id="fs" default="48000" min="1" max="192000" />  <!-- sampling freq (samplerate) -->
+  <PARAM_LINK id="link_fc_to_fs" from="fs" to="fc.max" formula="x/2" /> <!-- link max fc to fs/2 -->
+
+
+  <!-- OTHER PARAMS -->
+  <VAR id="X_MAX" value="300" /> <!-- graph X max -->
+  <VAR id="X_MIN" value="-$X_MAX$" />
+
+  <VAR id="Y_MAX" value="5" /> <!-- graph Y max -->
+  <VAR id="Y_MIN" value="-$Y_MAX$" />
+
+  <VAR id="LCD_WIDTH" value="600" /> <!-- lcd size -->
+  <VAR id="LCD_HEIGHT" value="300" />
+
+  <VAR id="ZOOM_X_DEFAULT" value="2" /> <!-- default x-axis zoom -->
+  <VAR id="ZOOM_X_MAX" value="16" />
+  <VAR id="ZOOM_Y_DEFAULT" value="3" /> <!-- default y-axis zoom -->
+  <VAR id="ZOOM_Y_MAX" value="8" />
+
+  <VAR id="N_GRAPH_DEFAULT_OPACITY" value="0.2" /> <!-- show N area -->
+  <VAR id="GRAPH_B_AUTOCENTER_WITH_N" value="1" /> <!-- useful for viewing window functions centered at zero -->
+
+  <!-- AUTO-CALCULATED PARAMS -->
+  <VAR id="TOTAL_FORMULAS_COUNT" formula="$FNUM$-1" />
+
+  <VAR id="GRID_X_SUBDIVIONS" value="9" />
+  <VAR id="GRID_X_POSITIONS" formula="(($X_MAX$-$X_MIN$)/($GRID_X_SUBDIVIONS$+1))+1" />
+  <VAR id="GRID_Y_SUBDIVIONS" value="0" />
+  <VAR id="GRID_Y_POSITIONS" formula="(($Y_MAX$-$Y_MIN$))+1" />
+
+  <VAR id="RULER_X_POSITIONS" formula="(($X_MAX$-$X_MIN$)/4)+1" />
+  <VAR id="RULER_Y_POSITIONS" formula="(($Y_MAX$-$Y_MIN$)+1)" />
+
+  <FORMULA_PARAM id="X_MEASURE_IN_PIXELS" formula="zx*$LCD_WIDTH$/($X_MAX$-$X_MIN$)"  />
+
+  <!-- MAIN PART -->
+  <EXPOSED_OBJECTS object_ids="" />
+
+  <!-- scripts -->
+  <SCRIPT requires="graph_grid.*;graph_ruler_y.*;graph_ruler_x.*;curve_a_graph.*;curve_b_graph.*;curve_n_graph.*;X_MEASURE_IN_PIXELS" script="
+  /* create array of params for showing/hiding formulas */
+  array&lt;Kt::Param@> fa_params($TOTAL_FORMULAS_COUNT$+1);
+  array&lt;Kt::Param@> fb_params($TOTAL_FORMULAS_COUNT$+1);
+
+  void onLoad(){
+    curve_zoom_y();
+    curve_zoom_x();
+    fa_params[$STARTUP_FORMULA_A_NO$] = 1;
+    fb_params[$STARTUP_FORMULA_B_NO$] = 1;
+  }
+
+  void curve_zoom_y() {
+    double height = abs($LCD_HEIGHT$*zy);
+    graph_grid.height = height;
+    graph_ruler_y.height = height;
+  }
+
+  void curve_zoom_x() {
+    double width = abs($LCD_WIDTH$*zx);
+    graph_ruler_x.width = width;
+    graph_grid.width = width;
+    curve_a_graph.width = width;
+    curve_b_graph.width = width;
+    curve_n_graph.width = width;
+
+    if (X_MEASURE_IN_PIXELS > 4) {
+        graph_grid.x_positions_count = $GRID_X_POSITIONS$;
+        graph_ruler_x.positions_count = $RULER_X_POSITIONS$;
+    } else {
+        graph_grid.x_positions_count = ($GRID_X_POSITIONS$-1)/10 + 1;
+        graph_ruler_x.positions_count = ($RULER_X_POSITIONS$-1)/10 + 1;
+    }
+  }
+
+  void show_graph_a(int formula_no){
+    for (int i=1; i&lt;=$TOTAL_FORMULAS_COUNT$; i++) {
+      if (i != formula_no) fa_params[i] = 0;
+    }
+    fa_params[formula_no] = 1;
+  }
+  void show_graph_b(int formula_no){
+    for (int i=1; i&lt;=$TOTAL_FORMULAS_COUNT$; i++) {
+      if (i != formula_no) fb_params[i] = 0;
+    }
+    fb_params[formula_no] = 1;
+  }
+  "/>
+
+  <!-- zy param is for curve y-zooming -->
+  <PARAM id="zy" min="0.9" max="$ZOOM_Y_MAX$" exposed="true" default="$ZOOM_Y_DEFAULT$" />
+  <PARAM id="zx" min="0.95" max="$ZOOM_X_MAX$" exposed="true" default="$ZOOM_X_DEFAULT$" />
+
+  <!-- generate elements for KUIML -->
+  <REPEAT count="$TOTAL_FORMULAS_COUNT$" start="1">
+    <PARAM id="p_fa$index$" default="0" max="1" />
+    <PARAM id="p_fb$index$" default="0" max="1" />
+    <!-- Map param to array element -->
+    <ACTION_TRIGGER event_id="window.loaded.value_changed" condition_formula="window.loaded==1" script="@fa_params[$index$]=p_fa$index$;@fb_params[$index$]=p_fb$index$;" requires="p_fa$index$;p_fb$index$"/>
+    <ACTION id="enable_fa$index$" name="$ft$index$$" type="Script" script="show_graph_a($index$);" />
+    <ACTION id="enable_fb$index$" name="$ft$index$$" type="Script" script="show_graph_b($index$); " />
+    <VARIABLE id="ffa$index$" value="p_fa$index$*($f$index$$)" />
+    <VARIABLE id="ffb$index$" value="p_fb$index$*($f$index$$)" />
+  </REPEAT>
+
+  <!-- the formula A curve -->
+  <VAR id="SUBFORMULA" override="true" value="0" />
+  <REPEAT count="$TOTAL_FORMULAS_COUNT$" start="1">
+    <VAR id="SUBFORMULA" value="$SUBFORMULA$ + $ffa$index$$" />
+  </REPEAT>
+  <FORMULA_CURVE id="formula_a_curve" x_default="0" x_max="$X_MAX$" x_min="$X_MIN$" y_default="0" y_max="$Y_MAX$" y_min="$Y_MIN$" formula="zy * ($SUBFORMULA$)" />
+
+  <!-- the formula B curve -->
+
+  <VAR id="SUBFORMULA" override="true" value="0" />
+  <REPEAT count="$TOTAL_FORMULAS_COUNT$" start="1">
+    <VAR id="SUBFORMULA" value="$SUBFORMULA$ + $ffb$index$$" />
+  </REPEAT>
+
+  <FORMULA_CURVE id="formula_b_curve" x_default="0" x_max="$X_MAX$" x_min="$X_MIN$" y_default="0" y_max="$Y_MAX$" y_min="$Y_MIN$" formula="zy * ($SUBFORMULA$)" />
+
+  <FORMULA_CURVE id="formula_n_curve" x_default="0" x_max="$X_MAX$" x_min="$X_MIN$" y_default="0" y_max="1" y_min="0" formula="(x>=((N-1)/-2))*(x&lt;=((N-1)/2))" />
+  <!-- curve n opacity -->
+  <PARAM id="curve_n_graph_opacity" min="0" max="0.5" default="$N_GRAPH_DEFAULT_OPACITY$" />
+  <PARAM_LINK id="link_curve_n_graph_opacity" from="curve_n_graph_opacity" to="curve_n_graph.opacity" enabled="true" />
+
+
+  <ROW>
+    <!-- 
+    <THEME_GRAPH_SLIDER param_id="zy" id = "zoom_y_fader" height="$LCD_HEIGHT$" opacity="1" fine_ratio="25" />
+    -->
+
+  <!-- main LCD -->
+  <PNS_LCD_GROUP_BOX>
+  <THEME_GRAPH_BG_BOX image="$THEME_PATH$/group_boxes/graph_box_center.png"  margin="0" spacing="0" layout_type="layer_stack">
+    <LAYER_STACK width="$LCD_WIDTH$" height="$LCD_HEIGHT$" >
+      
+      <GRID id="graph_grid" width="100%" height="100%" x_positions_count="$GRID_X_POSITIONS$" y_positions_count="$GRID_Y_POSITIONS$" x_subdiv_count="$GRID_X_SUBDIVIONS$" y_subdiv_count="$GRID_Y_SUBDIVIONS$" origin_color="#1b4358" subdiv_color="#072941" color="#0a3758" x_param_info_id="formula_a_curve.x_info"  y_param_info_id="formula_a_curve.y_info" />
+
+      <RULER id="graph_ruler_x" orientation="horizontal" width="100%" value_suffix="false" param_info_id="formula_a_curve.x_info" color="#AAAAAA" value_format=".0" content="{value}" positions_count="$RULER_X_POSITIONS$" font_escapement="0" text_h_align="center" v_offset="0" v_align="bottom" h_offset="-1" /> 
+
+      <RULER id="graph_ruler_y" orientation="vertical" height="100%" width="50" value_suffix="false" param_info_id="formula_a_curve.y_info" color="#AAAAAA" value_format=".0" content="{value}" positions_count="$RULER_Y_POSITIONS$" font_escapement="90" text_v_align="center" text_h_align="center" h_offset="8" v_offset="0" /> 
+
+      <CURVE_GRAPH id="curve_n_graph" curve_id="formula_n_curve" width="100%" height="100%" anti_alias="true" color="#327ca3" graph_style="filled" opacity="0.25" line_width="2" sample_rate="5" />
+
+      <CURVE_GRAPH id="curve_a_graph" curve_id="formula_a_curve" width="100%" height="100%" anti_alias="true" color="#FFFFFF" line_width="2" sample_rate="5" />
+
+      <CURVE_GRAPH id="curve_b_graph" curve_id="formula_b_curve" width="100%" height="100%" anti_alias="true" color="#00DD00" line_width="2" sample_rate="5" opacity="0.5" />
+
+      
+
+      <!-- menu to select formula a -->
+      <CELL text_h_align="left" h_align="left" v_align="top" h_offset="15" font_size="15" v_margin="10" text_color="#FFFFFF">
+        <ROW spacing="5">
+          <PARAM id="formula_a_opacity" min="0" max="1" default="1" />
+          <PARAM_LINK id="op_link_fa" from="formula_a_opacity" to="curve_a_graph.opacity" enabled="true" />
+          <CUS_CHECK_BOX param_id="formula_a_opacity" />
+          <CUS_MINI_BLUE_KNOB param_id="formula_a_opacity" opacity="0.7" />
+          <IMAGE image="$THEME_PATH$/buttons/dropdown_arrow.png" h_offset="0" v_offset="1">
+            <INVISIBLE_ACTION_BUTTON action_id="menu_a.Popup" width="100%" height="100%" cursor="system::hand"/>
+          </IMAGE>
+
+          <LAYER_STACK>
+            <REPEAT count="$TOTAL_FORMULAS_COUNT$" start="1">
+               <TEXT value="$ft$index$$" opacity="0" id="fa_title$index$" h_align="left" />
+               <PARAM_LINK id="opacitylinka$index$" from="p_fa$index$" to="fa_title$index$.opacity" enabled="true" />
+            </REPEAT>
+            <INVISIBLE_ACTION_BUTTON action_id="menu_a.Popup" width="100%" height="100%" cursor="system::hand"/>
+          </LAYER_STACK>
+        </ROW>
+        <!-- dropdown list -->
+        <!-- the popup menu -->
+        <POPUP_MENU id="menu_a">
+          <REPEAT count="$TOTAL_FORMULAS_COUNT$" start="1">
+            <MENU_ITEM action_id="enable_fa$index$" checked_param_id="p_fa$index$" />
+          </REPEAT>
+        </POPUP_MENU>
+      </CELL>
+
+      <!-- menu to select formula b -->
+      <CELL text_h_align="left" h_align="left" v_align="top" h_offset="315" font_size="15" v_margin="10" text_color="#00DD00">
+        <ROW spacing="5">
+          <PARAM id="formula_b_opacity" min="0" max="1" default="1" />
+          <PARAM_LINK id="op_link_fb" from="formula_b_opacity" to="curve_b_graph.opacity" enabled="true" />
+          <CUS_CHECK_BOX param_id="formula_b_opacity" />
+          <CUS_MINI_BLUE_KNOB param_id="formula_b_opacity" opacity="0.7" />
+
+          <IMAGE image="$THEME_PATH$/buttons/dropdown_arrow.png" h_offset="0" v_offset="1">
+            <INVISIBLE_ACTION_BUTTON action_id="menu_b.Popup" width="100%" height="100%" cursor="system::hand"/>
+          </IMAGE>
+
+          <LAYER_STACK>
+            <REPEAT count="$TOTAL_FORMULAS_COUNT$" start="1">
+               <TEXT value="$ft$index$$" opacity="0" id="fb_title$index$" h_align="left"/>
+               <PARAM_LINK id="opacitylinkb$index$" from="p_fb$index$" to="fb_title$index$.opacity" enabled="true" />
+            </REPEAT>
+            <INVISIBLE_ACTION_BUTTON action_id="menu_b.Popup" width="100%" height="100%" cursor="system::hand"/>
+          </LAYER_STACK>
+        </ROW>
+        <!-- dropdown list -->
+        <!-- the popup menu -->
+        <POPUP_MENU id="menu_b">
+          <REPEAT count="$TOTAL_FORMULAS_COUNT$" start="1">
+            <MENU_ITEM action_id="enable_fb$index$" checked_param_id="p_fb$index$" />
+          </REPEAT>
+        </POPUP_MENU>
+      </CELL>
+
+      <!-- show N -->
+      <CELL v_align="bottom" h_align="left" v_offset="-15" h_offset="5">
+        <ROW>
+        <CUS_MINI_BLUE_KNOB param_id="curve_n_graph_opacity" opacity="0.7"/>
+        <PARAM_TEXT param_id="curve_n_graph_opacity" value_format="0.0" content="N area" opacity="0.7" />
+        </ROW>
+      </CELL>
+
+    </LAYER_STACK>
+  </THEME_GRAPH_BG_BOX>
+</PNS_LCD_GROUP_BOX>
+
+</ROW>
+
+  <ROW spacing = "10" v_margin="5">
+
+    <!-- PARAMS controls -->
+    <TEXT value="PARAMS" font_escapement="90" h_offset="5" width="12" opacity="0.7" font_size="12"/>
+    <PNS_FILLED_GROUP_BOX opacity="100%" v_margin="5" h_margin="10">
+    <ROW spacing="10">
+
+      <COLUMN>
+        <CUS_MINI_BLUE_KNOB param_id="fs" />
+        <PARAM_TEXT_CONTROL param_id="fs" value_format="0.0" content="fs={value}" cursor="system::hand">
+          <TOOLTIP text="Sampling frequency (samplerate)&#13;Double-click to enter value"  />
+        </PARAM_TEXT_CONTROL>  
+      </COLUMN>
+
+      <COLUMN>
+        <CUS_MINI_BLUE_KNOB param_id="fc" />
+        <PARAM_TEXT param_id="fc" value_format="0.0" content="fc={value}">
+          <TOOLTIP text="Cutoff frequency" />
+        </PARAM_TEXT>
+      </COLUMN>
+      
+      <COLUMN>
+        <CUS_MINI_BLUE_KNOB param_id="N" positions_count="$N_TAPS_STEPS$" />
+        <PARAM_TEXT param_id="N" value_format="0.0" content="N = {value}"/>
+      </COLUMN>
+        
+    </ROW>
+    </PNS_FILLED_GROUP_BOX>
+
+    <!-- ZOOM CONTROLS -->
+    <TEXT value="ZOOM" font_escapement="90" h_offset="5" width="12" opacity="0.7" font_size="12"/>
+    <PNS_FILLED_GROUP_BOX opacity="100%" v_margin="5" h_margin="10">
+    <ROW spacing="8">
+      
+      <COLUMN>
+        <CUS_SMALL_BLUE_KNOB param_id="zy" />
+        <PARAM_TEXT param_id="zy" content="y {value}"/>
+      </COLUMN>
+      <COLUMN>
+        <CUS_SMALL_BLUE_KNOB param_id="zx" />
+        <PARAM_TEXT param_id="zx" content="x {value}"/>
+      </COLUMN>
+    </ROW>
+    </PNS_FILLED_GROUP_BOX>
+
+
+
+    <!-- SHIFT FORMULA B ON X-AXIS -->
+    <PNS_FILLED_GROUP_BOX opacity="100%" v_margin="5" h_margin="10">
+    <COLUMN>
+      <TEXT value="Shift formula B on X-axis" />
+      <ROW>
+      <CELL>
+        <VAR id="X_MIN_SCALED" formula="$X_MIN$/2" />
+        <VAR id="X_MAX_SCALED" formula="$X_MAX$/2" />
+        <VAR id="X_SHIFT_POS_COUNT" formula="($X_MAX_SCALED$-$X_MIN_SCALED$)+1" />
+        <PARAM id="shift_b_x" min="$X_MIN_SCALED$" max="$X_MAX_SCALED$" default="0" />
+        <ROW>
+          <CUS_MINI_BLUE_KNOB id="shift_b_x_knob" param_id="shift_b_x" positions_count="$X_SHIFT_POS_COUNT$" opacity="1" />
+          <PARAM_TEXT id="shift_b_x_text" param_id="shift_b_x" content="{value}" exposed="true" width="30" />
+        </ROW>
+        <FORMULA_PARAM id="shift_b_x_zoomed" formula="shift_b_x*X_MEASURE_IN_PIXELS" />
+        <PARAM_LINK id="link_shift_b_x_zoomed" from="shift_b_x_zoomed" to="curve_b_graph.h_offset" enabled="true" />
+      </CELL>
+
+      <CELL>
+        <!-- auto centering formula B (window function) at zero -->
+        <FORMULA_PARAM id="autoshift_b" formula="((N-1)/2)*-X_MEASURE_IN_PIXELS" />
+        <PARAM_LINK id="link_autoshift_b" from="autoshift_b" to="curve_b_graph.h_offset" enabled="false" />
+        <PARAM id="do_autoshift_b" max="1" default="$GRAPH_B_AUTOCENTER_WITH_N$" />
+        <PARAM_LINK id="link_do_autoshift" from="do_autoshift_b" to="link_autoshift_b.enabled" enabled="true" />
+        <PARAM_LINK id="link_do_autoshift_man" from="do_autoshift_b" to="link_shift_b_x_zoomed.enabled" enabled="true" reverse="true" />
+        <PARAM_LINK id="link_do_autoshift_opacity_knob" from="do_autoshift_b" to="shift_b_x_knob.opacity" enabled="true" formula="((x&lt;1)+0.2)" />
+        <PARAM_LINK id="link_do_autoshift_opacity_text" from="do_autoshift_b" to="shift_b_x_text.opacity" enabled="true" formula="((x&lt;1)+0.2)" />
+        <PARAM_LINK id="link_do_autoshift_opacity_text2" from="do_autoshift_b" to="do_autoshift_b_text.opacity" enabled="true" formula="(x+0.8)" />
+        <ACTION_TRIGGER event_id="do_autoshift_b.value_changed" condition_formula="do_autoshift_b==0" script="curve_b_graph.h_offset=0" async="true" />
+        <ROW>
+          <CUS_CHECK_BOX param_id="do_autoshift_b" />
+          <TEXT value="to -(N-1)/2" id="do_autoshift_b_text">
+            <INVISIBLE_PARAM_BUTTON param_id="do_autoshift_b" width="100%" height="100%" positions_count="2" cursor="system::hand">
+              <TOOLTIP text="It helps centering window functions at zero" />
+            </INVISIBLE_PARAM_BUTTON>
+          </TEXT>
+        </ROW>
+      </CELL>
+      </ROW>
+
+    </COLUMN>
+    </PNS_FILLED_GROUP_BOX>
+
+
+
+  </ROW>
+
+
+  <!-- more actions -->
+  <!--
+  <ACTION_TRIGGER event_id="$OP_CUR_FREQ_INDEX$.value_changed" script="updateFreqLevel();" async="true" />
+  -->
+
+  <ACTION_TRIGGER event_id="zy.value_changed" script="curve_zoom_y();" async="false" />
+  <ACTION_TRIGGER event_id="zx.value_changed" script="curve_zoom_x();" async="false" />
+
+  <!-- window onload -->
+  <ACTION_TRIGGER event_id="window.loaded.value_changed" script="onLoad();" async="false" />
+
+</SKIN>
