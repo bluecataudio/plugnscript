@@ -187,7 +187,7 @@ namespace MidiEventUtils
     */
     void setProgram(MidiEvent& evt, uint8 prog)
     {
-        evt.byte2=prog&0x7F;
+        evt.byte1=prog&0x7F;
     }    
 
     /** For a pitch Wheel event, gets the pitch value (-8192 to +8192).

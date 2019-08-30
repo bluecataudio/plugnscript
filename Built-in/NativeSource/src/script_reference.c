@@ -109,6 +109,19 @@ DSP_EXPORT struct CDoubleArray outputParametersMax={_outputParametersMax, 2};
 double _outputParametersDefault[]={5,0};
 DSP_EXPORT struct CDoubleArray outputParametersDefault={_outputParametersDefault, 2};
 
+/// An array of strings to be used as output for the script.
+/// Will be displayed in the user interface of the plug-in
+const char* _outputStrings[]={"",""};
+DSP_EXPORT struct CStringArray outputStrings={_outputStrings,2};
+
+/// Names to be displayed in the plug-in for the input strings.
+const char* _outputStringsNames[]={"S1","S2"};
+DSP_EXPORT struct CStringArray outputStringsNames={_outputStringsNames,2};
+
+/// Maximum length for the ouput strings (output strings must be pre-allocated to avoid audio dropouts).
+int _outputStringsMaxLengths[]={1024,1024};
+DSP_EXPORT  struct CIntArray outputStringsMaxLengths={_outputStringsMaxLengths,2};
+
 
 /** Initialization: called right after the script has been compiled
 *   and before any other processing occurs.

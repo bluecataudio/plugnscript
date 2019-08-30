@@ -75,6 +75,14 @@ DSP_EXPORT array<double> outputParametersMax={10,20};
 /// Default values for the corresponding input parameters. Default value is 0.
 DSP_EXPORT array<double> outputParametersDefault={5,0};
 
+/// An array of strings to be used as output for the script.
+/// Will be displayed in the user interface of the plug-in
+DSP_EXPORT array<string> outputStrings(2);
+/// Names to be displayed in the plug-in for the input strings.
+DSP_EXPORT array<string> outputStringsNames={"S1","S2"};
+/// Maximum length for the ouput strings (output strings must be pre-allocated to avoid audio dropouts).
+DSP_EXPORT array<int> outputStringsMaxLengths={1024,1024};
+
 /** Initialization: called right after the script has been compiled
 *   and before any other processing occurs.
 *   return false if initialization fails (for example if the number of 

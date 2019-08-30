@@ -1,4 +1,4 @@
-This Package contains native samples for Blue Cat's plug'n Script (http://www.bluecataudio.com/Products/Product_PlugNScript). They are distributed in binary form with the software.
+This Package contains native samples for Blue Cat's plug'n Script (http://www.bluecataudio.com/Products/Product_PlugNScript).
 
 Layout:
 - build: contains the Visual Studio or Xcode projects to build the samples on your platform.

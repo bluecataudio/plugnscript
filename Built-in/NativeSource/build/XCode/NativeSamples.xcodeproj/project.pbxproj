@@ -13,6 +13,7 @@
 			buildPhases = (
 			);
 			dependencies = (
+				D65B50302318180C003C553C /* PBXTargetDependency */,
 				D629B27F1BEB7E29006A3900 /* PBXTargetDependency */,
 				D629B2811BEB7E29006A3900 /* PBXTargetDependency */,
 				D629B2831BEB7E29006A3900 /* PBXTargetDependency */,
@@ -88,6 +89,10 @@
 		D629B27B1BEB7D50006A3900 /* io router.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D629B2581BEB7D08006A3900 /* io router.cpp */; };
 		D629B27C1BEB7D5C006A3900 /* mini gate sc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D629B2571BEB7CDB006A3900 /* mini gate sc.cpp */; };
 		D629B27D1BEB7D61006A3900 /* mini comp sc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D629B2561BEB7CDB006A3900 /* mini comp sc.cpp */; };
+		D65B5026231817BC003C553C /* cpphelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = D67C49541B9DD4A4009FAC8E /* cpphelpers.h */; };
+		D65B5027231817BC003C553C /* dspapi.h in Headers */ = {isa = PBXBuildFile; fileRef = D67C49551B9DD4A4009FAC8E /* dspapi.h */; };
+		D65B5028231817BC003C553C /* chelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = D67C49531B9DD4A4009FAC8E /* chelpers.h */; };
+		D65B502E231817F1003C553C /* oscilloscope.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D65B502D231817F1003C553C /* oscilloscope.cpp */; };
 		D67B60601BA016FA0074591E /* script_reference.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D67B605F1BA016E70074591E /* script_reference.cpp */; };
 		D67B60611BA016FD0074591E /* script_reference.c in Sources */ = {isa = PBXBuildFile; fileRef = D67B605E1BA016E70074591E /* script_reference.c */; };
 		D67C49561B9DD4A4009FAC8E /* chelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = D67C49531B9DD4A4009FAC8E /* chelpers.h */; };
@@ -323,6 +328,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = D629B2701BEB7D3B006A3900;
 			remoteInfo = "io router";
+		};
+		D65B502F2318180C003C553C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D678B8FC1B997B8700AB5446 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D65B5021231817BC003C553C;
+			remoteInfo = oscilloscope;
 		};
 		D683B0F21BA17AB0003CE0FA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -704,6 +716,8 @@
 		D629B2641BEB7D19006A3900 /* mini comp sc.bin */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "mini comp sc.bin"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D629B26F1BEB7D2D006A3900 /* mini gate sc.bin */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "mini gate sc.bin"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D629B27A1BEB7D3B006A3900 /* io router.bin */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "io router.bin"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D65B502C231817BC003C553C /* oscilloscope.bin */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = oscilloscope.bin; sourceTree = BUILT_PRODUCTS_DIR; };
+		D65B502D231817F1003C553C /* oscilloscope.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = oscilloscope.cpp; sourceTree = "<group>"; };
 		D678B9041B997B8700AB5446 /* cpp_script_reference.bin */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = cpp_script_reference.bin; sourceTree = BUILT_PRODUCTS_DIR; };
 		D67B605E1BA016E70074591E /* script_reference.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = script_reference.c; path = ../../src/script_reference.c; sourceTree = "<group>"; };
 		D67B605F1BA016E70074591E /* script_reference.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = script_reference.cpp; path = ../../src/script_reference.cpp; sourceTree = "<group>"; };
@@ -842,6 +856,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		D629B2721BEB7D3B006A3900 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D65B5024231817BC003C553C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1291,6 +1312,7 @@
 				D629B2641BEB7D19006A3900 /* mini comp sc.bin */,
 				D629B26F1BEB7D2D006A3900 /* mini gate sc.bin */,
 				D629B27A1BEB7D3B006A3900 /* io router.bin */,
+				D65B502C231817BC003C553C /* oscilloscope.bin */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1430,6 +1452,7 @@
 		D696A1741B9EE5E100810249 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				D65B502D231817F1003C553C /* oscilloscope.cpp */,
 				D696A1751B9EE5E100810249 /* channels swap.cpp */,
 				D696A1761B9EE5E100810249 /* clipping stats.cpp */,
 				D6EA14AD1BEA23EC009B222F /* envelope.cpp */,
@@ -1496,6 +1519,16 @@
 				D629B2741BEB7D3B006A3900 /* cpphelpers.h in Headers */,
 				D629B2751BEB7D3B006A3900 /* dspapi.h in Headers */,
 				D629B2761BEB7D3B006A3900 /* chelpers.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D65B5025231817BC003C553C /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D65B5026231817BC003C553C /* cpphelpers.h in Headers */,
+				D65B5027231817BC003C553C /* dspapi.h in Headers */,
+				D65B5028231817BC003C553C /* chelpers.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2081,6 +2114,23 @@
 			name = "io router";
 			productName = DSPSample;
 			productReference = D629B27A1BEB7D3B006A3900 /* io router.bin */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
+		D65B5021231817BC003C553C /* oscilloscope */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D65B5029231817BC003C553C /* Build configuration list for PBXNativeTarget "oscilloscope" */;
+			buildPhases = (
+				D65B5022231817BC003C553C /* Sources */,
+				D65B5024231817BC003C553C /* Frameworks */,
+				D65B5025231817BC003C553C /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = oscilloscope;
+			productName = DSPSample;
+			productReference = D65B502C231817BC003C553C /* oscilloscope.bin */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
 		D678B9031B997B8700AB5446 /* cpp_script_reference */ = {
@@ -3058,6 +3108,7 @@
 				D6EA14C01BEA244B009B222F /* monoizer */,
 				D683B0FA1BA19679003CE0FA /* multi gain */,
 				D6EA14CD1BEA245D009B222F /* mute */,
+				D65B5021231817BC003C553C /* oscilloscope */,
 				D683B1071BA197D5003CE0FA /* phase invert */,
 				D6EA14DA1BEA2471009B222F /* side chain a-b */,
 				D696A1E31B9F086400810249 /* transport monitor */,
@@ -3096,6 +3147,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				D629B27B1BEB7D50006A3900 /* io router.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D65B5022231817BC003C553C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D65B502E231817F1003C553C /* oscilloscope.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3541,6 +3600,11 @@
 			target = D629B2701BEB7D3B006A3900 /* io router */;
 			targetProxy = D629B2821BEB7E29006A3900 /* PBXContainerItemProxy */;
 		};
+		D65B50302318180C003C553C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D65B5021231817BC003C553C /* oscilloscope */;
+			targetProxy = D65B502F2318180C003C553C /* PBXContainerItemProxy */;
+		};
 		D683B0F31BA17AB0003CE0FA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = D683B0BD1BA17535003CE0FA /* clipping stats */;
@@ -3842,6 +3906,20 @@
 		D629B2791BEB7D3B006A3900 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+			};
+			name = Release;
+		};
+		D65B502A231817BC003C553C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		D65B502B231817BC003C553C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
@@ -4533,6 +4611,15 @@
 			buildConfigurations = (
 				D629B2781BEB7D3B006A3900 /* Debug */,
 				D629B2791BEB7D3B006A3900 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D65B5029231817BC003C553C /* Build configuration list for PBXNativeTarget "oscilloscope" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D65B502A231817BC003C553C /* Debug */,
+				D65B502B231817BC003C553C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
