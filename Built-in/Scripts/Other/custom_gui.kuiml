@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<SKIN>
+  <!-- Include KUIML code from the script data path so that it is copied upon export -->
+  <INCLUDE_ONCE file="$SCRIPT_DATA_PATH$/gui_include.inc"/>
+  <!-- Include scripts from the script data path so that it is copied upon export -->
+  <SCRIPT src="$SCRIPT_DATA_PATH$/gui_script.hxx"/>
+  <!-- using our own background image and knob image from the script data path so that it is copied upon export -->
+  <!-- The image uses the "layer_stack" layout type so that the knobs can be placed using absolute positions -->
+  <IMAGE image="$SCRIPT_DATA_PATH$/wood.png" repeat="true" width="500" height="200" image_scaling=".6" layout_type="layer_stack">
+    <TEXT value="Custom GUI Sample" v_align="top" font="Arial" font_size="25" font_weight="bold" text_color="#ffffff"/>
+      <IMAGE_PARAM_KNOB image="$SCRIPT_DATA_PATH$/knob.png" h_position="90" v_position="40" param_id="custom_param0" images_count="147" image_scaling=".6" pixel_range="300" cursor="system::hand"/>
+      <IMAGE_PARAM_KNOB image="$SCRIPT_DATA_PATH$/knob.png" h_position="205" v_position="100" param_id="custom_param1" images_count="147" image_scaling=".8" pixel_range="400" cursor="system::hand"/>
+      <IMAGE_PARAM_KNOB image="$SCRIPT_DATA_PATH$/knob.png" h_position="342" v_position="40" param_id="custom_param2" images_count="147" image_scaling=".6" pixel_range="300" cursor="system::hand"/>
+  </IMAGE>
+</SKIN>

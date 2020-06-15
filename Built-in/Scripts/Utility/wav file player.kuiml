@@ -48,7 +48,7 @@
         <COLUMN font_size="15" spacing="3">
             <PARAM_TEXT font_size="17" param_id="custom_param1" content="{name}"  width="100%" font_weight="bold" fit_text="abbreviate"/>
             <COLUMN spacing="-12">
-                <PNS_BLACK_BLUE_MODERN_KNOB param_id="custom_param1" positions_count="101" image_scaling="1.2"/>
+                <PNS_BLACK_BLUE_MODERN_KNOB param_id="custom_param1" positions_count="101" image_scaling="0.6"/>
                 <PNS_DSP_PARAM_SETTINGS_BUTTON param_id="$script_input1$"/>
             </COLUMN>
              <PARAM_TEXT param_id="custom_param1" width="65" value_format=".0" content="{value} {unit}"/>
