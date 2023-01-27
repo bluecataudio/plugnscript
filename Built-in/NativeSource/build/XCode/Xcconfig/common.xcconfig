@@ -2,12 +2,12 @@
 //  common.xcconfig
 //  NativeSamples
 //
-//  Copyright (c) 2015 Blue Cat Audio. All rights reserved.
+//  Copyright (c) 2015-2020 Blue Cat Audio. All rights reserved.
 //
 // common build options
-ARCHS = $(ARCHS_STANDARD_32_64_BIT)
-SDKROOT = macosx10.7 // C++11 not supported before 10.7
-MACOSX_DEPLOYMENT_TARGET = 10.7 // C++11 not supported before 10.7
+ARCHS = $(ARCHS_STANDARD)
+SDKROOT = macosx
+MACOSX_DEPLOYMENT_TARGET = 10.9 // MacOS 11 SDK requires 10.9+
 DEAD_CODE_STRIPPING = YES
 MACH_O_TYPE = mh_dylib
 EXECUTABLE_EXTENSION = bin

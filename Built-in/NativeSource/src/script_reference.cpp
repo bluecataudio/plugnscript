@@ -11,6 +11,7 @@ DSP_EXPORT int     maxBlockSize=0;
 DSP_EXPORT double  sampleRate=0;
 DSP_EXPORT string  userDocumentsPath=null;
 DSP_EXPORT string  scriptFilePath=null;
+DSP_EXPORT string  scriptDataPath=null;
 DSP_EXPORT void*   host=null;
 DSP_EXPORT HostPrintFunc* hostPrint=null;
 
@@ -80,7 +81,8 @@ DSP_EXPORT array<double> outputParametersDefault={5,0};
 DSP_EXPORT array<string> outputStrings(2);
 /// Names to be displayed in the plug-in for the input strings.
 DSP_EXPORT array<string> outputStringsNames={"S1","S2"};
-/// Maximum length for the ouput strings (output strings must be pre-allocated to avoid audio dropouts).
+/// Maximum length for the ouput strings (output strings must be pre-allocated
+/// to avoid audio dropouts).
 DSP_EXPORT array<int> outputStringsMaxLengths={1024,1024};
 
 /** Initialization: called right after the script has been compiled

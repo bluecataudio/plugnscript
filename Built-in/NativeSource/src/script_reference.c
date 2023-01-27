@@ -11,6 +11,7 @@ DSP_EXPORT int     maxBlockSize=0;
 DSP_EXPORT double  sampleRate=0;
 DSP_EXPORT string  userDocumentsPath=null;
 DSP_EXPORT string  scriptFilePath=null;
+DSP_EXPORT string  scriptDataPath=null;
 DSP_EXPORT void*   host=null;
 DSP_EXPORT HostPrintFunc* hostPrint=null;
 
@@ -118,7 +119,8 @@ DSP_EXPORT struct CStringArray outputStrings={_outputStrings,2};
 const char* _outputStringsNames[]={"S1","S2"};
 DSP_EXPORT struct CStringArray outputStringsNames={_outputStringsNames,2};
 
-/// Maximum length for the ouput strings (output strings must be pre-allocated to avoid audio dropouts).
+/// Maximum length for the ouput strings (output strings must be pre-allocated 
+/// to avoid audio dropouts).
 int _outputStringsMaxLengths[]={1024,1024};
 DSP_EXPORT  struct CIntArray outputStringsMaxLengths={_outputStringsMaxLengths,2};
 
@@ -209,7 +211,7 @@ DSP_EXPORT void computeOutputData()
 /** Cleanup on shutdown: release all resources (allocated memory, files, system handles...).
  *
  */
-DSP_EXPORT void shutdown()
+/*DSP_EXPORT void shutdown()
 {
     
-}
+}*/
