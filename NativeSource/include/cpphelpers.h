@@ -1,6 +1,6 @@
 /**
  *  C++ Helper classes and for angelscript compatibility.
- *  Copyright (c) 2015 Blue Cat Audio. All rights reserved.
+ *  Copyright (c) 2015-2017 Blue Cat Audio. All rights reserved.
  */
 
 #ifndef _cpphelpers_h
@@ -119,6 +119,7 @@ length(N)
 #ifdef CPP11_INITIALIZERS
 template <typename T>
 array<T>::array(const std::initializer_list<T>& list):
+ptr(null),
 length(static_cast<uint>(list.size()))
 {
     if (length != 0)
@@ -136,6 +137,7 @@ length(static_cast<uint>(list.size()))
 
 template <typename T>
 array<T>::array(const array<T>& iArray) :
+    ptr(null),
 	length(iArray.length)
 {
 	if (length != 0)

@@ -1,6 +1,6 @@
-/** Blue Cat's Plug'n Script dsp api header file.
+/** Blue Cat PlugNScript dsp api header file.
  *  Contains all definitions required for DSP scripting in C or C++.
- *  Copyright (c) 2015 Blue Cat Audio. All rights reserved.
+ *  Copyright (c) 2015-2017 Blue Cat Audio. All rights reserved.
  */
 
 #ifndef _dspapi_h
