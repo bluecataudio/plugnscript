@@ -9,14 +9,14 @@ string name="Transport Monitor";
 string description="Displays transport information";
 
 // output parameters definition
-array<string> outputParametersNames={"Tempo", "Sig. Top", "Sig. Bottom", "Beat", "Playing", "Recording", "Looping","Position","Beat Pos."};
-array<string> outputParametersUnits={"bpm", "", "", "", "", "", "","sec.","beats"};
+array<string> outputParametersNames={"Tempo", "Sig. Top", "Sig. Bottom", "Beat", "Playing", "Recording", "Looping","Position","Beat Pos.","Render Mode"};
+array<string> outputParametersUnits={"bpm", "", "", "", "", "", "","sec.","beats",};
 array<double> outputParameters(outputParametersNames.length,0);
 
-array<double> outputParametersMin={0,0,0,0,0,0,0,0};
-array<double> outputParametersMax={400,24,24,24,1,1,1,100000000,100000000};
-array<double> outputParametersDefault={0,0,0,0,0,0,0,0};
-array<string> outputParametersEnums={"","","","","No;Yes","No;Yes","No;Yes",""};
+array<double> outputParametersMin={0,0,0,0,0,0,0,0,0};
+array<double> outputParametersMax={400,24,24,24,1,1,1,100000000,100000000,1};
+array<double> outputParametersDefault={0,0,0,0,0,0,0,0,0};
+array<string> outputParametersEnums={"","","","","No;Yes","No;Yes","No;Yes","","","Real Time;Offline"};
 
 void processBlock(BlockData& data)
 {
@@ -47,5 +47,9 @@ void processBlock(BlockData& data)
         if(data.transport.timeSigTop!=0)
             measuresCount=int(data.transport.currentMeasureDownBeat*data.transport.timeSigBottom/4.0+.001)/int(data.transport.timeSigTop+.001);
         outputParameters[8]=outputParameters[3]+double(measuresCount)*data.transport.timeSigTop;
+        if(data.offlineRenderingMode)
+            outputParameters[9] = 1.0;
+        else
+            outputParameters[9] = 0.0;
     }
 }

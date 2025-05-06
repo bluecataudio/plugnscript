@@ -14,14 +14,14 @@ DSP_EXPORT string author="Blue Cat Audio";
 DSP_EXPORT string description="Displays transport information";
 
 // output parameters definition
-DSP_EXPORT array<string> outputParametersNames={"Tempo", "Sig. Top", "Sig. Bottom", "Beat", "Playing", "Recording", "Looping","Position","Beat Pos."};
+DSP_EXPORT array<string> outputParametersNames={"Tempo", "Sig. Top", "Sig. Bottom", "Beat", "Playing", "Recording", "Looping","Position","Beat Pos.","Render Mode"};
 DSP_EXPORT array<string> outputParametersUnits={"bpm", "", "", "", "", "", "","sec.","beats"};
 DSP_EXPORT array<double> outputParameters(outputParametersNames.length,0);
 
-DSP_EXPORT array<double> outputParametersMin={0,0,0,0,0,0,0,0};
-DSP_EXPORT array<double> outputParametersMax={400,24,24,24,1,1,1,100000000,100000000};
-DSP_EXPORT array<double> outputParametersDefault={0,0,0,0,0,0,0,0};
-DSP_EXPORT array<string> outputParametersEnums={"","","","","No;Yes","No;Yes","No;Yes",""};
+DSP_EXPORT array<double> outputParametersMin={0,0,0,0,0,0,0,0,0};
+DSP_EXPORT array<double> outputParametersMax={400,24,24,24,1,1,1,100000000,100000000,1};
+DSP_EXPORT array<double> outputParametersDefault={0,0,0,0,0,0,0,0,0};
+DSP_EXPORT array<string> outputParametersEnums={"","","","","No;Yes","No;Yes","No;Yes","","","Real Time;Offline" };
 
 DSP_EXPORT void processBlock(BlockData& data)
 {
@@ -52,5 +52,9 @@ DSP_EXPORT void processBlock(BlockData& data)
         if(data.transport->timeSigTop!=0)
             measuresCount=int(data.transport->currentMeasureDownBeat*data.transport->timeSigBottom/4.0+.001)/int(data.transport->timeSigTop+.001);
         outputParameters[8]=outputParameters[3]+double(measuresCount)*data.transport->timeSigTop;
+        if (data.offlineRenderingMode)
+            outputParameters[9] = 1.0;
+        else
+            outputParameters[9] = 0.0;
     }
 }

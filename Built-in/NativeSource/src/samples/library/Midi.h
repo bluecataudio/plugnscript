@@ -20,9 +20,16 @@ enum MidiEventType
     kMidiNoteOn, ///< Note On Event
     kMidiControlChange, ///< Control Change Event (CC)
     kMidiProgramChange, ///< Program Change Event
-    kMidiPitchWheel,  ///< Picth Wheel Event
+    kMidiPitchWheel,  ///< Pitch Wheel Event
     kMidiNoteAfterTouch,  ///< Note after touch
     kMidiChannelAfterTouch, ///< Channel after touch
+    kSysexStart, ///< Sysex stream start event (may also contain beginning of data stream)
+    kSysexEnd, ///< Sysex stream end event (may also contain end of data stream)
+    kBeatClock, ///< MIDI Beat Clock Event
+    kStart, ///< MIDI Start Event
+    kSongPointer, ///< MIDI Song Pointer Position Event
+    kContinue, ///< MIDI Continue Event
+    kStop, ///< MIDI Stop Event
     kUnknown ///< Other Events
 };
 
@@ -34,39 +41,125 @@ enum MidiEventType
 namespace MidiEventUtils
 {
 #endif
+
+    /** Utility function to read event bytes programmatically.
+  *
+  */
+    static inline uint8 getEventByte(const struct MidiEvent& event, uint index)
+    {
+        switch (index)
+        {
+        case 0:
+            return event.byte0;
+        case 1:
+            return event.byte1;
+        case 2:
+            return event.byte2;
+        case 3:
+            return event.byte3;
+        }
+        return 0;
+    }
+
+    /** Utility function to set event bytes programmatically.
+    *
+    */
+    static inline void setEventByte(struct MidiEvent& event, uint index, uint8 value)
+    {
+        switch (index)
+        {
+        case 0:
+            event.byte0 = value;
+            break;
+        case 1:
+            event.byte1 = value;
+            break;
+        case 2:
+            event.byte2 = value;
+            break;
+        case 3:
+            event.byte3 = value;
+            break;
+        }
+    }
+
     /** Retrieves the type of the Midi event.
      *
      */
     static inline MidiEventType getType(const struct MidiEvent& evt)
     {
         MidiEventType type=kUnknown;
+        // Channel Events
         switch(evt.byte0 & 0xF0)
         {
-            case 0x80:
-                type=kMidiNoteOff;
+        case 0x80:
+            type=kMidiNoteOff;
+            break;
+        case 0x90:
+            type=kMidiNoteOn;
+            break;
+        case 0xB0:
+            type=kMidiControlChange;
+            break;
+        case 0xC0:
+            type=kMidiProgramChange;
+            break;
+        case 0xE0:
+            type=kMidiPitchWheel;
+            break;
+        case 0xA0:
+            type=kMidiNoteAfterTouch;
+            break;
+        case 0xD0:
+            type=kMidiChannelAfterTouch;
+            break;
+        }
+
+        // None of these? Check full byte
+        if (type == kUnknown)
+        {
+            // channel-independent messages
+            switch (evt.byte0)
+            {
+            case 0xF0:
+                type = kSysexStart;
                 break;
-            case 0x90:
-                type=kMidiNoteOn;
+            case 0xF7:
+                type = kSysexEnd;
                 break;
-            case 0xB0:
-                type=kMidiControlChange;
+            case 0xF8:
+                type = kBeatClock;
                 break;
-            case 0xC0:
-                type=kMidiProgramChange;
+            case 0xFA:
+                type = kStart;
                 break;
-            case 0xE0:
-                type=kMidiPitchWheel;
+            case 0xFB:
+                type = kContinue;
                 break;
-            case 0xA0:
-                type=kMidiNoteAfterTouch;
+            case 0xFC:
+                type = kStop;
                 break;
-            case 0xD0:
-                type=kMidiChannelAfterTouch;
+            case 0xF2:
+                type = kSongPointer;
                 break;
+            }
+
+            if (type == kUnknown)
+            {
+                // sysex end can be anywhere else in the event
+                for (int i = 1; i < 4; i++)
+                {
+                    if (getEventByte(evt,i) == 0xF7)
+                    {
+                        type = kSysexEnd;
+                        break;
+                    }
+                }
+            }
         }
         return type;
     }
-    
+
     /** Set the type of the Midi event.
      *  @see MidiEventType enum for supported Midi events.
      */
@@ -74,32 +167,51 @@ namespace MidiEventUtils
     {
         switch(type)
         {
-            case kMidiNoteOff:
-                evt.byte0=0x80|(evt.byte0 & 0x0F);
-                break;
-            case kMidiNoteOn:
-                evt.byte0=0x90|(evt.byte0 & 0x0F);
-                break;
-            case kMidiControlChange:
-                evt.byte0=0xB0|(evt.byte0 & 0x0F);
-                break;
-            case kMidiProgramChange:
-                evt.byte0=0xC0|(evt.byte0 & 0x0F);
-                break;
-            case kMidiPitchWheel:
-                evt.byte0=0xE0|(evt.byte0 & 0x0F);
-                break;
-            case kMidiNoteAfterTouch:
-                evt.byte0=0xA0|(evt.byte0 & 0x0F);
-                break;
-            case kMidiChannelAfterTouch:
-                evt.byte0=0xD0|(evt.byte0 & 0x0F);
-                break;
-            default:
-                break;
+        case kMidiNoteOff:
+            evt.byte0=0x80|(evt.byte0 & 0x0F);
+            break;
+        case kMidiNoteOn:
+            evt.byte0=0x90|(evt.byte0 & 0x0F);
+            break;
+        case kMidiControlChange:
+            evt.byte0=0xB0|(evt.byte0 & 0x0F);
+            break;
+        case kMidiProgramChange:
+            evt.byte0=0xC0|(evt.byte0 & 0x0F);
+            break;
+        case kMidiPitchWheel:
+            evt.byte0=0xE0|(evt.byte0 & 0x0F);
+            break;
+        case kMidiNoteAfterTouch:
+            evt.byte0=0xA0|(evt.byte0 & 0x0F);
+            break;
+        case kMidiChannelAfterTouch:
+            evt.byte0=0xD0|(evt.byte0 & 0x0F);
+            break;
+        case kSysexStart:
+            evt.byte0 = 0xF0;
+            break;
+        case kSysexEnd:
+            evt.byte0 = 0xF7;
+            break;
+        case kBeatClock:
+            evt.byte0 = 0xF8;
+            break;
+        case kStart:
+            evt.byte0 = 0xFA;
+            break;
+        case kContinue:
+            evt.byte0 = 0xFB;
+            break;
+        case kStop:
+            evt.byte0 = 0xFC;
+            break;
+        case kSongPointer:
+            evt.byte0 = 0xF2;
+            break;
         }
     }
-    
+
     /** Get the channel number of the event (1-16).
      *
      */
@@ -107,7 +219,7 @@ namespace MidiEventUtils
     {
         return (evt.byte0 & 0x0F)+1;
     }
-    
+
     /** Set the channel number for the event (1-16).
      *
      */
@@ -116,7 +228,7 @@ namespace MidiEventUtils
         if(ch!=0)
             evt.byte0=(evt.byte0&0xF0)|((ch-1)&0x0F);
     }
-    
+
     /** For a note event, retrieves the Midi note for the event (0-127).
      *
      */
@@ -124,7 +236,7 @@ namespace MidiEventUtils
     {
         return evt.byte1&0x7F;
     }
-    
+
     /** For a note event, sets the Midi note for the event (0-127).
      *
      */
@@ -132,7 +244,7 @@ namespace MidiEventUtils
     {
         evt.byte1=(note&0x7F);
     }
-    
+
     /** For a note event, retrieves the velocity for the event (0-127).
      *
      */
@@ -140,7 +252,7 @@ namespace MidiEventUtils
     {
         return evt.byte2 & 0x7F;
     }
-    
+
     /** For a note event, sets the velocity for the event (0-127).
      *
      */
@@ -148,7 +260,7 @@ namespace MidiEventUtils
     {
         evt.byte2=velocity&0x7F;
     }
-    
+
     /** For a CC (Control Change) event, gets the control number (0-127).
      *
      */
@@ -156,7 +268,7 @@ namespace MidiEventUtils
     {
         return evt.byte1 & 0x7F;
     }
-    
+
     /** For a CC (Control Change) event, sets the control number (0-127).
      *
      */
@@ -164,15 +276,15 @@ namespace MidiEventUtils
     {
         evt.byte1=nb&0x7F;
     }
-    
+
     /** For a CC (Control Change) event, gets the control value (0-127).
      *
      */
     static inline uint8 getCCValue(const struct MidiEvent& evt)
     {
-        return evt.byte2 & 0x7F;
+        return evt.byte2 & 0x7F;	
     }
-    
+
     /** For a CC (Control Change) event, sets the control value (0-127).
      *
      */
@@ -180,7 +292,7 @@ namespace MidiEventUtils
     {
         evt.byte2=value & 0x7F;
     }
-    
+
     /** For a Program Change event, gets the program number (0-127).
      *
      */
@@ -188,23 +300,23 @@ namespace MidiEventUtils
     {
         return evt.byte1&0x7F;
     }
-    
+
     /** For a Program Change event, sets the program number (0-127).
-     *
-     */
+    *
+    */
     static inline void setProgram(struct MidiEvent& evt, uint8 prog)
     {
-        evt.byte2=prog&0x7F;
-    }
-    
+        evt.byte1=prog&0x7F;
+    }    
+
     /** For a pitch Wheel event, gets the pitch value (-8192 to +8192).
      *
      */
     static inline int getPitchWheelValue(const struct MidiEvent& evt)
     {
-        return (evt.byte2 & 0x7F)*128+(evt.byte1 & 0x7F)-64*128;
+        return (evt.byte2 & 0x7F)*128+(evt.byte1 & 0x7F)-64*128;	
     }
-    
+
     /** For a pitch Wheel event, sets the pitch value (-8192 to +8192).
      *
      */
@@ -218,7 +330,7 @@ namespace MidiEventUtils
     /** For a channel after touch event, gets the after touch value (0-127)
     *
     */
-    int  getChannelAfterTouchValue(const MidiEvent&  evt)
+    static inline int  getChannelAfterTouchValue(const struct MidiEvent&  evt)
     {
         return evt.byte1&0x7F;
     }
@@ -226,11 +338,76 @@ namespace MidiEventUtils
     /** For a channel after touch event, sets the after touch value (0-127)
     *
     */
-    void  setChannelAfterTouchValue(MidiEvent& evt, int value)
+    static inline void  setChannelAfterTouchValue(struct MidiEvent& evt, int value)
     {
         evt.byte1=(value&0x7F);;
+    }
+
+    /** Utility function to finish a sysex stream in a midi event.
+    *   Returns true is there was enoug room left in the event to write Sysex stream end
+    */
+    static inline bool finishSysex(struct MidiEvent& event, uint nextByteIndex)
+    {
+        bool done = false;
+        // finish Sysex stream with 0xF7 status byte
+        if (nextByteIndex < 4)
+        {
+            setEventByte(event, nextByteIndex, 0xF7);
+            done = true;
+            nextByteIndex++;
+
+            // fill other bytes with zeros
+            while (nextByteIndex < 4)
+            {
+                setEventByte(event, nextByteIndex, 0);
+                nextByteIndex++;
+            }
+        }
+        return done;
+    }
+
+    /** Returns true if the event contains SysEx data.
+    *
+    */
+    static inline bool isSysexData(const struct MidiEvent& evt)
+    {
+        bool isSysex = true;
+        for (int i = 0; i < 4 && isSysex; i++)
+        {
+            const uint8 b = getEventByte(evt,i);
+            isSysex = (b < 0x80 || b == 0xF0 || b == 0xF7);
+        }
+        return isSysex;
+    }
+
+    /** Returns true for system realtime events.
+    *
+    */
+    static inline bool isSystemRealtime(const struct MidiEvent& evt)
+    {
+        const uint8 b = evt.byte0;
+        bool isRT = b >= 0xfa || b == 0xf8;
+        return isRT;
+    }
+
+    /** For a Song Pointer Position Event, returns the position in the song (in sixteenth notes).
+    *
+    */
+    static inline int getSongPointerPosition(const struct MidiEvent& evt)
+    {
+        return ((evt.byte1 & 0x7F) | ((evt.byte2 & 0x7F) << 7));
+    }
+
+    /** For a Song Pointer Position Event, sets the position in the song (in sixteenth notes).
+    *
+    */
+    static inline void setSongPointerPosition(struct MidiEvent& evt, int posIn16thNotes)
+    {
+        evt.byte1 = posIn16thNotes & 0x7F;
+        evt.byte2 = (posIn16thNotes >> 7) & 0x7F;
     }
 #ifdef __cplusplus
 }
 #endif
+
 #endif

@@ -94,5 +94,8 @@
                     <PARAM_LINK from="custom_out_param6" to="loop_text.opacity" formula=".1+.9*x"/>
                 </CUS_MONITOR_GROUP_BOX>
             </ROW>
+            <CUS_MONITOR_GROUP_BOX font_size="30" width="100%">
+                <PARAM_TEXT param_id="custom_out_param9" content="{text_value}"/>
+            </CUS_MONITOR_GROUP_BOX>
         </PNS_PLAIN_GROUP_BOX>
 </SKIN>

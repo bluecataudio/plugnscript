@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<SKIN author="Blue Cat Audio" margin="8" width="300">
+<SKIN author="Blue Cat Audio" margin="8" width="360">
   <!-- Display last message + click to open log -->
    <LAYER_STACK width="100%" h_margin="4" font_size="12">
       <INVISIBLE_ACTION_BUTTON width="100%" height="100%" action="OpenLogFile" cursor="system::hand" id="open_midi_log_button">
