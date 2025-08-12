@@ -146,7 +146,6 @@ array<T>::array(const array<T>& iArray) :
 		for (uint i=0; i<length; i++)
 		{
 			ptr[i] = iArray[i];
-			i++;
 		}
 	}
 }
@@ -168,7 +167,6 @@ array<T>& array<T>::operator =(const array<T>& iArray)
 		for (uint i = 0; i<length; i++)
 		{
 			ptr[i] = iArray[i];
-			i++;
 		}
 	}
 	return *this;
