@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36603.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cpp_reference", "Projects\cpp_reference.vcxproj", "{EDBFDF55-D0CB-406C-887B-775EA879E909}"
 EndProject
@@ -130,6 +130,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mini gate sc", "Projects\mini gate sc.vcxproj", "{027B227E-F027-4437-BA68-6C175DC9AEAF}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "oscilloscope", "Projects\oscilloscope.vcxproj", "{A4E149A9-F0D0-467F-84BB-012CA53E86AF}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "persistent state", "Projects\persistent state.vcxproj", "{26797A4A-D9BE-4F7D-B4F8-256C503EC57B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -595,6 +597,14 @@ Global
 		{A4E149A9-F0D0-467F-84BB-012CA53E86AF}.Release|Win32.Build.0 = Release|Win32
 		{A4E149A9-F0D0-467F-84BB-012CA53E86AF}.Release|x64.ActiveCfg = Release|x64
 		{A4E149A9-F0D0-467F-84BB-012CA53E86AF}.Release|x64.Build.0 = Release|x64
+		{26797A4A-D9BE-4F7D-B4F8-256C503EC57B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{26797A4A-D9BE-4F7D-B4F8-256C503EC57B}.Debug|Win32.Build.0 = Debug|Win32
+		{26797A4A-D9BE-4F7D-B4F8-256C503EC57B}.Debug|x64.ActiveCfg = Debug|x64
+		{26797A4A-D9BE-4F7D-B4F8-256C503EC57B}.Debug|x64.Build.0 = Debug|x64
+		{26797A4A-D9BE-4F7D-B4F8-256C503EC57B}.Release|Win32.ActiveCfg = Release|Win32
+		{26797A4A-D9BE-4F7D-B4F8-256C503EC57B}.Release|Win32.Build.0 = Release|Win32
+		{26797A4A-D9BE-4F7D-B4F8-256C503EC57B}.Release|x64.ActiveCfg = Release|x64
+		{26797A4A-D9BE-4F7D-B4F8-256C503EC57B}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -654,5 +664,9 @@ Global
 		{E382B8ED-75E1-40D8-BD09-F038249B71AB} = {07C2D171-8D13-4D20-82BF-E6E4169E004A}
 		{027B227E-F027-4437-BA68-6C175DC9AEAF} = {07C2D171-8D13-4D20-82BF-E6E4169E004A}
 		{A4E149A9-F0D0-467F-84BB-012CA53E86AF} = {E5D264EC-544E-4FFE-809E-A711A5B5786D}
+		{26797A4A-D9BE-4F7D-B4F8-256C503EC57B} = {E5D264EC-544E-4FFE-809E-A711A5B5786D}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A8A34C64-F604-4C26-A62A-E391CAED485E}
 	EndGlobalSection
 EndGlobal

@@ -45,7 +45,7 @@ struct array
     /// constructor with size
     array(uint size=0);
     
-    /// constructor with size and default valur for elements
+    /// constructor with size and default value for elements
     array(uint size,const T& defaultValue);
     
     /// constructor that takes a fixed size array
@@ -119,6 +119,7 @@ length(N)
 #ifdef CPP11_INITIALIZERS
 template <typename T>
 array<T>::array(const std::initializer_list<T>& list):
+ptr(null),
 length(static_cast<uint>(list.size()))
 {
     if (length != 0)
@@ -136,6 +137,7 @@ length(static_cast<uint>(list.size()))
 
 template <typename T>
 array<T>::array(const array<T>& iArray) :
+    ptr(null),
 	length(iArray.length)
 {
 	if (length != 0)
@@ -144,7 +146,6 @@ array<T>::array(const array<T>& iArray) :
 		for (uint i=0; i<length; i++)
 		{
 			ptr[i] = iArray[i];
-			i++;
 		}
 	}
 }
@@ -166,7 +167,6 @@ array<T>& array<T>::operator =(const array<T>& iArray)
 		for (uint i = 0; i<length; i++)
 		{
 			ptr[i] = iArray[i];
-			i++;
 		}
 	}
 	return *this;
@@ -201,9 +201,12 @@ void array<T>::resize(uint newSize)
         if(newSize>0)
         {
             ptr=new T[newSize];
+            uint minLength = length;
+            if (newSize < length)
+                minLength = newSize;
             if(oldPtr!=0)
             {
-                for(uint i=0;i<length;i++)
+                for(uint i=0;i< minLength;i++)
                 {
                     ptr[i]=oldPtr[i];
                 }

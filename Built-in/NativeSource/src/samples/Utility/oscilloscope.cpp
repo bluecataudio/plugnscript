@@ -62,7 +62,7 @@ DSP_EXPORT void computeOutputData()
     outputString = "";
     for (int i = 0; i < 1024; i++)
     {
-        // convert value to string into our pre-allocated temp string, with re-allocating the string
+        // convert value to string into our pre-allocated temp string, without re-allocating the string
         double value = buffer[(currentIndex - 1 - i)&mask];
         tempString.resize(1024);
         sprintf(&tempString[0],"%0.6f", value);

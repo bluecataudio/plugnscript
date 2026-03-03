@@ -177,6 +177,9 @@ struct BlockData
     /// Transport information - may be null if not supported or not provided
     /// by the host application.
     const struct TransportInfo* transport;
+    /// Set to true by host for non-realtime rendering (bouncing etc.).
+    /// Optional (not supported by all host applications)
+    bool                        offlineRenderingMode;
 };
 
 // C API definition

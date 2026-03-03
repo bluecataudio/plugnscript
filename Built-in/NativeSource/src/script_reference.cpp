@@ -76,6 +76,28 @@ DSP_EXPORT array<double> outputParametersMax={10,20};
 /// Default values for the corresponding input parameters. Default value is 0.
 DSP_EXPORT array<double> outputParametersDefault={5,0};
 
+/// An array of parameters to be used as private output of the script (not exposed to the host). 
+/// Will be displayed in the user interface of the plug-in as meters, but NOT accessible 
+/// to generate automation and MIDI controllers.
+DSP_EXPORT array<double> privateOutputParameters(2);
+/// Names to be displayed in the plug-in for the privateOutput parameters.
+DSP_EXPORT array<string> privateOutputParametersNames = { "OUT 1"," OUT 2" };
+/// Units for the corresponding input parameters.
+DSP_EXPORT array<string> privateOutputParametersUnits = { "dB","dB" };
+/// Enumeration values for the corresponding input parameters.
+/// Array of strings containing semicolon separated values. Use empty strings
+/// for non-enum parameters. Require that min and max values are defined.
+DSP_EXPORT array<string> privateOutputParametersEnums = { "value1;value2","" };
+/// Value formatting for the corresponding privateOutput parameters.
+/// Follows the same rules as floating point values formatting for the C "printf" function
+DSP_EXPORT array<string> privateOutputParametersFormats = { ".0","+.2" };
+/// Minimum values for the corresponding input parameters. Default value is 0.
+DSP_EXPORT array<double> privateOutputParametersMin = { 0, 0 };
+/// Maximum values for the corresponding input parameters. Default value is 1.
+DSP_EXPORT array<double> privateOutputParametersMax = { 10,20 };
+/// Default values for the corresponding input parameters. Default value is 0.
+DSP_EXPORT array<double> privateOutputParametersDefault = { 5,0 };
+
 /// An array of strings to be used as output for the script.
 /// Will be displayed in the user interface of the plug-in
 DSP_EXPORT array<string> outputStrings(2);
@@ -128,10 +150,10 @@ DSP_EXPORT int getLatency()
 *   ioSample: an array of current audio samples (one element for each audio channel).
 * You can access the current sample of channel 'ch' using ioSample[ch].
 */
-/*DSP_EXPORT void processSample(double ioSample[])
+DSP_EXPORT void processSample(double ioSample[])
 {
     
-}*/
+}
 
 /** Update internal parameters from inputParameters array when required.
 *   Called every sample, right before the processSample() method, or every block, 
@@ -172,4 +194,26 @@ DSP_EXPORT void computeOutputData()
 DSP_EXPORT void shutdown()
 {
     
+}
+
+/** Save script state.
+ *  Return true and the state string pointer (in persistentState), if state changed.
+ */
+DSP_EXPORT bool saveState(string& persistentState)
+{
+    return false;
+}
+/** Load script state from state string.
+*
+*/
+DSP_EXPORT void loadState(const string& persistentState)
+{
+
+}
+/** Return the maximum state string length so that the engine can preallocate its state structures.
+*   Avoids reallocations in the dsp thread.
+*/
+DSP_EXPORT uint64 getMaxStateLength()
+{
+    return 0;
 }
