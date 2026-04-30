@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<SKIN spacing="4">
+	<!-- reaper-remote: a free remote control for Reaper
+	https://www.bluecataudio.com/Blog/tip-of-the-day/free-remote-control-plug-in-app-for-reaper
+	-->
+	
+	<!-- http connection data-->
+    <PARAM id="response_param" min="1" max="99999" type="integer" value_format=".0" default="1"/>
+    <FORMULA_PARAM id="connection_status" type="enumeration" enum_values="Not Connected;Connected;Error" formula="if(response_param==1,0,if(response_param&lt;400,1,2))"/>
+    <STRING id="empty_string"/>
+    
+    <!-- Action Template for Reaper Commands -->
+    <TEMPLATE id="TPL_REAPER_ACTION">
+        <STRING id="_$id$_url"/>
+        <STRING_MULTI_LINK from="$script_input_string0$;empty_string" separator="/_/$reaper_action_id$" to="_$id$_url"/>
+        <ACTION id="reaper.$id$" type="LoadURL" url_string_id="_$id$_url" response_status_param_id="response_param"/>
+    </TEMPLATE>
+
+    <!-- Action Template for Reaper Data Command -->
+    <TEMPLATE id="TPL_REAPER_GETDATA_ACTION">
+        <STRING id="_$id$_url"/>
+        <STRING_MULTI_LINK from="$script_input_string0$;empty_string" separator="/_/$reaper_data_id$" to="_$id$_url"/>
+        <ACTION id="reaper.$id$" type="LoadURL" url_string_id="_$id$_url" response_status_param_id="response_param" response_body_string_id="$result_string_id$"/>
+    </TEMPLATE>
+
+    <!-- Status Data -->
+    <STRING id="transport_data"/>
+    <STRING id="reaper.transportString"/>
+    <PARAM id="reaper.playing" type="boolean"/>
+    <PARAM id="reaper.recording" type="boolean"/>
+    <PARAM id="reaper.paused" type="boolean"/>
+
+    <!-- Actions -->
+    <TPL_REAPER_ACTION id="Stop" reaper_action_id="1016"/>
+    <TPL_REAPER_ACTION id="Play" reaper_action_id="1007"/>
+    <TPL_REAPER_ACTION id="Pause" reaper_action_id="1008"/>
+    <TPL_REAPER_ACTION id="Record" reaper_action_id="1013"/>
+    
+    <TPL_REAPER_ACTION id="Undo" reaper_action_id="40029"/>
+    <TPL_REAPER_ACTION id="Redo" reaper_action_id="40030"/>
+    <TPL_REAPER_ACTION id="Save" reaper_action_id="40026"/>
+    
+    <TPL_REAPER_ACTION id="ShortRewind" reaper_action_id="41041"/>
+    <TPL_REAPER_ACTION id="ShortForward" reaper_action_id="41040"/>
+    <TPL_REAPER_ACTION id="FullRewind" reaper_action_id="40042"/>
+    <TPL_REAPER_ACTION id="FullForward" reaper_action_id="40043"/>
+        
+    <TPL_REAPER_GETDATA_ACTION id="GetTransportStatus" reaper_data_id="TRANSPORT" result_string_id="transport_data"/>
+    <ACTION_TRIGGER event_id="transport_data.value_changed" 
+                    script="string data=transport_data;
+                    if(data.length!=0) /* get rid of last character (\n)*/
+                        data.erase(data.length-1);
+                    auto values=data.split(&quot;\t&quot;);
+                    if(@values!=null)
+                    {
+                        if(values[1]==&quot;0&quot;)
+                        {
+                            reaper.playing=0;
+                            reaper.recording=0;
+                            reaper.paused=0;
+                        }
+                        else if(values[1]==&quot;1&quot;)
+                        {
+                            reaper.playing=1;
+                            reaper.recording=0;
+                            reaper.paused=0;                        
+                        }
+                        else if(values[1]==&quot;2&quot;)
+                        {
+                            reaper.playing=0;
+                            reaper.recording=0;
+                            reaper.paused=1;                        
+                        }
+                        else if(values[1]==&quot;5&quot;)
+                        {
+                            reaper.playing=1;
+                            reaper.recording=1;
+                            reaper.paused=0;                        
+                        }
+                        else if(values[1]==&quot;6&quot;)
+                        {
+                            reaper.playing=0;
+                            reaper.recording=1;
+                            reaper.paused=1;                        
+                        }
+                        reaper.transportString=values[5];
+                    }
+                    " requires="transport_data;reaper.playing;reaper.recording;reaper.paused;reaper.transportString"/>
+    
+    <!-- Refresh timer to load transport data -->
+    <TIMER id="refresh_timer" refresh_time_ms="50" enabled="true"/>
+    <ACTION_TRIGGER event_id="refresh_timer.elapsed" condition_formula="reaper.GetTransportStatus.running==0" action_id="reaper.GetTransportStatus"/>
+    
+    <!-- graphics definitions -->
+    <DEFINE>
+      <CUS_MONITOR_GROUP_BOX base_type="PNS_FILLED_GROUP_BOX" opacity="100%"/>
+    </DEFINE>
+    <VARIABLE id="local_spacing" value="4"/>
+    
+    <!-- Controls -->
+    <PNS_PLAIN_GROUP_BOX spacing="$local_spacing$" layout_type="column" h_margin="10" v_margin="10" width="400">
+        <!-- Transport Status -->
+        <TEXT font_size="25" string_id="reaper.transportString" width="100%"/>
+    </PNS_PLAIN_GROUP_BOX>
+    <PNS_PLAIN_GROUP_BOX spacing="$local_spacing$" layout_type="column" h_margin="10" v_margin="10" width="400">
+        <!-- Navigation -->
+        <ROW spacing="$local_spacing$" width="100%">
+            <CUS_MONITOR_GROUP_BOX font_size="30" flex="1" layout_type="layer_stack">
+                <TEXT value="I&lt;"/>
+                    <INVISIBLE_ACTION_BUTTON width="100%" height="100%" action_id="reaper.FullRewind" cursor="system::hand"/>
+            </CUS_MONITOR_GROUP_BOX>
+            <CUS_MONITOR_GROUP_BOX font_size="30" flex="1" layout_type="layer_stack">
+                <TEXT value="&lt;&lt;"/>
+                    <INVISIBLE_ACTION_BUTTON width="100%" height="100%" action_id="reaper.ShortRewind" cursor="system::hand"/>
+            </CUS_MONITOR_GROUP_BOX>
+            <CUS_MONITOR_GROUP_BOX font_size="30" flex="1" layout_type="layer_stack">
+                <PARAM_LINK from="reaper.paused" to="pause_button_on.visible"/>
+                <svg width="100%" height="100%" margin="2" id="pause_button_on" visible="false">
+                    <rect rx="4" ry="4" width="100%" height="100%" fill-opacity=".8" fill="#000000" stroke-opacity=".8" stroke="#ffffff" stroke-width="2"/>
+                </svg>
+                <TEXT value="PAUSE"/>
+                    <INVISIBLE_ACTION_BUTTON width="100%" height="100%" action_id="reaper.Pause" cursor="system::hand"/>
+            </CUS_MONITOR_GROUP_BOX>
+            <CUS_MONITOR_GROUP_BOX font_size="30" flex="1" layout_type="layer_stack">
+                <TEXT value=">>"/>
+                <INVISIBLE_ACTION_BUTTON width="100%" height="100%" action_id="reaper.ShortForward" cursor="system::hand"/>
+            </CUS_MONITOR_GROUP_BOX>
+            <CUS_MONITOR_GROUP_BOX font_size="30" flex="1" layout_type="layer_stack">
+                <TEXT value=">I"/>
+                    <INVISIBLE_ACTION_BUTTON width="100%" height="100%" action_id="reaper.FullForward" cursor="system::hand"/>
+            </CUS_MONITOR_GROUP_BOX>
+            </ROW>
+             
+        <!-- Play/Record/Stop commands-->
+        <ROW spacing="$local_spacing$" width="100%">
+            <CUS_MONITOR_GROUP_BOX font_size="30" width="0" flex="1" layout_type="layer_stack">
+                <PARAM_LINK from="reaper.playing" to="play_button_on.visible"/>
+                <svg width="100%" height="100%" margin="2" id="play_button_on" visible="false">
+                    <rect rx="4" ry="4" width="100%" height="100%" fill-opacity=".8" fill="#000000" stroke-opacity=".8" stroke="#ffffff" stroke-width="2"/>
+                </svg>
+                <TEXT value="PLAY" id="play_text"/>
+                <INVISIBLE_ACTION_BUTTON width="100%" height="100%" action_id="reaper.Play" cursor="system::hand"/>
+            </CUS_MONITOR_GROUP_BOX>
+            <CUS_MONITOR_GROUP_BOX font_size="30" width="0" flex="1" layout_type="layer_stack">
+                <PARAM_LINK from="reaper.recording" to="record_button_on.visible"/>
+                <svg width="100%" height="100%" margin="2" id="record_button_on" visible="false">
+                    <rect rx="4" ry="4" width="100%" height="100%" fill-opacity=".8" fill="#aa0000" stroke-opacity=".8" stroke="#ffffff" stroke-width="2"/>
+                </svg>
+                <TEXT value="REC" id="record_text"/>
+                <INVISIBLE_ACTION_BUTTON width="100%" height="100%" action_id="reaper.Record" cursor="system::hand"/>
+            </CUS_MONITOR_GROUP_BOX>
+            <CUS_MONITOR_GROUP_BOX font_size="30" width="0" flex="1" layout_type="layer_stack">
+                <TEXT value="STOP" id="stop_text"/>
+                    <INVISIBLE_ACTION_BUTTON width="100%" height="100%" action_id="reaper.Stop" cursor="system::hand"/>
+            </CUS_MONITOR_GROUP_BOX>
+            </ROW>
+        <!-- Undo / Save / Redo commands-->
+        <ROW spacing="$local_spacing$" width="100%">
+            <CUS_MONITOR_GROUP_BOX font_size="30" width="0" flex="1" layout_type="layer_stack">
+                <TEXT value="UNDO"/>
+                    <INVISIBLE_ACTION_BUTTON width="100%" height="100%" action_id="reaper.Undo" cursor="system::hand"/>
+            </CUS_MONITOR_GROUP_BOX>
+            <CUS_MONITOR_GROUP_BOX font_size="30" width="0" flex="1" layout_type="layer_stack">
+                <TEXT value="SAVE"/>
+                <INVISIBLE_ACTION_BUTTON width="100%" height="100%" action_id="reaper.Save" cursor="system::hand"/>
+            </CUS_MONITOR_GROUP_BOX>
+            <CUS_MONITOR_GROUP_BOX font_size="30" width="0" flex="1" layout_type="layer_stack">
+                <TEXT value="REDO"/>
+                <INVISIBLE_ACTION_BUTTON width="100%" height="100%" action_id="reaper.Redo" cursor="system::hand"/>
+            </CUS_MONITOR_GROUP_BOX>
+            </ROW>
+       </PNS_PLAIN_GROUP_BOX>
+        
+      <!-- Connection Setup -->
+      <PNS_PLAIN_GROUP_BOX spacing="$local_spacing$" layout_type="column" h_margin="10" v_margin="10" width="400">
+        <ROW><TEXT value="SERVER" font_weight="bold"/><PARAM_TEXT param_id="connection_status" content="({text_value})"/></ROW>
+        <TEXT_EDIT_BOX string_id="$script_input_string0$" height="16" width="100%" text_color="#000000" background_color="#cccccd"/>
+    </PNS_PLAIN_GROUP_BOX>
+</SKIN>
