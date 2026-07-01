@@ -13,14 +13,14 @@
     <TEMPLATE id="TPL_REAPER_ACTION">
         <STRING id="_$id$_url"/>
         <STRING_MULTI_LINK from="$script_input_string0$;empty_string" separator="/_/$reaper_action_id$" to="_$id$_url"/>
-        <ACTION id="reaper.$id$" type="LoadURL" url_string_id="_$id$_url" response_status_param_id="response_param"/>
+        <ACTION id="reaper.$id$" type="LoadURL" url_string_id="_$id$_url" response_status_param_id="response_param" timeout_seconds="5"/>
     </TEMPLATE>
 
     <!-- Action Template for Reaper Data Command -->
     <TEMPLATE id="TPL_REAPER_GETDATA_ACTION">
         <STRING id="_$id$_url"/>
         <STRING_MULTI_LINK from="$script_input_string0$;empty_string" separator="/_/$reaper_data_id$" to="_$id$_url"/>
-        <ACTION id="reaper.$id$" type="LoadURL" url_string_id="_$id$_url" response_status_param_id="response_param" response_body_string_id="$result_string_id$"/>
+        <ACTION id="reaper.$id$" type="LoadURL" url_string_id="_$id$_url" response_status_param_id="response_param" response_body_string_id="$result_string_id$" timeout_seconds="5"/>
     </TEMPLATE>
 
     <!-- Status Data -->
